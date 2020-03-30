@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1015913854156",
+    "firebase_url": "https://afg-charity-app.firebaseio.com",
+    "project_id": "afg-charity-app",
+    "storage_bucket": "afg-charity-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015913854156:android:2aa12925e9c782a25efe69",
+        "android_client_info": {
+          "package_name": "com.example.afgcharity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1015913854156-1idk2cliufhkkttcq3a4k14o51h31dou.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.afgcharity",
+            "certificate_hash": "667589625bef0c555d7240b255a44dc2849feb2f"
+          }
+        },
+        {
+          "client_id": "1015913854156-575hruhmaoreddf17hn6e14ocugb2v0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6dUhh5CRniO6U_2HGdjX5TC9U-7WucdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1015913854156-575hruhmaoreddf17hn6e14ocugb2v0f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
