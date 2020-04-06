@@ -50,8 +50,8 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="226dp"
-        android:layout_height="88dp"
+        android:layout_width="180"
+        android:layout_height="60"
         android:drawableLeft="@drawable/threedots"
         android:text="@string/editlist"
         app:layout_constraintBottom_toTopOf="@+id/button2"
