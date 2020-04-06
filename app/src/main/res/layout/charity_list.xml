@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputEditText"
         android:layout_width="392dp"
         android:layout_height="45dp"
         android:hint="@android:string/search_go"
@@ -20,6 +21,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="409dp"
         android:layout_height="668dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="62dp" />
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
 </androidx.constraintlayout.widget.ConstraintLayout>
