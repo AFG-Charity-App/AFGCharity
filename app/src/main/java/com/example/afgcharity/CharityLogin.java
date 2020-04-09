@@ -21,8 +21,13 @@ public class CharityLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.charity_login);
-        // Initialize Firebase Auth
 
+        //Get text
+        EditText emailET=findViewById(R.id.editText);
+        EditText passwordET=findViewById(R.id.editText2);
+        String email= emailET.getText().toString();
+        String password=passwordET.getText().toString();
+        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -35,8 +40,8 @@ public class CharityLogin extends AppCompatActivity {
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("signin" "signInWithEmail:failure", task.getException());
-                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
+                            Log.w("signin","signInWithEmail:failure", task.getException());
+                            Toast.makeText(getApplicationContext(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
                         }
