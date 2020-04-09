@@ -45,7 +45,6 @@ public class CharityLogin extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
                         }
-
                         // ...
                     }
                 });
