@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/user_search_charities"
+        android:id="@+id/user_search_needs"
         android:layout_width="392dp"
         android:layout_height="45dp"
         android:hint="@android:string/search_go"

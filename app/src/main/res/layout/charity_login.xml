@@ -83,7 +83,7 @@
         app:layout_constraintTop_toBottomOf="@+id/charity_enter_username" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/enter_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="106dp"
