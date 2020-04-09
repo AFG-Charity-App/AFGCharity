@@ -10,19 +10,31 @@
         android:id="@+id/textView"
         android:layout_width="195dp"
         android:layout_height="0dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="93dp"
+        android:layout_marginEnd="191dp"
+        android:layout_marginBottom="17dp"
         android:fontFamily="sans-serif"
         android:text="@string/login"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="375dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText3"
         tools:text="Locations" />
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="360dp"
         android:layout_height="175dp"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="423dp">
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="65dp"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText3">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,9 +73,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="162dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="161dp"
         android:layout_marginBottom="45dp"
         android:text="Edit List"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
@@ -71,24 +85,28 @@
         android:id="@+id/editText3"
         android:layout_width="363dp"
         android:layout_height="143dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="92dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        tools:layout_editor_absoluteX="23dp"
-        tools:layout_editor_absoluteY="139dp" />
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText4" />
 
     <EditText
         android:id="@+id/editText4"
         android:layout_width="269dp"
         android:layout_height="46dp"
-        android:layout_marginStart="109dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="25dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Charity Name"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
