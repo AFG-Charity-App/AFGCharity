@@ -2,6 +2,7 @@ package com.example.afgcharity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,12 +24,19 @@ public class CharityLogin extends AppCompatActivity {
         setContentView(R.layout.charity_login);
 
         //Get text
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+    }
+
+    public void enter(View v){
+        //Get text
         EditText emailET=findViewById(R.id.charity_enter_username);
         EditText passwordET=findViewById(R.id.charity_enter_password);
         String email= emailET.getText().toString();
         String password=passwordET.getText().toString();
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
