@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">AFGCharity</string>
+    <string name="areyoua">Are you a:</string>
+    <string name="user">User</string>
+    <string name="charity">Charity</string>
+    <string name="updateneeds">Update Needs:</string>
+    <string name="editlist">Edit List</string>
+    <string name="additem">Add Item</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
