@@ -18,17 +18,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/edit_list"
         android:layout_width="180dp"
         android:layout_height="60dp"
         android:drawableLeft="@drawable/threedots"
         android:text="@string/editlist"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/add_to_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/add_to_list"
         android:layout_width="180dp"
         android:layout_height="57dp"
         android:layout_marginBottom="200dp"
@@ -39,11 +39,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/charity_profile_needs_list"
         android:layout_width="370dp"
         android:layout_height="248dp"
         android:layout_marginTop="27dp"
         android:layout_marginBottom="38dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/edit_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />

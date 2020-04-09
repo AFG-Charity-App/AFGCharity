@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textInputEditText"
+        android:id="@+id/user_search_charities"
         android:layout_width="392dp"
         android:layout_height="45dp"
         android:hint="@android:string/search_go"
@@ -19,6 +19,7 @@
         app:layout_constraintVertical_bias="0.023" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/charity_profile_needs_list"
         android:layout_width="409dp"
         android:layout_height="668dp"
         android:layout_marginStart="1dp"
@@ -28,5 +29,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/charity_search_needs" />
 </androidx.constraintlayout.widget.ConstraintLayout>
