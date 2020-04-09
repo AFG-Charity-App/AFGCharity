@@ -23,8 +23,8 @@ public class CharityLogin extends AppCompatActivity {
         setContentView(R.layout.charity_login);
 
         //Get text
-        EditText emailET=findViewById(R.id.editText);
-        EditText passwordET=findViewById(R.id.editText2);
+        EditText emailET=findViewById(R.id.charity_enter_username);
+        EditText passwordET=findViewById(R.id.charity_enter_password);
         String email= emailET.getText().toString();
         String password=passwordET.getText().toString();
         // Initialize Firebase Auth
