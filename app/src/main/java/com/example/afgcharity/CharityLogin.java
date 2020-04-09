@@ -22,9 +22,6 @@ public class CharityLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.charity_login);
-
-        //Get text
-
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -56,6 +53,5 @@ public class CharityLogin extends AppCompatActivity {
                         // ...
                     }
                 });
-
     }
 }
