@@ -18,7 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +45,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
 
     }
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-    }
     public void userlogin(View v){
+
     }
     public void charitylogin(View v){
         Intent intent = new Intent(this, CharityLogin.class);

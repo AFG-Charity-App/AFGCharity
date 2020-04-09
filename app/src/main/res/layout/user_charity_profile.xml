@@ -16,7 +16,7 @@
         android:layout_marginBottom="64dp"
         android:text="@string/donatehere"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/user_items_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button6" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/user_items_list"
         android:layout_width="333dp"
         android:layout_height="108dp"
         android:layout_marginStart="40dp"
