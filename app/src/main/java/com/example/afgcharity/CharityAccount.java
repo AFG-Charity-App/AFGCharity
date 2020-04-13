@@ -16,6 +16,7 @@ import java.util.Random;
 public class CharityAccount extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -24,17 +25,20 @@ public class CharityAccount extends AppCompatActivity {
         TextView name=findViewById(R.id.charity_name);
         name.setText(MainActivity.user.getEmail());
         reference.child("users").child(MainActivity.user.getUid());
-
     }
     public void test(View v){
-        /*
+
         Random r = new Random();
         reference.child("users").child(MainActivity.user.getUid()).child("Test").setValue("Test");
         DatabaseReference ref=reference.child("apparel").push();
         ref.child("Charity").setValue(MainActivity.user.getUid());
         ref.child("Clothes").setValue("T-Shirt");
         ref.child("Number").setValue(r.nextInt(1000));
-        */
+        ref=reference.child("users").child(MainActivity.user.getUid()).push();
+        ref.child("Charity").setValue(MainActivity.user.getUid());
+        ref.child("Clothes").setValue("T-Shirt");
+        ref.child("Number").setValue(r.nextInt(1000));
+
         reference.child("apparel").child("test").child("Charity").setValue("nope");
     }
 }

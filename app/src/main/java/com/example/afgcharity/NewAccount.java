@@ -47,7 +47,7 @@ public class NewAccount extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             test=true;
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                            reference.child("users").child(user.getUid()).setValue(user.getEmail());
+                            reference.child("users").child(user.getUid()).child("email").setValue(user.getEmail());
                            // updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
