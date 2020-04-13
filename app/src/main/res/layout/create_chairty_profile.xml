@@ -11,7 +11,17 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="52dp">
+        tools:layout_editor_absoluteY="-32dp">
+
+        <EditText
+            android:id="@+id/charity_enter_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="252dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            app:layout_constraintTop_toBottomOf="@+id/textView15"
+            tools:layout_editor_absoluteX="28dp" />
 
         <EditText
             android:id="@+id/charity_enter_username6"
@@ -42,14 +52,6 @@
             android:inputType="textEmailAddress"
             app:layout_constraintTop_toBottomOf="@+id/textView15"
             tools:layout_editor_absoluteX="30dp" />
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Website Link"
-            tools:layout_editor_absoluteX="28dp"
-            tools:layout_editor_absoluteY="572dp" />
 
         <TextView
             android:id="@+id/brief"
@@ -117,7 +119,7 @@
             android:layout_height="wrap_content"
             android:text="Brief Description"
             tools:layout_editor_absoluteX="28dp"
-            tools:layout_editor_absoluteY="635dp" />
+            tools:layout_editor_absoluteY="570dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
