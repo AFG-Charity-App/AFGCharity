@@ -1,5 +1,6 @@
 package com.example.afgcharity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,8 +30,8 @@ public class CharityLogin extends AppCompatActivity {
 
     public void enter(View v){
         //Get text
-        EditText emailET=findViewById(R.id.charity_enter_username);
-        EditText passwordET=findViewById(R.id.charity_enter_password);
+        EditText emailET=findViewById(R.id.charity_email);
+        EditText passwordET=findViewById(R.id.charity_password);
         String email= emailET.getText().toString();
         String password=passwordET.getText().toString();
 
@@ -42,16 +43,22 @@ public class CharityLogin extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("signin", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            Toast.makeText(getBaseContext(), "Authentication succesfull",
+                                    Toast.LENGTH_SHORT).show();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("signin","signInWithEmail:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Authentication failed.",
+                            Toast.makeText(getBaseContext(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
                         }
                         // ...
                     }
                 });
+    }
+    public void newAccount(View v){
+        Intent intent = new Intent(this, NewAccount.class);
+        startActivity(intent);
     }
 }

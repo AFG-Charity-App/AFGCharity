@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CharityLogin"></activity>
+        <activity android:name=".NewAccount"></activity>
     </application>
 
 </manifest>

@@ -19,4 +19,6 @@
     <string name="viewneedslist">View Needs List</string>
     <string name="charitylogo">Charity Logo</string>
     <string name="addlocation">Add Location</string>
+    <string name="newaccount">New Account</string>
+    <string name="makeaccount">Make Account</string>
 </resources>
