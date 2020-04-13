@@ -35,6 +35,6 @@ public class CharityAccount extends AppCompatActivity {
         ref.child("Clothes").setValue("T-Shirt");
         ref.child("Number").setValue(r.nextInt(1000));
         */
-        reference.child("apparel").child("test").
+        reference.child("apparel").child("test").child("Charity").setValue("nope");
     }
 }
