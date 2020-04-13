@@ -49,6 +49,7 @@ public class NewAccount extends AppCompatActivity {
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
                             reference.child("users").child(user.getUid()).child("email").setValue(user.getEmail());
                            // updateUI(user);
+                            transfer();
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(getBaseContext(), "createUserWithEmail:failure",
@@ -66,5 +67,10 @@ public class NewAccount extends AppCompatActivity {
             test = false;
         }
          */
+    }
+    private void transfer(){
+        Intent intent = new Intent(this, CharityLogin.class);
+
+        startActivity(intent);
     }
 }
