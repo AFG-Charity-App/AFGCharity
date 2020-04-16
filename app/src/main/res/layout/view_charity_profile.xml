@@ -13,7 +13,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="32dp"
         android:contentDescription="@string/charitylogo"
-        app:layout_constraintBottom_toTopOf="@+id/textView13"
+        app:layout_constraintBottom_toTopOf="@+id/createCharityProfile"
         app:layout_constraintEnd_toStartOf="@+id/charity_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/createCharityProfile"
         android:layout_width="327dp"
         android:layout_height="121dp"
         android:layout_marginTop="104dp"
@@ -43,7 +43,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:text="@string/websitelinkplaceholder"
-        app:layout_constraintBottom_toTopOf="@+id/textView14"
+        app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent" />
