@@ -1,7 +1,9 @@
 package com.example.afgcharity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +25,9 @@ public class CharityAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_charity_profile);
         TextView name=findViewById(R.id.charity_name);
-        name.setText(MainActivity.user.getEmail());
+        ImageView profilepic=findViewById((R.id.charity_logo));
+        profilepic.setImageDrawable(getDrawable(R.drawable.default_logo));
+        name.setText(MainActivity.user.getDisplayName());
         reference.child("users").child(MainActivity.user.getUid());
     }
     public void test(View v){
