@@ -1,9 +1,11 @@
 package com.example.afgcharity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.net.URISyntaxException;
 
 public class NewAccount extends AppCompatActivity {
     private StorageReference mStorageRef;
@@ -129,7 +133,7 @@ public class NewAccount extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
         }else {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("*/*");
+            intent.setType("image/*");
             intent.addCategory(Intent.CATEGORY_OPENABLE);
 
             try {
@@ -155,11 +159,12 @@ public class NewAccount extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "File Uri: " + uri.toString(),
                             Toast.LENGTH_SHORT).show();
                     // Get the path
-                    String path = uri.getPath();
+                    String path = getPath(this, uri);
                     Toast.makeText(getBaseContext(), "File Uri: " + path,
                             Toast.LENGTH_SHORT).show();
                     // Get the file instance
                     // File file = new File(path);
+
                     // Initiate the upload
                 }
                 break;
@@ -181,5 +186,26 @@ public class NewAccount extends AppCompatActivity {
             }
 
         }
+    }
+    private String getPath(Context context, Uri uri) {
+        if ("content".equalsIgnoreCase(uri.getScheme())) {
+            String[] projection = { "_data" };
+            Cursor cursor = null;
+
+            try {
+                cursor = context.getContentResolver().query(uri, projection, null, null, null);
+                int column_index = cursor.getColumnIndexOrThrow("_data");
+                if (cursor.moveToFirst()) {
+                    return cursor.getString(column_index);
+                }
+            } catch (Exception e) {
+                // Eat it
+            }
+        }
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
+
+        return null;
     }
 }

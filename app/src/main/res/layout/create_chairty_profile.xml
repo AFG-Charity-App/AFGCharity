@@ -41,9 +41,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/charitydescription"
-                android:textSize="24sp"
-                tools:text="Logo" />
+                android:text="@string/charitylogo"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/logo_upload"
