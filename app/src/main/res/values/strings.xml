@@ -21,4 +21,5 @@
     <string name="addlocation">Add Location</string>
     <string name="newaccount">New Account</string>
     <string name="makeaccount">Make Account</string>
+    <string name="uploadfile">Upload File</string>
 </resources>

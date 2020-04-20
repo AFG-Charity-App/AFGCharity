@@ -43,7 +43,14 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/charitydescription"
                 android:textSize="24sp"
-                tools:text="Logo - Upload File" />
+                tools:text="Logo" />
+
+            <Button
+                android:id="@+id/logo_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="chooseFile"
+                android:text="@string/uploadfile" />
 
             <TextView
                 android:id="@+id/username"

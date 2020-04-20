@@ -1,8 +1,14 @@
 package com.example.afgcharity;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.FileUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,6 +40,7 @@ public class NewAccount extends AppCompatActivity {
         setContentView(R.layout.create_chairty_profile);
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+
 
     }
     public void makeAccount(View v){
@@ -112,5 +119,67 @@ public class NewAccount extends AppCompatActivity {
         Intent intent = new Intent(this, CharityLogin.class);
 
         startActivity(intent);
+    }
+    private static final int FILE_SELECT_CODE = 0;
+
+
+    public void chooseFile(View v) {
+        if((Build.VERSION.SDK_INT>Build.VERSION_CODES.M) && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)!=
+                PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
+        }else {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("*/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+            try {
+                startActivityForResult(
+                        Intent.createChooser(intent, "Select a File to Upload"),
+                        FILE_SELECT_CODE);
+            } catch (android.content.ActivityNotFoundException ex) {
+                // Potentially direct the user to the Market with a Dialog
+                Toast.makeText(this, "Please install a File Manager.",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case FILE_SELECT_CODE:
+                if (resultCode == RESULT_OK) {
+                    // Get the Uri of the selected file
+                    Uri uri = data.getData();
+                    Toast.makeText(getBaseContext(), "File Uri: " + uri.toString(),
+                            Toast.LENGTH_SHORT).show();
+                    // Get the path
+                    String path = uri.getPath();
+                    Toast.makeText(getBaseContext(), "File Uri: " + path,
+                            Toast.LENGTH_SHORT).show();
+                    // Get the file instance
+                    // File file = new File(path);
+                    // Initiate the upload
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 2:{
+                if (grantResults[0]==PackageManager.PERMISSION_GRANTED)
+                    Toast.makeText(getBaseContext(), "Permission Granted",
+                            Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getBaseContext(), "Permission Denied",
+                            Toast.LENGTH_SHORT).show();
+            }
+
+        }
     }
 }
