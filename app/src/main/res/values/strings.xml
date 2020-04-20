@@ -22,4 +22,5 @@
     <string name="newaccount">New Account</string>
     <string name="makeaccount">Make Account</string>
     <string name="uploadfile">Upload File</string>
+    <string name="addneed">Add to Needs List</string>
 </resources>
