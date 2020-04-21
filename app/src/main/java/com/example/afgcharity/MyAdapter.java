@@ -70,9 +70,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         localFile = null;
         try {
             localFile = File.createTempFile(MainActivity.user.getUid(), "png");
+            localFile.deleteOnExit();
 
-        } catch (IOException e) {
-            holder.imageView.setImageResource(R.drawable.default_logo);
+         } catch (IOException e) {
+            holder.imageView.setImageURI(Uri.parse(localFile.getPath()));
         }
         FirebaseStorage.getInstance().getReference().child("logos/"+MainActivity.user.getUid()).getFile(localFile)
                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
