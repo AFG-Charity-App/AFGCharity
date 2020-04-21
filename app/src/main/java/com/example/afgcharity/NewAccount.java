@@ -157,7 +157,7 @@ public class NewAccount extends AppCompatActivity {
                         }
                     }
                 });
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
+        reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
         reference.child("email").setValue(email);
         reference.child("name").setValue(displayname);
         reference.child("description").setValue(description);
