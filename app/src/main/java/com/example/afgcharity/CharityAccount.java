@@ -51,26 +51,13 @@ public class CharityAccount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        description=new String();
         mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/"+MainActivity.user.getUid());
         setContentView(R.layout.view_charity_profile);
         TextView name=findViewById(R.id.charity_name);
-        reference.child("users").child(MainActivity.user.getUid()).child("description").addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        description=String.valueOf(dataSnapshot.getValue());
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                }
-
-
-        );
-
-        name.setText(description);
+        Toast.makeText(getBaseContext(), description,
+                Toast.LENGTH_SHORT).show();
 
         profilepic=findViewById((R.id.charity_logo));
         mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
@@ -84,9 +71,13 @@ public class CharityAccount extends AppCompatActivity {
                         .error(R.drawable.default_logo)
                         .into(profilepic);
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                profilepic.setImageResource(R.drawable.default_logo);
+            }
         });
         name.setText(MainActivity.user.getDisplayName());
-        reference.child("users").child(MainActivity.user.getUid());
         Userlist = new ArrayList<Apparel>();
         getList();
 
@@ -98,19 +89,20 @@ public class CharityAccount extends AppCompatActivity {
         ref.child("Clothing").setValue("T-Shirt");
         ref.child("Number").setValue(r.nextInt(1000));
 
-   getList();
+         getList();
     }
     private void getList(){
-        reference.child("users").child(MainActivity.user.getUid()).child("Items").addListenerForSingleValueEvent(
+        reference.child("users").child(MainActivity.user.getUid()).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Userlist = new ArrayList<Apparel>();
                         // Result will be holded Here
-                        for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                            String a = String.valueOf(dsp.getValue());
-
-                            Userlist.add(new Apparel(MainActivity.user.getUid(),a.substring(a.indexOf("Clothing=")+9, a.lastIndexOf("}")),Integer.parseInt(a.substring(a.indexOf("Number=")+7, a.indexOf(","))))); //add result into array list
+                        TextView name=findViewById(R.id.charityDescription);
+                        description=String.valueOf(dataSnapshot.child("description").getValue());
+                        name.setText(description);
+                        for (DataSnapshot dsp : dataSnapshot.child("Items").getChildren()) {
+                            Userlist.add(new Apparel(MainActivity.user.getUid(),String.valueOf(dsp.child("Clothing").getValue()), Integer.parseInt(String.valueOf(dsp.child("Number").getValue()))));//add result into array list
                         }
                         mAdapter = new MyAdapter(Userlist, getBaseContext());
                         recyclerView= findViewById(R.id.charity_profile_locations_list);
@@ -119,8 +111,6 @@ public class CharityAccount extends AppCompatActivity {
                         recyclerView.setLayoutManager(layoutManager);
 
                         recyclerView.setAdapter(mAdapter);
-                        Toast.makeText(getBaseContext(), "Amount: "+mAdapter.getItemCount(),
-                                Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

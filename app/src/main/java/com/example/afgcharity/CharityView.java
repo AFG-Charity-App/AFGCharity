@@ -37,7 +37,12 @@ public class CharityView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.charity_list);
         Userlist=new ArrayList<Apparel>();
-       getList();
+        boolean test=true;
+        while (test){
+
+            getList();
+            test=false;
+        }
     }
 
 
@@ -50,13 +55,10 @@ public class CharityView extends AppCompatActivity {
                         // Result will be holded Here
                         for(DataSnapshot dsp: dataSnapshot.getChildren()){
                            for(DataSnapshot dsp2: dsp.child("Items").getChildren()){
-                               String a = String.valueOf(dsp2.getValue());
-                              Userlist.add(new Apparel(dsp.getKey(),a.substring(a.indexOf("Clothing=")+9, a.lastIndexOf("}")),Integer.parseInt(a.substring(a.indexOf("Number=")+7, a.indexOf(","))))); //add result into array list
+                              Userlist.add(new Apparel(dsp.getKey(),String.valueOf(dsp2.child("Clothing").getValue()), Integer.parseInt(String.valueOf(dsp2.child("Number").getValue())))); //add result into array list
 
                            }
                         }
-
-
 
                         mAdapter = new MyAdapter(Userlist, getBaseContext());
                         recyclerView= findViewById(R.id.charity_profile_needs_list);

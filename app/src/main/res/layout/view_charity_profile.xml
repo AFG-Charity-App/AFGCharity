@@ -10,10 +10,8 @@
         android:id="@+id/charity_logo"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="44dp"
         android:contentDescription="@string/charitylogo"
-        app:layout_constraintBottom_toTopOf="@+id/createCharityProfile"
         app:layout_constraintEnd_toStartOf="@+id/charity_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +21,7 @@
         android:id="@+id/charity_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="52dp"
         android:text="@string/charityname"
         android:textSize="36sp"
@@ -31,43 +29,62 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/createCharityProfile"
-        android:layout_width="327dp"
-        android:layout_height="121dp"
-        android:layout_marginTop="104dp"
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
         android:text="@string/charitydescription"
-        app:layout_constraintBottom_toTopOf="@+id/website_link_placeholder"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/charity_name"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/charity_logo" />
+
+    <TextView
+        android:id="@+id/charityDescription"
+        android:layout_width="362dp"
+        android:layout_height="95dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/charitydescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <TextView
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="28dp"
         android:text="@string/viewneedslist"
         app:layout_constraintBottom_toTopOf="@+id/charity_profile_locations_list"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/website_link_placeholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/websitelinkplaceholder"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.133"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/charityDescription"
+        app:layout_constraintVertical_bias="0.415" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/charity_profile_locations_list"
-        android:layout_width="321dp"
-        android:layout_height="104dp"
+        android:layout_width="393dp"
+        android:layout_height="192dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="48dp"
         app:layout_constraintBottom_toTopOf="@+id/view_needs_list"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,13 +94,12 @@
         android:id="@+id/view_needs_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="152dp"
+        android:layout_marginBottom="48dp"
         android:onClick="test"
         android:text="@string/addneed"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.435"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
