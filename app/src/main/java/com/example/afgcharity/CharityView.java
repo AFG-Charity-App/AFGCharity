@@ -82,7 +82,6 @@ public class CharityView extends AppCompatActivity {
                         for (DataSnapshot dsp : dataSnapshot.getChildren()) {
                             Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
                         }
-
                         mAdapter = new MyAdapter(Userlist, getBaseContext());
                         recyclerView= findViewById(R.id.charity_profile_needs_list);
                         recyclerView.setHasFixedSize(true);
