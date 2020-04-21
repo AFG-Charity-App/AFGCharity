@@ -40,36 +40,7 @@ public class CharityView extends AppCompatActivity {
        getList();
     }
 
-    private void updateList(){
-        reference.child("users").addChildEventListener(
-                new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                        getList();
-                    }
 
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                        getList();
-                    }
-
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                        getList();
-                    }
-
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                        getList();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                }
-        );
-    }
     private void getList(){
         reference.child("users").addValueEventListener(
                 new ValueEventListener() {
@@ -96,7 +67,6 @@ public class CharityView extends AppCompatActivity {
                         recyclerView.setAdapter(mAdapter);
                         Toast.makeText(getBaseContext(), "Amount: "+mAdapter.getItemCount(),
                                 Toast.LENGTH_SHORT).show();
-
 
                     }
 
