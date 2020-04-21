@@ -36,6 +36,7 @@ public class NewAccount extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String displayname;
     private String email;
+    private String description;
     private boolean test;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +54,13 @@ public class NewAccount extends AppCompatActivity {
         EditText passwordET=findViewById(R.id.enterPasswordCreateProfile);
         EditText passwordV=findViewById(R.id.enterConfirmPassword);
         EditText name=findViewById(R.id.enterCharityName);
+        EditText descriptionET=findViewById(R.id.enterDescription);
 
         email= emailET.getText().toString();
         String password=passwordET.getText().toString();
         String passwordConf=passwordV.getText().toString();
         displayname = name.getText().toString();
+        description= descriptionET.getText().toString();
         if(password.equals(passwordConf)) {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -116,6 +119,7 @@ public class NewAccount extends AppCompatActivity {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
         reference.child("email").setValue(email);
         reference.child("name").setValue(displayname);
+        reference.child("description").setValue(description);
 
     }
 
