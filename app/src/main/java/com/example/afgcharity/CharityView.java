@@ -1,10 +1,7 @@
 package com.example.afgcharity;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,33 +10,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 
-public class CharityAccount extends AppCompatActivity {
-    private FirebaseAuth mAuth;
-    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference  ref=reference.child("users").child(MainActivity.user.getUid()).child("Items");
+public class CharityView extends AppCompatActivity {
     private ArrayList<String> Userlist;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -47,41 +30,47 @@ public class CharityAccount extends AppCompatActivity {
     private StorageReference mStorageRef;
     private ImageView profilepic;
     private File localFile;
+    private DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/"+MainActivity.user.getUid());
-        setContentView(R.layout.view_charity_profile);
-        TextView name=findViewById(R.id.charity_name);
-        profilepic=findViewById((R.id.charity_logo));
-        mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
-        {
-            @Override
-            public void onSuccess(Uri downloadUrl)
-            {
-                Glide.with(getBaseContext())
-                        .load(downloadUrl.toString())
-                        .placeholder(R.drawable.default_logo)
-                        .error(R.drawable.default_logo)
-                        .into(profilepic);
-            }
-        });
-
-        name.setText(MainActivity.user.getDisplayName());
-        reference.child("users").child(MainActivity.user.getUid());
-        Userlist = new ArrayList<String>();
-        getList();
-
+        setContentView(R.layout.charity_list);
+        Userlist=new ArrayList<>();
+       updateList();
+        Toast.makeText(getBaseContext(), "Amount: "+Userlist.toString(),
+                Toast.LENGTH_SHORT).show();
     }
-    public void test(View v){
-        Random r = new Random();
-        DatabaseReference  ref=reference.child("users").child(MainActivity.user.getUid()).child("Items").push();
 
-        ref.child("Clothing").setValue("T-Shirt");
-        ref.child("Number").setValue(r.nextInt(1000));
+    private void updateList(){
+        reference.child("users").addChildEventListener(
+                new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        getList();
+                    }
 
-   getList();
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        getList();
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                        getList();
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        getList();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                }
+        );
     }
     private void getList(){
         reference.child("users").child(MainActivity.user.getUid()).child("Items").addListenerForSingleValueEvent(
@@ -94,7 +83,7 @@ public class CharityAccount extends AppCompatActivity {
                             Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
                         }
                         mAdapter = new MyAdapter(Userlist, getBaseContext());
-                        recyclerView= findViewById(R.id.charity_profile_locations_list);
+                        recyclerView= findViewById(R.id.charity_profile_needs_list);
                         recyclerView.setHasFixedSize(true);
                         layoutManager = new LinearLayoutManager(getBaseContext());
                         recyclerView.setLayoutManager(layoutManager);
@@ -102,6 +91,8 @@ public class CharityAccount extends AppCompatActivity {
                         recyclerView.setAdapter(mAdapter);
                         Toast.makeText(getBaseContext(), "Amount: "+mAdapter.getItemCount(),
                                 Toast.LENGTH_SHORT).show();
+
+
                     }
 
                     @Override
@@ -111,4 +102,5 @@ public class CharityAccount extends AppCompatActivity {
                 }
         );
     }
+
 }
