@@ -1,5 +1,6 @@
 package com.example.afgcharity;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -9,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -20,9 +21,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private ArrayList<String> mDataset;
+    private Context context;
     private File localFile;
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -31,6 +34,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // each data item is just a string in this case
         public TextView textView;
         public TextView textView2;
+
         public ImageView imageView;
         public MyViewHolder(View v) {
             super(v);
@@ -42,8 +46,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(ArrayList<String> myDataset) {
+    public MyAdapter(ArrayList<String> myDataset, Context context) {
         mDataset = (ArrayList<String>) myDataset.clone();
+        this.context=context;
     }
 
     // Create new views (invoked by the layout manager)
@@ -67,29 +72,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.textView.setText(a.substring(a.indexOf("Clothing="), a.lastIndexOf("}")));
 
 
-        localFile = null;
-        try {
-            localFile = File.createTempFile(MainActivity.user.getUid(), "png");
-            localFile.deleteOnExit();
-
-         } catch (IOException e) {
-            holder.imageView.setImageURI(Uri.parse(localFile.getPath()));
-        }
-        FirebaseStorage.getInstance().getReference().child("logos/"+MainActivity.user.getUid()).getFile(localFile)
-                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-                        holder.imageView.setImageURI(Uri.parse(localFile.getPath()));
-
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
+        FirebaseStorage.getInstance().getReference().child("logos/"+MainActivity.user.getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+        {
             @Override
-            public void onFailure(@NonNull Exception exception) {
-
-                holder.imageView.setImageResource(R.drawable.default_logo);
-
+            public void onSuccess(Uri downloadUrl)
+            {
+                Glide.with(context)
+                        .load(downloadUrl.toString())
+                        .placeholder(R.drawable.default_logo)
+                        .error(R.drawable.default_logo)
+                        .into(holder.imageView);
             }
         });
 
