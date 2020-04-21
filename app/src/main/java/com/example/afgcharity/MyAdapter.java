@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    private ArrayList<String> mDataset;
+    private ArrayList<Apparel> mDataset;
     private Context context;
     private File localFile;
     // Provide a reference to the views for each data item
@@ -46,8 +46,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(ArrayList<String> myDataset, Context context) {
-        mDataset = (ArrayList<String>) myDataset.clone();
+    public MyAdapter(ArrayList<Apparel> myDataset, Context context) {
+        mDataset = (ArrayList<Apparel>) myDataset.clone();
         this.context=context;
     }
 
@@ -67,12 +67,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        String a=mDataset.get(position);
-        holder.textView2.setText(a.substring(a.indexOf("Number="), a.indexOf(",")));
-        holder.textView.setText(a.substring(a.indexOf("Clothing="), a.lastIndexOf("}")));
+       Apparel a=mDataset.get(position);
+        holder.textView2.setText(""+a.getAmount());
+        holder.textView.setText(a.getClothing());
 
 
-        FirebaseStorage.getInstance().getReference().child("logos/"+MainActivity.user.getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+        FirebaseStorage.getInstance().getReference().child("logos/"+a.getUser()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
         {
             @Override
             public void onSuccess(Uri downloadUrl)

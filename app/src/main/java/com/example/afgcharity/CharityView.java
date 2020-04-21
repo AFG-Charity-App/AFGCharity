@@ -23,7 +23,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class CharityView extends AppCompatActivity {
-    private ArrayList<String> Userlist;
+    private ArrayList<Apparel> Userlist;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -36,10 +36,8 @@ public class CharityView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.charity_list);
-        Userlist=new ArrayList<>();
-       updateList();
-        Toast.makeText(getBaseContext(), "Amount: "+Userlist.toString(),
-                Toast.LENGTH_SHORT).show();
+        Userlist=new ArrayList<Apparel>();
+       getList();
     }
 
     private void updateList(){
@@ -73,15 +71,22 @@ public class CharityView extends AppCompatActivity {
         );
     }
     private void getList(){
-        reference.child("users").child(MainActivity.user.getUid()).child("Items").addListenerForSingleValueEvent(
+        reference.child("users").addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Userlist = new ArrayList<String>();
+                        Userlist = new ArrayList<Apparel>();
                         // Result will be holded Here
-                        for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                            Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
+                        for(DataSnapshot dsp: dataSnapshot.getChildren()){
+                           for(DataSnapshot dsp2: dsp.child("Items").getChildren()){
+                               String a = String.valueOf(dsp2.getValue());
+                              Userlist.add(new Apparel(dsp.getKey(),a.substring(a.indexOf("Clothing=")+9, a.lastIndexOf("}")),Integer.parseInt(a.substring(a.indexOf("Number=")+7, a.indexOf(","))))); //add result into array list
+
+                           }
                         }
+
+
+
                         mAdapter = new MyAdapter(Userlist, getBaseContext());
                         recyclerView= findViewById(R.id.charity_profile_needs_list);
                         recyclerView.setHasFixedSize(true);
@@ -100,7 +105,11 @@ public class CharityView extends AppCompatActivity {
 
                     }
                 }
+
+
         );
+
+
     }
 
 }

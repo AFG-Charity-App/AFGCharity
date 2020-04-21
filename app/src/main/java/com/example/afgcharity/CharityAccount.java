@@ -39,8 +39,7 @@ import java.util.Random;
 public class CharityAccount extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference  ref=reference.child("users").child(MainActivity.user.getUid()).child("Items");
-    private ArrayList<String> Userlist;
+    private ArrayList<Apparel> Userlist;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -67,10 +66,9 @@ public class CharityAccount extends AppCompatActivity {
                         .into(profilepic);
             }
         });
-
         name.setText(MainActivity.user.getDisplayName());
         reference.child("users").child(MainActivity.user.getUid());
-        Userlist = new ArrayList<String>();
+        Userlist = new ArrayList<Apparel>();
         getList();
 
     }
@@ -88,10 +86,12 @@ public class CharityAccount extends AppCompatActivity {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Userlist = new ArrayList<String>();
+                        Userlist = new ArrayList<Apparel>();
                         // Result will be holded Here
                         for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                            Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
+                            String a = String.valueOf(dsp.getValue());
+
+                            Userlist.add(new Apparel(MainActivity.user.getUid(),a.substring(a.indexOf("Clothing=")+9, a.lastIndexOf("}")),Integer.parseInt(a.substring(a.indexOf("Number=")+7, a.indexOf(","))))); //add result into array list
                         }
                         mAdapter = new MyAdapter(Userlist, getBaseContext());
                         recyclerView= findViewById(R.id.charity_profile_locations_list);
