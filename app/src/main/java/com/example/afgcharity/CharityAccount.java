@@ -46,6 +46,7 @@ public class CharityAccount extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private StorageReference mStorageRef;
     private ImageView profilepic;
+    private String description;
     private File localFile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,24 @@ public class CharityAccount extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/"+MainActivity.user.getUid());
         setContentView(R.layout.view_charity_profile);
         TextView name=findViewById(R.id.charity_name);
+        reference.child("users").child(MainActivity.user.getUid()).child("description").addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        description=String.valueOf(dataSnapshot.getValue());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                }
+
+
+        );
+
+        name.setText(description);
+
         profilepic=findViewById((R.id.charity_logo));
         mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
         {
