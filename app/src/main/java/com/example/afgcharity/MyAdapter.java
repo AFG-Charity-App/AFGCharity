@@ -89,8 +89,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
                 holder.imageView.setImageResource(R.drawable.default_logo);
 
-
-
             }
         });
 
