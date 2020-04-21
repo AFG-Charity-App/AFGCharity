@@ -51,7 +51,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
         // create a new view
-       View v =  LayoutInflater.from(parent.getContext())
+        View v =  LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.charitylayout, parent, false);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
@@ -63,15 +63,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         String a=mDataset.get(position);
-        holder.textView2.setText(a);
-        holder.textView.setText(a);
+        holder.textView2.setText(a.substring(a.indexOf("Number="), a.indexOf(",")));
+        holder.textView.setText(a.substring(a.indexOf("Clothing="), a.lastIndexOf("}")));
 
-      localFile = null;
+
+        localFile = null;
         try {
-            localFile = File.createTempFile("logo", "jpg");
-            
+            localFile = File.createTempFile(MainActivity.user.getUid(), "png");
+
         } catch (IOException e) {
-            e.printStackTrace();
+            holder.imageView.setImageResource(R.drawable.default_logo);
         }
         FirebaseStorage.getInstance().getReference().child("logos/"+MainActivity.user.getUid()).getFile(localFile)
                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
@@ -86,7 +87,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             @Override
             public void onFailure(@NonNull Exception exception) {
 
-                holder.imageView.setImageDrawable(Drawable.createFromPath("/drawable/default_logo.jpg"));
+                holder.imageView.setImageResource(R.drawable.default_logo);
 
 
 
