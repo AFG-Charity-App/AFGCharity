@@ -28,15 +28,6 @@
                 android:textSize="42sp" />
 
             <TextView
-                android:id="@+id/description3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:text="@string/charitydescription"
-                android:textSize="24sp"
-                tools:text="Address - Map Link" />
-
-            <TextView
                 android:id="@+id/description2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,6 +41,12 @@
                 android:layout_height="wrap_content"
                 android:onClick="chooseFile"
                 android:text="@string/uploadfile" />
+
+            <ImageView
+                android:id="@+id/logoImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/username"
@@ -150,6 +147,7 @@
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="makeAccount"
                 android:text="@string/makeaccount" />
         </LinearLayout>
     </ScrollView>

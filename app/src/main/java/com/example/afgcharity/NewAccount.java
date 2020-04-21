@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,12 +14,15 @@ import android.os.FileUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +32,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.net.URISyntaxException;
 
 public class NewAccount extends AppCompatActivity {
@@ -37,6 +43,7 @@ public class NewAccount extends AppCompatActivity {
     private String displayname;
     private String email;
     private String description;
+    private Uri imageURI;
     private boolean test;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,7 @@ public class NewAccount extends AppCompatActivity {
         setContentView(R.layout.create_chairty_profile);
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
 
     }
@@ -101,10 +109,43 @@ public class NewAccount extends AppCompatActivity {
          */
     }
     private void newAccount(FirebaseUser user){
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(displayname)
-                //.setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
-                .build();
+
+        UserProfileChangeRequest profileUpdates;
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
+        reference.child("email").setValue(email);
+        reference.child("name").setValue(displayname);
+
+        if(imageURI!=null) {
+            Uri file = imageURI;
+            profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(displayname)
+                    .setPhotoUri(imageURI)
+                    .build();
+            StorageReference riversRef = mStorageRef.child("logos/" + user.getUid());
+
+            riversRef.putFile(file)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Get a URL to the uploaded content
+                            Toast.makeText(getBaseContext(), "Logo Upload Success",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            // ...
+                            Toast.makeText(getBaseContext(), "Logo Upload Failed",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }else
+            profileUpdates= new UserProfileChangeRequest.Builder()
+                    .setDisplayName(displayname)
+                    .build();
 
         user.updateProfile(profileUpdates)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -159,12 +200,10 @@ public class NewAccount extends AppCompatActivity {
             case FILE_SELECT_CODE:
                 if (resultCode == RESULT_OK) {
                     // Get the Uri of the selected file
-                    Uri uri = data.getData();
-                    Toast.makeText(getBaseContext(), "File Uri: " + uri.toString(),
-                            Toast.LENGTH_SHORT).show();
-                    // Get the path
-                    String path = getPath(this, uri);
-                    Toast.makeText(getBaseContext(), "File Uri: " + path,
+                    imageURI = data.getData();
+                    ImageView logo= findViewById(R.id.logoImage);
+                    logo.setImageURI(imageURI);
+                    Toast.makeText(getBaseContext(), "File Uri: " + imageURI.getPath(),
                             Toast.LENGTH_SHORT).show();
                     // Get the file instance
                     // File file = new File(path);
