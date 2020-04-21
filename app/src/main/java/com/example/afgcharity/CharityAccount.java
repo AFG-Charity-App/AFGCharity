@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -22,7 +24,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,19 +43,47 @@ public class CharityAccount extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private StorageReference mStorageRef;
+    private ImageView profilepic;
+    private File localFile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/"+MainActivity.user.getUid());
         setContentView(R.layout.view_charity_profile);
         TextView name=findViewById(R.id.charity_name);
-        ImageView profilepic=findViewById((R.id.charity_logo));
-        profilepic.setImageDrawable(getDrawable(R.drawable.default_logo));
+        profilepic=findViewById((R.id.charity_logo));
+
+        localFile = null;
+        try {
+            localFile = File.createTempFile("logo", "jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mStorageRef.getFile(localFile)
+                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                        profilepic.setImageURI(Uri.parse(localFile.getPath()));
+
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+
+                profilepic.setImageDrawable(getDrawable(R.drawable.default_logo));
+
+
+            }
+        });
+
         name.setText(MainActivity.user.getDisplayName());
         reference.child("users").child(MainActivity.user.getUid());
         Userlist = new ArrayList<String>();
         getList();
-
 
     }
     public void test(View v){
