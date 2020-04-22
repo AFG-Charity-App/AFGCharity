@@ -1,6 +1,9 @@
 package com.example.afgcharity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -82,6 +85,18 @@ public class CharityView extends AppCompatActivity {
         );
 
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.charitylistmenu, menu);
+        return true;
+    }
+
+    @Nullable
+    @Override
+    public View onCreatePanelView(int featureId) {
+        return super.onCreatePanelView(featureId);
     }
 
 }

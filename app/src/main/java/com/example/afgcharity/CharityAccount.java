@@ -2,6 +2,9 @@ package com.example.afgcharity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,8 +12,11 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,23 +24,16 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class CharityAccount extends AppCompatActivity {
@@ -48,6 +47,7 @@ public class CharityAccount extends AppCompatActivity {
     private ImageView profilepic;
     private String description;
     private File localFile;
+    private boolean testing=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -81,7 +81,9 @@ public class CharityAccount extends AppCompatActivity {
         name.setText(MainActivity.user.getDisplayName());
         Userlist = new ArrayList<Apparel>();
         getList();
-
+       ActionBar actionBar=getSupportActionBar();
+       actionBar.setDisplayHomeAsUpEnabled(true);
+       actionBar.setHomeAsUpIndicator(getDrawable(R.drawable.ic_dehaze_white_24dp));
     }
     public void test(View v){
         Random r = new Random();
@@ -120,5 +122,17 @@ public class CharityAccount extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        DrawerLayout drawer = findViewById(R.id.charity_menu);
+        if(item.getItemId()==android.R.id.home)
+            if(testing)
+                drawer.openDrawer(GravityCompat.START);
+            else
+                drawer.closeDrawer(GravityCompat.START);
+            testing=!testing;
+        return true;
     }
 }
