@@ -5,7 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CharityAccount">
-
+<!--
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/charity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+-->
     <ImageView
         android:id="@+id/charity_logo"
         android:layout_width="90dp"
@@ -57,19 +69,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginTop="20dp"
         android:text="@string/viewneedslist"
-        app:layout_constraintBottom_toTopOf="@+id/charity_profile_locations_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/charityDescription" />
 
     <TextView
         android:id="@+id/website_link_placeholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="@string/websitelinkplaceholder"
         app:layout_constraintBottom_toTopOf="@+id/password"
@@ -85,16 +96,18 @@
         android:layout_height="192dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toTopOf="@+id/view_needs_list"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <Button
         android:id="@+id/view_needs_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="16dp"
         android:onClick="test"
         android:text="@string/addneed"
         android:textSize="24sp"
