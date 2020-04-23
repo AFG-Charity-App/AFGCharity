@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="menu_view">
-    <item android:title="Sort by">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_edit_black_24dp"
-                android:title="Charity" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_edit_black_24dp"
-                android:title="Amount Needed" />
-        </menu>
-    </item>
-    <group android:checkableBehavior="single">
+xmlns:tools="http://schemas.android.com/tools"
+tools:showIn="n">
+<item android:title="Sort by">
+    <menu>
         <item
-            android:id="@+id/nav_message"
+            android:id="@+id/nav_share"
             android:icon="@drawable/ic_edit_black_24dp"
-            android:title="Placeholder" />
+            android:title="Charity" />
         <item
-            android:id="@+id/nav_chat"
+            android:id="@+id/nav_send"
             android:icon="@drawable/ic_edit_black_24dp"
-            android:title="Placeholder" />
-        <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_edit_black_24dp"
-            android:title="Placeholder" />
-    </group>
-
-
-
+            android:title="Amount Needed" />
+    </menu>
+</item>
+<group android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_message"
+        android:icon="@drawable/ic_edit_black_24dp"
+        android:title="Placeholder" />
+    <item
+        android:id="@+id/nav_chat"
+        android:icon="@drawable/ic_edit_black_24dp"
+        android:title="Placeholder" />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_edit_black_24dp"
+        android:title="Placeholder" />
+</group>
 </menu>

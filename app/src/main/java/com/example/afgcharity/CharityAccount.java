@@ -2,10 +2,12 @@ package com.example.afgcharity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.internal.NavigationMenu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -126,13 +129,25 @@ public class CharityAccount extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        DrawerLayout drawer = findViewById(R.id.charity_menu);
+        DrawerLayout drawer = findViewById(R.id.charitymenu);
+        //NavigationView menu     =findViewById(R.id.menu_navigation);
+        //ViewGroup.LayoutParams params =  drawer.getLayoutParams();
         if(item.getItemId()==android.R.id.home)
-            if(testing)
+            if(testing){
+
+               // params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1000, getResources().getDisplayMetrics());
+                //drawer.setLayoutParams(params);
                 drawer.openDrawer(GravityCompat.START);
-            else
+            }
+
+            else {
+                //params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
+                //drawer.setLayoutParams(params);
                 drawer.closeDrawer(GravityCompat.START);
+            }
             testing=!testing;
         return true;
     }
+
+
 }
