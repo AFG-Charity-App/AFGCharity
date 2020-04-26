@@ -96,25 +96,6 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 =
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/charitymenu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <!-- Your contents -->
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/menu_navigation"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/charity_account_menu" />
-    </androidx.drawerlayout.widget.DrawerLayout>
 
 
 

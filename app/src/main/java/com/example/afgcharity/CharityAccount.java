@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.internal.NavigationMenu;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -57,7 +58,7 @@ public class CharityAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         description=new String();
         mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/"+MainActivity.user.getUid());
-        setContentView(R.layout.view_charity_profile);
+        setContentView(R.layout.nav_charity_menu);
         TextView name=findViewById(R.id.charity_name);
 
         Toast.makeText(getBaseContext(), description,
@@ -87,6 +88,9 @@ public class CharityAccount extends AppCompatActivity {
        ActionBar actionBar=getSupportActionBar();
        actionBar.setDisplayHomeAsUpEnabled(true);
        actionBar.setHomeAsUpIndicator(getDrawable(R.drawable.ic_dehaze_white_24dp));
+        DrawerLayout drawer = findViewById(R.id.charitymenu);
+        drawer.closeDrawer(GravityCompat.START);
+        drawer.setVisibility(View.VISIBLE);
     }
     public void test(View v){
         Random r = new Random();
@@ -130,20 +134,24 @@ public class CharityAccount extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         DrawerLayout drawer = findViewById(R.id.charitymenu);
-        //NavigationView menu     =findViewById(R.id.menu_navigation);
+        NavigationView menu     =findViewById(R.id.menu_navigation);
+        //drawer.isDrawerOpen(); MAKE THIS THE THING
         //ViewGroup.LayoutParams params =  drawer.getLayoutParams();
         if(item.getItemId()==android.R.id.home)
             if(testing){
 
                // params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1000, getResources().getDisplayMetrics());
                 //drawer.setLayoutParams(params);
+                drawer.setVisibility(View.VISIBLE);
                 drawer.openDrawer(GravityCompat.START);
             }
 
             else {
                 //params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
                 //drawer.setLayoutParams(params);
+
                 drawer.closeDrawer(GravityCompat.START);
+                drawer.setVisibility(View.VISIBLE);
             }
             testing=!testing;
         return true;
