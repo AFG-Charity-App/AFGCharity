@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="10dp"
+                android:text="Item name"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@+id/logoForCharity"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginBottom="20dp"
-                android:text="TextView"
+                android:text="# of Items"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/logoForCharity" />
