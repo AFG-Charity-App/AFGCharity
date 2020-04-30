@@ -1,6 +1,7 @@
 package com.example.afgcharity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -63,6 +64,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 .inflate(R.layout.charitylayout, parent, false);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
+    }
+
+    public void moveToProfile(){
+        Intent intent = new Intent(this, CharityAccount.class);
+        startActivity(intent);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
