@@ -38,7 +38,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public TextView clothingItem;
         public TextView numItems;
 
-        public ImageView imageView;
+        public ImageView imageView
         public MyViewHolder(View v) {
             super(v);
             charityName= v.findViewById(R.id.charityNameDisplay);
