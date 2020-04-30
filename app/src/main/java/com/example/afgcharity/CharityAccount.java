@@ -60,6 +60,7 @@ public class CharityAccount extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/"+MainActivity.user.getUid());
         setContentView(R.layout.nav_charity_menu);
         TextView name=findViewById(R.id.charity_name);
+        TextView description=findViewById(R.id.)
 
         Toast.makeText(getBaseContext(), description,
                 Toast.LENGTH_SHORT).show();

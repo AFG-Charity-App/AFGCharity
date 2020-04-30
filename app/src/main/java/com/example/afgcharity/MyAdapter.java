@@ -66,11 +66,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return vh;
     }
 
-    public void moveToProfile(){
-        Intent intent = new Intent(this, CharityAccount.class);
-        startActivity(intent);
-    }
-
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {

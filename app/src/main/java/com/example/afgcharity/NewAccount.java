@@ -36,6 +36,7 @@ public class NewAccount extends AppCompatActivity {
     private String displayname;
     private String email;
     private String description;
+    private String website;
     private Uri imageURI;
     private boolean test;
     @Override
@@ -56,12 +57,14 @@ public class NewAccount extends AppCompatActivity {
         EditText passwordV=findViewById(R.id.enterConfirmPassword);
         EditText name=findViewById(R.id.enterCharityName);
         EditText descriptionET=findViewById(R.id.enterDescription);
+        EditText websiteLink=findViewById(R.id.enterWebsiteLink);
 
         email= emailET.getText().toString();
         String password=passwordET.getText().toString();
         String passwordConf=passwordV.getText().toString();
         displayname = name.getText().toString();
         description= descriptionET.getText().toString();
+        website= websiteLink.getText().toString();
         if(password.equals(passwordConf)) {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -108,6 +111,8 @@ public class NewAccount extends AppCompatActivity {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
         reference.child("email").setValue(email);
         reference.child("name").setValue(displayname);
+        reference.child("website").setValue(website);
+        reference.child("description").setValue(description);
 
         if(imageURI!=null) {
             Uri file = imageURI;

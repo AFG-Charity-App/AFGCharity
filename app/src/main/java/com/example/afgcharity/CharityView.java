@@ -1,5 +1,6 @@
 package com.example.afgcharity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,6 +49,10 @@ public class CharityView extends AppCompatActivity {
         }
     }
 
+    public void moveToProfile(View v){
+        Intent intent = new Intent(this, CharityAccount.class);
+        startActivity(intent);
+    }
 
     private void getList(){
         reference.child("users").addValueEventListener(
