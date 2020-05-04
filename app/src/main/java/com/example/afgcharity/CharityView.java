@@ -63,7 +63,7 @@ public class CharityView extends AppCompatActivity {
                         // Result will be held Here
                         for(DataSnapshot dsp: dataSnapshot.getChildren()){
                            for(DataSnapshot dsp2: dsp.child("Items").getChildren()){
-                              Userlist.add(new Apparel(dsp.getKey(),String.valueOf(dsp2.child("Clothing").getValue()), Integer.parseInt(String.valueOf(dsp2.child("Number").getValue())), dsp2.toString())); //add result into array list
+                              Userlist.add(new Apparel(dsp.getKey(),String.valueOf(dsp2.child("Clothing").getValue()), Integer.parseInt(String.valueOf(dsp2.child("Number").getValue())), dsp2.toString(),String.valueOf(dsp.child("name").getValue()))); //add result into array list
 
                            }
                         }
