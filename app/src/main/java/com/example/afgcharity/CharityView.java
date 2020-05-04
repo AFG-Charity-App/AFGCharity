@@ -63,12 +63,12 @@ public class CharityView extends AppCompatActivity {
                         // Result will be holded Here
                         for(DataSnapshot dsp: dataSnapshot.getChildren()){
                            for(DataSnapshot dsp2: dsp.child("Items").getChildren()){
-                              Userlist.add(new Apparel(dsp.getKey(),String.valueOf(dsp2.child("Clothing").getValue()), Integer.parseInt(String.valueOf(dsp2.child("Number").getValue())))); //add result into array list
+                              Userlist.add(new Apparel(dsp.getKey(),String.valueOf(dsp2.child("Clothing").getValue()), Integer.parseInt(String.valueOf(dsp2.child("Number").getValue())), dsp2.toString())); //add result into array list
 
                            }
                         }
 
-                        mAdapter = new MyAdapter(Userlist, getBaseContext());
+                        mAdapter = new CharityAdapter(Userlist, getBaseContext());
                         recyclerView= findViewById(R.id.charity_profile_needs_list);
                         recyclerView.setHasFixedSize(true);
                         layoutManager = new LinearLayoutManager(getBaseContext());
@@ -77,8 +77,15 @@ public class CharityView extends AppCompatActivity {
                         recyclerView.setAdapter(mAdapter);
                         Toast.makeText(getBaseContext(), "Amount: "+mAdapter.getItemCount(),
                                 Toast.LENGTH_SHORT).show();
+                        recyclerView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        });
 
                     }
+
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {

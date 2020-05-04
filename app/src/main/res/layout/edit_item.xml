@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAD3D3"
+    android:elevation="2dp">
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Clothing:"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView10"
+        android:layout_marginTop="28dp"
+        android:text="Change Amount:"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editClothing"
+        android:layout_width="257dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/textView10"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Clothing Type" />
+
+    <EditText
+        android:id="@+id/editAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editClothing"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="17dp"
+        android:layout_toEndOf="@+id/textView16"
+        android:ems="10"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/saveChanges"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editAmount"
+        android:layout_alignEnd="@+id/editAmount"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="-10dp"
+        android:backgroundTint="#009688"
+        android:text="Save Changes" />
+
+    <Button
+        android:id="@+id/deleteItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView16"
+        android:layout_alignEnd="@+id/textView16"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="-3dp"
+        android:backgroundTint="#FF0000"
+        android:text="DELETE ITEM" />
+
+</RelativeLayout>

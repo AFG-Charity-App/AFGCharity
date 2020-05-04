@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAD3D3"
+    android:elevation="2dp">
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clothing Type:"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView10"
+        android:layout_marginTop="41dp"
+        android:text="Amount Needed:"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/clothingType"
+        android:layout_width="257dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-4dp"
+        android:layout_toEndOf="@+id/textView16"
+        android:ems="10"
+        android:hint="Clothing Type"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/amountNeeded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView10"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="8dp"
+        android:layout_toEndOf="@+id/textView16"
+        android:ems="10"
+        android:hint="Amount Needed"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/addItem"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/clothingType"
+        android:layout_alignEnd="@+id/editAmount"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="-10dp"
+        android:layout_toEndOf="@+id/textView16"
+        android:backgroundTint="#009688"
+        android:text="Add Item" />
+
+    <Button
+        android:id="@+id/cancelItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView16"
+        android:layout_alignEnd="@+id/textView16"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="-7dp"
+        android:backgroundTint="#FF0000"
+        android:text="Cancel" />
+</RelativeLayout>

@@ -1,13 +1,16 @@
 package com.example.afgcharity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +57,7 @@ public class CharityAccount extends AppCompatActivity {
     TextView name;
     private File localFile;
     private boolean testing=true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -64,7 +68,14 @@ public class CharityAccount extends AppCompatActivity {
         description=findViewById(R.id.charityDescription);
 
         //Toast.makeText(getBaseContext(), description, Toast.LENGTH_SHORT).show();
+        ImageButton addItem=findViewById(R.id.addNewItem);
+        addItem.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(), NewItem.class));
+            }
+        });
         profilepic=findViewById((R.id.charity_logo));
         mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
         {
@@ -84,8 +95,6 @@ public class CharityAccount extends AppCompatActivity {
             }
         });
         name.setText(MainActivity.user.getDisplayName());
-        description.setText(MainActivity.user.getDescription);
-        website.setText(MainActivity.user.getWebsite);
         Userlist = new ArrayList<Apparel>();
         getList();
        ActionBar actionBar=getSupportActionBar();
@@ -105,19 +114,22 @@ public class CharityAccount extends AppCompatActivity {
          getList();
     }
     private void getList(){
-        reference.child("users").child(MainActivity.user.getUid()).addListenerForSingleValueEvent(
+        reference.child("users").child(MainActivity.user.getUid()).addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Userlist = new ArrayList<Apparel>();
                         // Result will be holded Here
                         TextView name=findViewById(R.id.charityDescription);
-                        description=String.valueOf(dataSnapshot.child("description").getValue());
-                        name.setText(description);
+                        name.setText(String.valueOf(dataSnapshot.child("description").getValue()));
                         for (DataSnapshot dsp : dataSnapshot.child("Items").getChildren()) {
-                            Userlist.add(new Apparel(MainActivity.user.getUid(),String.valueOf(dsp.child("Clothing").getValue()), Integer.parseInt(String.valueOf(dsp.child("Number").getValue()))));//add result into array list
+                            if(String.valueOf(dsp.child("Clothing").getValue())!=null &&   String.valueOf(dsp.child("Number").getValue())!=null)
+                                Userlist.add(new Apparel(MainActivity.user.getUid(),
+                                        String.valueOf(dsp.child("Clothing").getValue()),
+                                            Integer.parseInt(String.valueOf(dsp.child("Number").getValue())),
+                                        dsp.getKey()));//add result into array list
                         }
-                        mAdapter = new MyAdapter(Userlist, getBaseContext());
+                        mAdapter = new CharityAdapter(Userlist, getBaseContext());
                         recyclerView= findViewById(R.id.charity_profile_locations_list);
                         recyclerView.setHasFixedSize(true);
                         layoutManager = new LinearLayoutManager(getBaseContext());
@@ -159,6 +171,5 @@ public class CharityAccount extends AppCompatActivity {
             testing=!testing;
         return true;
     }
-
 
 }
