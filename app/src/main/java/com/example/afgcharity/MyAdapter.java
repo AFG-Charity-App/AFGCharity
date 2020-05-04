@@ -33,14 +33,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     // you provide access to all the views for a data item in a view holder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView textView;
-        public TextView textView2;
+        public TextView clothingType;
+        public TextView clothingNum;
+        public TextView name;
 
         public ImageView imageView;
         public MyViewHolder(View v) {
             super(v);
-            textView = v.findViewById(R.id.clothingType);
-            textView2 = v.findViewById(R.id.numberNeeded);
+            clothingType = v.findViewById(R.id.clothingType);
+            clothingNum = v.findViewById(R.id.numberNeeded);
+            name = v.findViewById(R.id.charityNameDisplay);
             imageView=v.findViewById(R.id.logoForCharity);
         }
     }
@@ -68,8 +70,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
        Apparel a=mDataset.get(position);
-        holder.textView2.setText(""+a.getAmount());
-        holder.textView.setText(a.getClothing());
+       holder.name.setText(a.getName());
+        holder.clothingType.setText(""+a.getAmount());
+        holder.clothingNum.setText(a.getClothing());
 
         FirebaseStorage.getInstance().getReference().child("logos/"+a.getUser()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
         {

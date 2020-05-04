@@ -60,7 +60,7 @@ public class CharityView extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Userlist = new ArrayList<Apparel>();
-                        // Result will be holded Here
+                        // Result will be held Here
                         for(DataSnapshot dsp: dataSnapshot.getChildren()){
                            for(DataSnapshot dsp2: dsp.child("Items").getChildren()){
                               Userlist.add(new Apparel(dsp.getKey(),String.valueOf(dsp2.child("Clothing").getValue()), Integer.parseInt(String.valueOf(dsp2.child("Number").getValue())), dsp2.toString())); //add result into array list
@@ -68,7 +68,7 @@ public class CharityView extends AppCompatActivity {
                            }
                         }
 
-                        mAdapter = new CharityAdapter(Userlist, getBaseContext());
+                        mAdapter = new MyAdapter(Userlist, getBaseContext());
                         recyclerView= findViewById(R.id.charity_profile_needs_list);
                         recyclerView.setHasFixedSize(true);
                         layoutManager = new LinearLayoutManager(getBaseContext());

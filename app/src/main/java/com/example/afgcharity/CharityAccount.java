@@ -54,7 +54,7 @@ public class CharityAccount extends AppCompatActivity {
     private ImageView profilepic;
     private TextView description;
     private TextView website;
-    TextView name;
+    private TextView name;
     private File localFile;
     private boolean testing=true;
 
@@ -126,7 +126,8 @@ public class CharityAccount extends AppCompatActivity {
                                 Userlist.add(new Apparel(MainActivity.user.getUid(),
                                         String.valueOf(dsp.child("Clothing").getValue()),
                                             Integer.parseInt(String.valueOf(dsp.child("Number").getValue())),
-                                        dsp.getKey()));//add result into array list
+                                        dsp.getKey(),
+                                        MainActivity.user.getDisplayName()));//add result into array list
                         }
                         mAdapter = new CharityAdapter(Userlist, getBaseContext());
                         recyclerView= findViewById(R.id.charity_profile_locations_list);

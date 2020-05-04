@@ -88,8 +88,9 @@ public class UserViewsCharityProfile extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Userlist = new ArrayList<Apparel>();
-                        // Result will be holded Here
+                        // Result will be held Here
                         description.setText(String.valueOf(dataSnapshot.child("description").getValue()));
+                        website.setText(String.valueOf(dataSnapshot.child("website").getValue()));
                         for (DataSnapshot dsp : dataSnapshot.child("Items").getChildren()) {
                             if (String.valueOf(dsp.child("Clothing").getValue()) != null && String.valueOf(dsp.child("Number").getValue()) != null)
                                 Userlist.add(new Apparel(MainActivity.user.getUid(),
