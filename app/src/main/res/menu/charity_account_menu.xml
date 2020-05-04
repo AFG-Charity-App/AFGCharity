@@ -28,7 +28,4 @@
             android:icon="@drawable/ic_edit_black_24dp"
             android:title="Placeholder" />
     </group>
-
-
-
 </menu>
