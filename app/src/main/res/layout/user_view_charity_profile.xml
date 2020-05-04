@@ -84,23 +84,5 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <ImageButton
-        android:id="@+id/addNewItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/star_big_on"
-        tools:layout_editor_absoluteX="343dp"
-        tools:layout_editor_absoluteY="269dp" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="95dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="41dp"
-        android:text="Sign Out"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/charity_profile_locations_list" />
-
     =
 </androidx.constraintlayout.widget.ConstraintLayout>
