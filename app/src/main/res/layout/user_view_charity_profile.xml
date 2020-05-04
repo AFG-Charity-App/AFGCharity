@@ -84,13 +84,5 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <ImageButton
-        android:id="@+id/addNewItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/star_big_on"
-        tools:layout_editor_absoluteX="343dp"
-        tools:layout_editor_absoluteY="269dp" />
-
     =
 </androidx.constraintlayout.widget.ConstraintLayout>
