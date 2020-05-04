@@ -79,7 +79,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/charityDescription"
-        app:layout_constraintVertical_bias="0.191" />
+        app:layout_constraintVertical_bias="0.191"
+        android:linksClickable="true"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/charity_profile_locations_list"

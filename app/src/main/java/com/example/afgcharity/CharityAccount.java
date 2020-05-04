@@ -49,21 +49,21 @@ public class CharityAccount extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private StorageReference mStorageRef;
     private ImageView profilepic;
-    private String description;
+    private TextView description;
+    private TextView website;
+    TextView name;
     private File localFile;
     private boolean testing=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        description=new String();
         mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/"+MainActivity.user.getUid());
         setContentView(R.layout.nav_charity_menu);
-        TextView name=findViewById(R.id.charity_name);
-        TextView description=findViewById(R.id.)
+        name=findViewById(R.id.charity_name);
+        description=findViewById(R.id.charityDescription);
 
-        Toast.makeText(getBaseContext(), description,
-                Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(), description, Toast.LENGTH_SHORT).show();
 
         profilepic=findViewById((R.id.charity_logo));
         mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
@@ -84,6 +84,8 @@ public class CharityAccount extends AppCompatActivity {
             }
         });
         name.setText(MainActivity.user.getDisplayName());
+        description.setText(MainActivity.user.getDescription);
+        website.setText(MainActivity.user.getWebsite);
         Userlist = new ArrayList<Apparel>();
         getList();
        ActionBar actionBar=getSupportActionBar();
