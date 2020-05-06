@@ -97,7 +97,7 @@ public class CharityAccount extends AppCompatActivity {
         name.setText(MainActivity.user.getDisplayName());
         Userlist = new ArrayList<Apparel>();
         getList();
-       ActionBar actionBar=getSupportActionBar();
+         ActionBar actionBar=getSupportActionBar();
        actionBar.setDisplayHomeAsUpEnabled(true);
        actionBar.setHomeAsUpIndicator(getDrawable(R.drawable.ic_dehaze_white_24dp));
         DrawerLayout drawer = findViewById(R.id.charitymenu);

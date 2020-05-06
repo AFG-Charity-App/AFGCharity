@@ -106,7 +106,8 @@ public class CharityAdapter  extends RecyclerView.Adapter<CharityAdapter.MyViewH
                         .putExtra("Clothing", a.getClothing())
                         .putExtra("Amount", a.getAmount())
                         .putExtra("Id", a.getId())
-                        .putExtra("User", a.getUser());
+                        .putExtra("User", a.getUser())
+                        .putExtra("Name", a.getName());
 
                 context.startActivity(intent);
             }
