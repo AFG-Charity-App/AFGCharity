@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -88,14 +89,17 @@ public class UserViewsCharityProfile extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Userlist = new ArrayList<Apparel>();
-                        // Result will be holded Here
+                        // Result will be held Here
                         description.setText(String.valueOf(dataSnapshot.child("description").getValue()));
+                        website.setText(String.valueOf(dataSnapshot.child("website").getValue()));
+
                         for (DataSnapshot dsp : dataSnapshot.child("Items").getChildren()) {
                             if (String.valueOf(dsp.child("Clothing").getValue()) != null && String.valueOf(dsp.child("Number").getValue()) != null)
+
                                 Userlist.add(new Apparel(MainActivity.user.getUid(),
                                         String.valueOf(dsp.child("Clothing").getValue()),
                                         Integer.parseInt(String.valueOf(dsp.child("Number").getValue())),
-                                        dsp.getKey()));//add result into array list
+                                        dsp.getKey(), MainActivity.user.getDisplayName()));//add result into array list
                         }
                         mAdapter = new CharityAdapter(Userlist, getBaseContext());
                         recyclerView = findViewById(R.id.charity_profile_locations_list);

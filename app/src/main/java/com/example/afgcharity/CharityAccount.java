@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.internal.NavigationMenu;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,7 +55,7 @@ public class CharityAccount extends AppCompatActivity {
     private ImageView profilepic;
     private TextView description;
     private TextView website;
-    TextView name;
+    private TextView name;
     private File localFile;
     private boolean testing=true;
 
@@ -94,10 +95,10 @@ public class CharityAccount extends AppCompatActivity {
                 profilepic.setImageResource(R.drawable.default_logo);
             }
         });
-        name.setText(MainActivity.user.getDisplayName());
+
         Userlist = new ArrayList<Apparel>();
         getList();
-       ActionBar actionBar=getSupportActionBar();
+         ActionBar actionBar=getSupportActionBar();
        actionBar.setDisplayHomeAsUpEnabled(true);
        actionBar.setHomeAsUpIndicator(getDrawable(R.drawable.ic_dehaze_white_24dp));
         DrawerLayout drawer = findViewById(R.id.charitymenu);
@@ -119,6 +120,10 @@ public class CharityAccount extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Userlist = new ArrayList<Apparel>();
+                        MainActivity.user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(
+                                String.valueOf(dataSnapshot.child("name").getValue())
+                        ).build());
+                        name.setText(MainActivity.user.getDisplayName());
                         // Result will be holded Here
                         description.setText(String.valueOf(dataSnapshot.child("description").getValue()));
                         for (DataSnapshot dsp : dataSnapshot.child("Items").getChildren()) {
@@ -126,7 +131,8 @@ public class CharityAccount extends AppCompatActivity {
                                 Userlist.add(new Apparel(MainActivity.user.getUid(),
                                         String.valueOf(dsp.child("Clothing").getValue()),
                                             Integer.parseInt(String.valueOf(dsp.child("Number").getValue())),
-                                        dsp.getKey()));//add result into array list
+                                        dsp.getKey(),
+                                        MainActivity.user.getDisplayName()));//add result into array list
                         }
                         mAdapter = new CharityAdapter(Userlist, getBaseContext());
                         recyclerView= findViewById(R.id.charity_profile_locations_list);

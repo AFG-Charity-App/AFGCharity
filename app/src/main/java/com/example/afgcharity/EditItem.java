@@ -24,7 +24,7 @@ public class EditItem extends Activity {
 
         setContentView(R.layout.edit_item);
         Bundle extras = getIntent().getExtras();
-        a=new Apparel(extras.getString("User"), extras.getString("Clothing"), extras.getInt("Amount"), extras.getString("Id"));
+        a=new Apparel(extras.getString("User"), extras.getString("Clothing"), extras.getInt("Amount"), extras.getString("Id"), extras.getString("Name"));
         reference =  FirebaseDatabase.getInstance().getReference().child("users").child(a.getUser()).child("Items");
         DisplayMetrics dm= new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);

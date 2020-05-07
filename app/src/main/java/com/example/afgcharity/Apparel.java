@@ -5,11 +5,13 @@ public class Apparel {
     private String user;
     private int amount;
     private String id;
-    public Apparel(String user, String clothing, int amount, String id){
+    private String name;
+    public Apparel(String user, String clothing, int amount, String id, String name){
         this.clothing=clothing;
         this.user=user;
         this.amount=amount;
         this.id=id;
+        this.name=name;
     }
 
     public String getClothing() {
@@ -18,6 +20,10 @@ public class Apparel {
 
     public String getUser() {
         return user;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getAmount() {
@@ -31,6 +37,7 @@ public class Apparel {
     public String toString() {
         return "Apparel{" +
                 "clothing='" + clothing + '\'' +
+                ", name='"+name +'\''+
                 ", user='" + user + '\'' +
                 ", amount=" + amount +
                 ", id='" + id + '\'' +
