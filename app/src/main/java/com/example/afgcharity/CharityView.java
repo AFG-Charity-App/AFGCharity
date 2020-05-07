@@ -50,7 +50,7 @@ public class CharityView extends AppCompatActivity {
     }
 
     public void moveToProfile(View v){
-        Intent intent = new Intent(this, CharityAccount.class);
+        Intent intent = new Intent(this, UserViewsCharityProfile.class);
         startActivity(intent);
     }
 
