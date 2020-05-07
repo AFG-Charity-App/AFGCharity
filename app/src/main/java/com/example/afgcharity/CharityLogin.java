@@ -27,7 +27,6 @@ public class CharityLogin extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
     }
-
     public void enter(View v){
         //Get text
         EditText emailET=findViewById(R.id.charity_email);
