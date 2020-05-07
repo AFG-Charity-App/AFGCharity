@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.internal.NavigationMenu;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -94,7 +95,7 @@ public class CharityAccount extends AppCompatActivity {
                 profilepic.setImageResource(R.drawable.default_logo);
             }
         });
-        name.setText(MainActivity.user.getDisplayName());
+
         Userlist = new ArrayList<Apparel>();
         getList();
          ActionBar actionBar=getSupportActionBar();
@@ -119,6 +120,10 @@ public class CharityAccount extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Userlist = new ArrayList<Apparel>();
+                        MainActivity.user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(
+                                String.valueOf(dataSnapshot.child("name").getValue())
+                        ).build());
+                        name.setText(MainActivity.user.getDisplayName());
                         // Result will be holded Here
                         description.setText(String.valueOf(dataSnapshot.child("description").getValue()));
                         for (DataSnapshot dsp : dataSnapshot.child("Items").getChildren()) {
