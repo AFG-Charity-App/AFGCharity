@@ -67,6 +67,7 @@ public class CharityAccount extends AppCompatActivity {
         setContentView(R.layout.nav_charity_menu);
         name=findViewById(R.id.charity_name);
         description=findViewById(R.id.charityDescription);
+        website=findViewById(R.id.website_link_placeholder);
 
         //Toast.makeText(getBaseContext(), description, Toast.LENGTH_SHORT).show();
         ImageButton addItem=findViewById(R.id.addNewItem);
@@ -126,6 +127,7 @@ public class CharityAccount extends AppCompatActivity {
                         name.setText(MainActivity.user.getDisplayName());
                         // Result will be holded Here
                         description.setText(String.valueOf(dataSnapshot.child("description").getValue()));
+                        website.setText((String.valueOf(dataSnapshot.child("website").getValue())));
                         for (DataSnapshot dsp : dataSnapshot.child("Items").getChildren()) {
                             if(String.valueOf(dsp.child("Clothing").getValue())!=null &&   String.valueOf(dsp.child("Number").getValue())!=null)
                                 Userlist.add(new Apparel(MainActivity.user.getUid(),
