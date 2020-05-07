@@ -34,7 +34,7 @@ public class CharityLogin extends AppCompatActivity {
         EditText passwordET=findViewById(R.id.charity_password);
         String email= emailET.getText().toString();
         String password=passwordET.getText().toString();
-
+        if(!email.equals("")||!password.equals(""))
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -58,6 +58,8 @@ public class CharityLogin extends AppCompatActivity {
                         // ...
                     }
                 });
+        else  Toast.makeText(getBaseContext(), "Please enter a username and password",
+                Toast.LENGTH_SHORT).show();
 
     }
     public void newAccount(View v){
