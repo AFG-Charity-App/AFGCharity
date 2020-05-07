@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.util.Linkify;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -68,7 +69,7 @@ public class CharityAccount extends AppCompatActivity {
         name=findViewById(R.id.charity_name);
         description=findViewById(R.id.charityDescription);
         website=findViewById(R.id.website_link_placeholder);
-
+        Linkify.addLinks(website, Linkify.WEB_URLS);
         //Toast.makeText(getBaseContext(), description, Toast.LENGTH_SHORT).show();
         ImageButton addItem=findViewById(R.id.addNewItem);
         addItem.setOnClickListener(new View.OnClickListener(){
