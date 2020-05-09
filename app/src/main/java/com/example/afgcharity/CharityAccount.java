@@ -1,6 +1,7 @@
 package com.example.afgcharity;
 
 import android.content.Intent;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.internal.NavigationMenu;
@@ -49,6 +51,7 @@ public class CharityAccount extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
     private ArrayList<Apparel> Userlist;
+    private ArrayList<LatLng> Locations;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -96,8 +99,9 @@ public class CharityAccount extends AppCompatActivity {
             }
         });
 
+        Locations= new ArrayList<LatLng>();
         Userlist = new ArrayList<Apparel>();
-        getList();
+        getUserList();
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(getDrawable(R.drawable.ic_dehaze_white_24dp));
@@ -113,10 +117,47 @@ public class CharityAccount extends AppCompatActivity {
         ref.child("Clothing").setValue("T-Shirt");
         ref.child("Number").setValue(r.nextInt(1000));
 
-        getList();
+        getUserList();
     }
 
-    private void getList() {
+    private void getLocations(){
+        reference.child("users").child(MainActivity.user.getUid()).addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Locations = new ArrayList<LatLng>();
+                        MainActivity.user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(
+                                String.valueOf(dataSnapshot.child("name").getValue())
+                        ).build());
+                        name.setText(MainActivity.user.getDisplayName());
+                        // Result will be holded Here
+                        description.setText(String.valueOf(dataSnapshot.child("description").getValue()));
+                        website.setText((String.valueOf(dataSnapshot.child("website").getValue())));
+                        for (DataSnapshot dsp : dataSnapshot.child("Locations").getChildren()) {
+                                Locations.add(new LatLng(MainActivity.user.getUid(),
+                                        String.valueOf(dsp.child("Clothing").getValue()),
+                                        Integer.parseInt(String.valueOf(dsp.child("Number").getValue())),
+                                        dsp.getKey(),
+                                        MainActivity.user.getDisplayName()));//add result into array list
+                        }
+                        mAdapter = new CharityAdapter(Locations, getBaseContext());
+                        recyclerView = findViewById(R.id.charity_profile_locations_list);
+                        recyclerView.setHasFixedSize(true);
+                        layoutManager = new LinearLayoutManager(getBaseContext());
+                        recyclerView.setLayoutManager(layoutManager);
+
+                        recyclerView.setAdapter(mAdapter);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                }
+        );
+    }
+
+    private void getUserList() {
         reference.child("users").child(MainActivity.user.getUid()).addValueEventListener(
                 new ValueEventListener() {
                     @Override

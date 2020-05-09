@@ -39,7 +39,7 @@
                 android:text="Item name"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@+id/logoForCharity"
-                app:layout_constraintTop_toBottomOf="@+id/charityNameDisplay" />
+                app:layout_constraintTop_toBottomOf="@+id/locationAddress" />
 
             <TextView
                 android:id="@+id/numberNeeded"
@@ -53,7 +53,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/clothingType" />
 
             <TextView
-                android:id="@+id/charityNameDisplay"
+                android:id="@+id/locationAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
