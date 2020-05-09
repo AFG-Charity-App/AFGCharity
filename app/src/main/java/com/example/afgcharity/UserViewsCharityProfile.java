@@ -3,10 +3,12 @@ package com.example.afgcharity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -43,24 +45,26 @@ public class UserViewsCharityProfile extends AppCompatActivity {
     private ImageView profilepic;
     private TextView description;
     private TextView website;
+    private Bundle extras;
     TextView name;
     private File localFile;
-    private boolean testing=true;
+    private boolean testing = true;
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/"+MainActivity.user.getUid());
+        extras = getIntent().getExtras();
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/" + extras.getString("User"));
         setContentView(R.layout.user_view_charity_profile);
-        name=findViewById(R.id.charity_name);
-        description=findViewById(R.id.charityDescription);
+        name = findViewById(R.id.charity_name);
+        description = findViewById(R.id.charityDescription);
+        website = findViewById(R.id.website_link_placeholder);
 
         //Toast.makeText(getBaseContext(), description, Toast.LENGTH_SHORT).show();
-        profilepic=findViewById((R.id.charity_logo));
-        mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
-        {
+        profilepic = findViewById((R.id.charity_logo));
+        mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
-            public void onSuccess(Uri downloadUrl)
-            {
+            public void onSuccess(Uri downloadUrl) {
                 Glide.with(getBaseContext())
                         .load(downloadUrl.toString())
                         .placeholder(R.drawable.default_logo)
@@ -73,18 +77,14 @@ public class UserViewsCharityProfile extends AppCompatActivity {
                 profilepic.setImageResource(R.drawable.default_logo);
             }
         });
-        name.setText(MainActivity.user.getDisplayName());
+        name.setText(extras.getString("Name"));
         Userlist = new ArrayList<Apparel>();
         getList();
-        ActionBar actionBar=getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(getDrawable(R.drawable.ic_dehaze_white_24dp));
-        DrawerLayout drawer = findViewById(R.id.charitymenu);
-        drawer.closeDrawer(GravityCompat.START);
-        drawer.setVisibility(View.VISIBLE);
+        ActionBar actionBar = getSupportActionBar();
     }
+
     private void getList() {
-        reference.child("users").child(MainActivity.user.getUid()).addValueEventListener(
+        reference.child("users").child(extras.getString("User")).addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -92,16 +92,15 @@ public class UserViewsCharityProfile extends AppCompatActivity {
                         // Result will be held Here
                         description.setText(String.valueOf(dataSnapshot.child("description").getValue()));
                         website.setText(String.valueOf(dataSnapshot.child("website").getValue()));
-
+                        Linkify.addLinks(website, Linkify.WEB_URLS);
                         for (DataSnapshot dsp : dataSnapshot.child("Items").getChildren()) {
                             if (String.valueOf(dsp.child("Clothing").getValue()) != null && String.valueOf(dsp.child("Number").getValue()) != null)
-
-                                Userlist.add(new Apparel(MainActivity.user.getUid(),
+                                Userlist.add(new Apparel(extras.getString("User"),
                                         String.valueOf(dsp.child("Clothing").getValue()),
                                         Integer.parseInt(String.valueOf(dsp.child("Number").getValue())),
-                                        dsp.getKey(), MainActivity.user.getDisplayName()));//add result into array list
+                                        dsp.getKey(), extras.getString("Name")));//add result into array list
                         }
-                        mAdapter = new CharityAdapter(Userlist, getBaseContext());
+                        mAdapter = new MyAdapter(Userlist, getBaseContext());
                         recyclerView = findViewById(R.id.charity_profile_locations_list);
                         recyclerView.setHasFixedSize(true);
                         layoutManager = new LinearLayoutManager(getBaseContext());
@@ -116,5 +115,8 @@ public class UserViewsCharityProfile extends AppCompatActivity {
                     }
                 }
         );
+
     }
+
+
 }

@@ -24,6 +24,7 @@
         <activity android:name=".CharityView"></activity>
         <activity android:name=".EditItem" android:theme="@style/Popup"></activity>
         <activity android:name=".NewItem" android:theme="@style/Popup"></activity>
+        <activity android:name=".UserViewsCharityProfile"></activity>
     </application>
 
 </manifest>

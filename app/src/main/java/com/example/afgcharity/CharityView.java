@@ -50,8 +50,7 @@ public class CharityView extends AppCompatActivity {
     }
 
     public void moveToProfile(View v){
-        Intent intent = new Intent(this, UserViewsCharityProfile.class);
-        startActivity(intent);
+
     }
 
     private void getList(){
@@ -77,12 +76,6 @@ public class CharityView extends AppCompatActivity {
                         recyclerView.setAdapter(mAdapter);
                         Toast.makeText(getBaseContext(), "Amount: "+mAdapter.getItemCount(),
                                 Toast.LENGTH_SHORT).show();
-                        recyclerView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                            }
-                        });
 
                     }
 
