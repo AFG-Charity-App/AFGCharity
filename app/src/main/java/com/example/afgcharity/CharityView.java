@@ -50,7 +50,14 @@ public class CharityView extends AppCompatActivity {
     }
 
     public void moveToProfile(View v){
+        Intent intent=new Intent(context, EditItem.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .putExtra("Clothing", a.getClothing())
+                .putExtra("Amount", a.getAmount())
+                .putExtra("Id", a.getId())
+                .putExtra("User", a.getUser())
+                .putExtra("Name", a.getName());
 
+        context.startActivity(intent);
     }
 
     private void getList(){
@@ -76,6 +83,12 @@ public class CharityView extends AppCompatActivity {
                         recyclerView.setAdapter(mAdapter);
                         Toast.makeText(getBaseContext(), "Amount: "+mAdapter.getItemCount(),
                                 Toast.LENGTH_SHORT).show();
+                        recyclerView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        });
 
                     }
 
