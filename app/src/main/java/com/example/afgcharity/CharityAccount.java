@@ -42,8 +42,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.GeocodingResult;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -60,6 +67,7 @@ public class CharityAccount extends AppCompatActivity {
     private TextView description;
     private TextView website;
     private TextView name;
+    private GeoApiContext geoApiContext;
     private File localFile;
     private boolean testing = true;
 
@@ -67,6 +75,10 @@ public class CharityAccount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        geoApiContext = new GeoApiContext.Builder()
+                .apiKey("AIzaSyAmgVnIMQGig2SgDBm8GOXLKfId6tJHzHY")
+                .build();
+
         mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/" + MainActivity.user.getUid());
         setContentView(R.layout.nav_charity_menu);
         name = findViewById(R.id.charity_name);
@@ -133,14 +145,34 @@ public class CharityAccount extends AppCompatActivity {
                         // Result will be holded Here
                         description.setText(String.valueOf(dataSnapshot.child("description").getValue()));
                         website.setText((String.valueOf(dataSnapshot.child("website").getValue())));
+
+
+
+
+
+
                         for (DataSnapshot dsp : dataSnapshot.child("Locations").getChildren()) {
-                                Locations.add(new LatLng(MainActivity.user.getUid(),
-                                        String.valueOf(dsp.child("Clothing").getValue()),
-                                        Integer.parseInt(String.valueOf(dsp.child("Number").getValue())),
-                                        dsp.getKey(),
-                                        MainActivity.user.getDisplayName()));//add result into array list
+                            try {
+                                GeocodingResult[] results =  GeocodingApi.geocode(geoApiContext,
+                                        "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA")
+                                        //String.valueOf(dsp.child("address").getValue()))
+
+                                        .await();
+
+
+                                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                             Locations.add(new LatLng(results[0].geometry.location.lat,results[0].geometry.location.lng));
+                            } catch (ApiException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+
                         }
-                        mAdapter = new CharityAdapter(Locations, getBaseContext());
+                        mAdapter = new LocationAdapter(Locations, getBaseContext());
                         recyclerView = findViewById(R.id.charity_profile_locations_list);
                         recyclerView.setHasFixedSize(true);
                         layoutManager = new LinearLayoutManager(getBaseContext());

@@ -115,8 +115,5 @@ public class UserViewsCharityProfile extends AppCompatActivity {
                     }
                 }
         );
-
     }
-
-
 }

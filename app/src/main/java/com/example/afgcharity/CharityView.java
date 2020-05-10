@@ -49,16 +49,7 @@ public class CharityView extends AppCompatActivity {
         }
     }
 
-    public void moveToProfile(View v){
-        Intent intent=new Intent(context, EditItem.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .putExtra("Clothing", a.getClothing())
-                .putExtra("Amount", a.getAmount())
-                .putExtra("Id", a.getId())
-                .putExtra("User", a.getUser())
-                .putExtra("Name", a.getName());
 
-        context.startActivity(intent);
-    }
 
     private void getList(){
         reference.child("users").addValueEventListener(
