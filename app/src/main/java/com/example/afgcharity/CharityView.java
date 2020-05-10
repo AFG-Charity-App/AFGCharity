@@ -25,6 +25,9 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class CharityView extends AppCompatActivity {
     private ArrayList<Apparel> Userlist;
@@ -64,7 +67,11 @@ public class CharityView extends AppCompatActivity {
 
                            }
                         }
-
+                        Collections.sort(Userlist, new Comparator<Apparel>() {
+                            public int compare(Apparel o1, Apparel o2) {
+                                return o1.getClothing().compareTo(o2.getClothing());
+                            }
+                        });
                         mAdapter = new MyAdapter(Userlist, getBaseContext());
                         recyclerView= findViewById(R.id.charity_profile_needs_list);
                         recyclerView.setHasFixedSize(true);

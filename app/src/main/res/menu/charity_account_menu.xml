@@ -4,7 +4,8 @@
     tools:showIn="navigation_view">
 
     <item android:title="Edit">
-        <menu>
+
+
             <item
                 android:id="@+id/change_list"
                 android:icon="@drawable/ic_edit_black_24dp"
@@ -17,6 +18,8 @@
                 android:id="@+id/change_info"
                 android:icon="@drawable/ic_map_black_24dp"
                 android:title="Locations" />
-        </menu>
+
+
+
     </item>
 </menu>

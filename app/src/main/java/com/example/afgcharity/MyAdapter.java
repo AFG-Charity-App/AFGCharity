@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -23,13 +24,13 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private ArrayList<Apparel> mDataset;
-    private Context context;
+    public static Context context;
     private File localFile;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
         public TextView clothingType;
         public TextView clothingNum;
@@ -46,6 +47,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             cardView=v.findViewById(R.id.UserCardView);
         }
 
+
+        @Override
+        public void onClick(View v) {
+            /*
+            Intent intent=new Intent(context, UserViewsCharityProfile.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .putExtra("Clothing", clothingType.getText())
+                    .putExtra("Amount", Integer.parseInt(clothingNum.getText().toString()))
+                    .putExtra("Id", a.getId())
+                    .putExtra("User", a.getUser())
+                    .putExtra("Name", a.getName());
+            context.startActivity(intent);
+
+             */
+        }
     }
 
 
@@ -67,14 +82,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     public String user;
-    public Apparel a;
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
-        a = mDataset.get(position);
+        Apparel a = mDataset.get(position);
         user = a.getUser();
         holder.name.setText(a.getName());
         holder.clothingType.setText("" + a.getAmount());
@@ -82,6 +96,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(context, a.toString(),
+                        Toast.LENGTH_LONG).show();
 
                 Intent intent=new Intent(context, UserViewsCharityProfile.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .putExtra("Clothing", a.getClothing())
@@ -90,6 +106,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         .putExtra("User", a.getUser())
                         .putExtra("Name", a.getName());
                 context.startActivity(intent);
+
+
 
 
 
