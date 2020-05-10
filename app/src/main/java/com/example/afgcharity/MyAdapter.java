@@ -96,8 +96,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, a.toString(),
-                        Toast.LENGTH_LONG).show();
 
                 Intent intent=new Intent(context, UserViewsCharityProfile.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .putExtra("Clothing", a.getClothing())
