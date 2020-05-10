@@ -3,22 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="n"
     android:title="Sort by">
-
-            <group android:checkableBehavior="single">
+<group android:title="Sory by">
                 <item
                     android:id="@+id/nav_charity"
                     android:icon="@drawable/ic_edit_black_24dp"
-                    android:title="Charity" />
+                    android:title="Charity"
+                    android:checkable="true"
+                    android:checked="true"/>
                 <item
                     android:id="@+id/nav_item"
                     android:icon="@drawable/ic_edit_black_24dp"
-                    android:title="Item" />
+                    android:title="Item"
+                    android:checkable="true"
+                    android:checked="false"/>
                 <item
                     android:id="@+id/nav_amount"
                     android:icon="@drawable/ic_edit_black_24dp"
-                    android:title="Amount Needed" />
-            </group>
+                    android:title="Amount Needed"
+                    android:checkable="true"
+                    android:checked="false"/>
 
 
+</group>
 
 </menu>

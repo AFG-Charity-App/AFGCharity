@@ -1,9 +1,11 @@
 package com.example.afgcharity;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +40,11 @@ public class CharityView extends AppCompatActivity {
     private StorageReference mStorageRef;
     private ImageView profilepic;
     private File localFile;
+    private MenuItem charitySort;
+    private MenuItem itemSort;
+    private MenuItem ammountSort;
+
+
     private DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
 
     @Override
@@ -50,6 +58,10 @@ public class CharityView extends AppCompatActivity {
             getList();
             test=false;
         }
+
+
+
+
     }
 
 
@@ -67,11 +79,24 @@ public class CharityView extends AppCompatActivity {
 
                            }
                         }
+                        if(charitySort.isChecked())
                         Collections.sort(Userlist, new Comparator<Apparel>() {
                             public int compare(Apparel o1, Apparel o2) {
-                                return o1.getClothing().compareTo(o2.getClothing());
+                                return o1.getName().compareTo(o2.getName());
                             }
                         });
+                        else if(itemSort.isChecked())
+                            Collections.sort(Userlist, new Comparator<Apparel>() {
+                                public int compare(Apparel o1, Apparel o2) {
+                                    return o1.getClothing().compareTo(o2.getClothing());
+                                }
+                            });
+                        else if(ammountSort.isChecked())
+                            Collections.sort(Userlist, new Comparator<Apparel>() {
+                                public int compare(Apparel o1, Apparel o2) {
+                                    return new Integer(o1.getAmount()).compareTo(new Integer(o2.getAmount()));
+                                }
+                            });
                         mAdapter = new MyAdapter(Userlist, getBaseContext());
                         recyclerView= findViewById(R.id.charity_profile_needs_list);
                         recyclerView.setHasFixedSize(true);
@@ -106,6 +131,39 @@ public class CharityView extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.charitylistmenu, menu);
+        charitySort = menu.findItem(R.id.nav_charity);
+        itemSort=menu.findItem(R.id.nav_item);
+        ammountSort=menu.findItem(R.id.nav_amount);
+        charitySort.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+               charitySort.setChecked(true);
+               itemSort.setChecked(false);
+               ammountSort.setChecked(false);
+               getList();
+               return true;
+            }
+        });
+        itemSort.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                charitySort.setChecked(false);
+                itemSort.setChecked(true);
+                ammountSort.setChecked(false);
+                getList();
+                return true;
+            }
+        });
+        ammountSort.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                charitySort.setChecked(!true);
+                itemSort.setChecked(false);
+                ammountSort.setChecked(!false);
+                getList();
+                return true;
+            }
+        });
         return true;
     }
 
