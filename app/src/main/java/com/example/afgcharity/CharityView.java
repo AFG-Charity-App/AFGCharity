@@ -1,6 +1,8 @@
 package com.example.afgcharity;
 
+import android.app.SearchManager;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,7 +46,7 @@ public class CharityView extends AppCompatActivity {
     private MenuItem charitySort;
     private MenuItem itemSort;
     private MenuItem ammountSort;
-
+    private String query;
 
     private DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
 
@@ -53,13 +56,7 @@ public class CharityView extends AppCompatActivity {
         setContentView(R.layout.charity_list);
         Userlist=new ArrayList<Apparel>();
         boolean test=true;
-        while (test){
-
-            getList();
-            test=false;
-        }
-
-
+        query="";
 
 
     }
@@ -67,6 +64,7 @@ public class CharityView extends AppCompatActivity {
 
 
     private void getList(){
+
         reference.child("users").addValueEventListener(
                 new ValueEventListener() {
                     @Override
@@ -75,6 +73,10 @@ public class CharityView extends AppCompatActivity {
                         // Result will be held Here
                         for(DataSnapshot dsp: dataSnapshot.getChildren()){
                            for(DataSnapshot dsp2: dsp.child("Items").getChildren()){
+
+
+
+                               if(query.equals("")||String.valueOf(dsp2.child("Clothing").getValue()).toLowerCase().contains(query)||String.valueOf(dsp.child("name").getValue()).toLowerCase().contains(query))
                               Userlist.add(new Apparel(dsp.getKey(),String.valueOf(dsp2.child("Clothing").getValue()), Integer.parseInt(String.valueOf(dsp2.child("Number").getValue())), dsp2.toString(),String.valueOf(dsp.child("name").getValue()))); //add result into array list
 
                            }
@@ -127,6 +129,8 @@ public class CharityView extends AppCompatActivity {
 
 
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
@@ -137,11 +141,11 @@ public class CharityView extends AppCompatActivity {
         charitySort.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-               charitySort.setChecked(true);
-               itemSort.setChecked(false);
-               ammountSort.setChecked(false);
-               getList();
-               return true;
+                charitySort.setChecked(true);
+                itemSort.setChecked(false);
+                ammountSort.setChecked(false);
+                getList();
+                return true;
             }
         });
         itemSort.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -164,6 +168,27 @@ public class CharityView extends AppCompatActivity {
                 return true;
             }
         });
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        // Assumes current activity is the searchable activity
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+searchView.setQueryHint("Search");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String q) {
+               return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String q) {
+                query=q.toLowerCase();
+                getList();
+                return false;
+            }
+        });
+        getList();
         return true;
     }
 

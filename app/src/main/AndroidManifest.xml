@@ -21,7 +21,13 @@
         <activity android:name=".NewAccount">
         </activity>
         <activity android:name=".CharityAccount"></activity>
-        <activity android:name=".CharityView"></activity>
+        <activity android:name=".CharityView">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
         <activity android:name=".EditItem" android:theme="@style/Popup"></activity>
         <activity android:name=".NewItem" android:theme="@style/Popup"></activity>
         <activity android:name=".UserViewsCharityProfile"></activity>
