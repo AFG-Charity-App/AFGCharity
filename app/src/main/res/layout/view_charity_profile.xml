@@ -73,7 +73,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/charity_profile_locations_list"
-        android:layout_width="389dp"
+        android:layout_width="match_parent"
         android:layout_height="303dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
@@ -88,12 +88,12 @@
 
     <ImageButton
         android:id="@+id/addNewItem"
-        android:layout_width="79dp"
-        android:layout_height="68dp"
-        android:layout_marginEnd="30dp"
+        android:layout_width="42dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/charity_profile_locations_list"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/password"
-        app:srcCompat="@drawable/addsymbol" />
+        app:srcCompat="@drawable/ic_plus" />
 
     <Button
         android:id="@+id/button"

@@ -207,7 +207,6 @@ public class CharityAccount extends AppCompatActivity {
                         website.setText((String.valueOf(dataSnapshot.child("website").getValue())));
                         for (DataSnapshot dsp : dataSnapshot.child("Items").getChildren()) {
 
-                                Toast.makeText(getBaseContext(), String.valueOf(dsp.child("Number").getValue()), Toast.LENGTH_SHORT).show();
                                 Userlist.add(new Apparel(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                                         String.valueOf(dsp.child("Clothing").getValue()),
                                         Integer.parseInt(""+

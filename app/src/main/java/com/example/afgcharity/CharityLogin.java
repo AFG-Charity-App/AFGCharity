@@ -43,7 +43,7 @@ public class CharityLogin extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d("signin", "signInWithEmail:success");
-                                    Toast.makeText(getBaseContext(), "Authentication succesfull",
+                                    Toast.makeText(getBaseContext(), "Authentication successful",
                                             Toast.LENGTH_SHORT).show();
                                     test=false;
                                     profile();

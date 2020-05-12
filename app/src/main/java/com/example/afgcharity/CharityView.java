@@ -48,22 +48,21 @@ public class CharityView extends AppCompatActivity {
     private MenuItem ammountSort;
     private String query;
 
-    private DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.charity_list);
-        Userlist=new ArrayList<Apparel>();
-        boolean test=true;
-        query="";
+        Userlist = new ArrayList<Apparel>();
+        boolean test = true;
+        query = "";
         getSupportActionBar().setTitle("");
 
     }
 
 
-
-    private void getList(){
+    private void getList() {
 
         reference.child("users").addValueEventListener(
                 new ValueEventListener() {
@@ -71,42 +70,41 @@ public class CharityView extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Userlist = new ArrayList<Apparel>();
                         // Result will be held Here
-                        for(DataSnapshot dsp: dataSnapshot.getChildren()){
-                           for(DataSnapshot dsp2: dsp.child("Items").getChildren()){
+                        for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                            for (DataSnapshot dsp2 : dsp.child("Items").getChildren()) {
 
 
+                                if (query.equals("") || String.valueOf(dsp2.child("Clothing").getValue()).toLowerCase().contains(query) || String.valueOf(dsp.child("name").getValue()).toLowerCase().contains(query))
+                                    Userlist.add(new Apparel(dsp.getKey(), String.valueOf(dsp2.child("Clothing").getValue()), Integer.parseInt(String.valueOf(dsp2.child("Number").getValue())), dsp2.toString(), String.valueOf(dsp.child("name").getValue()))); //add result into array list
 
-                               if(query.equals("")||String.valueOf(dsp2.child("Clothing").getValue()).toLowerCase().contains(query)||String.valueOf(dsp.child("name").getValue()).toLowerCase().contains(query))
-                              Userlist.add(new Apparel(dsp.getKey(),String.valueOf(dsp2.child("Clothing").getValue()), Integer.parseInt(String.valueOf(dsp2.child("Number").getValue())), dsp2.toString(),String.valueOf(dsp.child("name").getValue()))); //add result into array list
-
-                           }
-                        }
-                        if(charitySort.isChecked())
-                        Collections.sort(Userlist, new Comparator<Apparel>() {
-                            public int compare(Apparel o1, Apparel o2) {
-                                return o1.getName().compareTo(o2.getName());
                             }
-                        });
-                        else if(itemSort.isChecked())
+                        }
+                        if (charitySort.isChecked())
+                            Collections.sort(Userlist, new Comparator<Apparel>() {
+                                public int compare(Apparel o1, Apparel o2) {
+                                    return o1.getName().compareTo(o2.getName());
+                                }
+                            });
+                        else if (itemSort.isChecked())
                             Collections.sort(Userlist, new Comparator<Apparel>() {
                                 public int compare(Apparel o1, Apparel o2) {
                                     return o1.getClothing().compareTo(o2.getClothing());
                                 }
                             });
-                        else if(ammountSort.isChecked())
+                        else if (ammountSort.isChecked())
                             Collections.sort(Userlist, new Comparator<Apparel>() {
                                 public int compare(Apparel o1, Apparel o2) {
                                     return new Integer(o1.getAmount()).compareTo(new Integer(o2.getAmount()));
                                 }
                             });
                         mAdapter = new MyAdapter(Userlist, getBaseContext());
-                        recyclerView= findViewById(R.id.charity_profile_needs_list);
+                        recyclerView = findViewById(R.id.charity_profile_needs_list);
                         recyclerView.setHasFixedSize(true);
                         layoutManager = new LinearLayoutManager(getBaseContext());
                         recyclerView.setLayoutManager(layoutManager);
 
                         recyclerView.setAdapter(mAdapter);
-                        Toast.makeText(getBaseContext(), "Amount: "+mAdapter.getItemCount(),
+                        Toast.makeText(getBaseContext(), "Amount: " + mAdapter.getItemCount(),
                                 Toast.LENGTH_SHORT).show();
                         recyclerView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -132,12 +130,12 @@ public class CharityView extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.charitylistmenu, menu);
         charitySort = menu.findItem(R.id.nav_charity);
-        itemSort=menu.findItem(R.id.nav_item);
-        ammountSort=menu.findItem(R.id.nav_amount);
+        itemSort = menu.findItem(R.id.nav_item);
+        ammountSort = menu.findItem(R.id.nav_amount);
         charitySort.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -174,16 +172,16 @@ public class CharityView extends AppCompatActivity {
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
-searchView.setQueryHint("Search");
+        searchView.setQueryHint("Search");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String q) {
-               return false;
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String q) {
-                query=q.toLowerCase();
+                query = q.toLowerCase();
                 getList();
                 return false;
             }
