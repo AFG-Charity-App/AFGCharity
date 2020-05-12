@@ -1,6 +1,7 @@
 package com.example.afgcharity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -10,8 +11,12 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class NewItem extends Activity {
     private DatabaseReference reference;
@@ -22,7 +27,7 @@ public class NewItem extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.new_item);
-        reference =  FirebaseDatabase.getInstance().getReference().child("users").child(MainActivity.user.getUid()).child("Items");
+        reference =  FirebaseDatabase.getInstance().getReference().child("users").child( FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Items");
         DisplayMetrics dm= new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width=dm.widthPixels;
@@ -38,8 +43,10 @@ public class NewItem extends Activity {
 
                 if(!clothing.getText().toString().equals("")&& !amount.getText().toString().equals("")) {
                     DatabaseReference ref=reference.push();
-                    ref.child("Clothing").setValue(clothing.getText().toString());
-                    ref.child("Number").setValue(amount.getText().toString());
+                    Map<String, String> item= new HashMap<String, String>();
+                    item.put("Clothing", clothing.getText().toString());
+                    item.put("Number", amount.getText().toString());
+                    ref.setValue(item);
                     finish();
                 }
 

@@ -57,7 +57,7 @@ public class CharityView extends AppCompatActivity {
         Userlist=new ArrayList<Apparel>();
         boolean test=true;
         query="";
-
+        getSupportActionBar().setTitle("");
 
     }
 

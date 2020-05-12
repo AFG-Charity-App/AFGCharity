@@ -5,6 +5,7 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcel;
 import android.text.util.Linkify;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,12 +30,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.internal.firebase_auth.zzcz;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.internal.NavigationMenu;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseUserMetadata;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,6 +59,7 @@ import com.google.maps.model.GeocodingResult;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class CharityAccount extends AppCompatActivity {
@@ -79,7 +87,7 @@ public class CharityAccount extends AppCompatActivity {
                 .apiKey("AIzaSyAmgVnIMQGig2SgDBm8GOXLKfId6tJHzHY")
                 .build();
 
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/" + MainActivity.user.getUid());
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/" +  FirebaseAuth.getInstance().getCurrentUser().getUid());
         setContentView(R.layout.nav_charity_menu);
         name = findViewById(R.id.charity_name);
         description = findViewById(R.id.charityDescription);
@@ -124,7 +132,7 @@ public class CharityAccount extends AppCompatActivity {
 
     public void test(View v) {
         Random r = new Random();
-        DatabaseReference ref = reference.child("users").child(MainActivity.user.getUid()).child("Items").push();
+        DatabaseReference ref = reference.child("users").child( FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Items").push();
 
         ref.child("Clothing").setValue("T-Shirt");
         ref.child("Number").setValue(r.nextInt(1000));
@@ -133,23 +141,18 @@ public class CharityAccount extends AppCompatActivity {
     }
 
     private void getLocations(){
-        reference.child("users").child(MainActivity.user.getUid()).addValueEventListener(
+        reference.child("users").child( FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Locations = new ArrayList<LatLng>();
-                        MainActivity.user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(
+                         FirebaseAuth.getInstance().getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(
                                 String.valueOf(dataSnapshot.child("name").getValue())
                         ).build());
-                        name.setText(MainActivity.user.getDisplayName());
+                        name.setText( FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                         // Result will be holded Here
                         description.setText(String.valueOf(dataSnapshot.child("description").getValue()));
                         website.setText((String.valueOf(dataSnapshot.child("website").getValue())));
-
-
-
-
-
 
                         for (DataSnapshot dsp : dataSnapshot.child("Locations").getChildren()) {
                             try {
@@ -190,25 +193,29 @@ public class CharityAccount extends AppCompatActivity {
     }
 
     private void getUserList() {
-        reference.child("users").child(MainActivity.user.getUid()).addValueEventListener(
+        reference.child("users").child( FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Userlist = new ArrayList<Apparel>();
-                        MainActivity.user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(
+                         FirebaseAuth.getInstance().getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(
                                 String.valueOf(dataSnapshot.child("name").getValue())
                         ).build());
-                        name.setText(MainActivity.user.getDisplayName());
+                        name.setText( FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                         // Result will be holded Here
                         description.setText(String.valueOf(dataSnapshot.child("description").getValue()));
                         website.setText((String.valueOf(dataSnapshot.child("website").getValue())));
                         for (DataSnapshot dsp : dataSnapshot.child("Items").getChildren()) {
-                            if (String.valueOf(dsp.child("Clothing").getValue()) != null && String.valueOf(dsp.child("Number").getValue()) != null)
-                                Userlist.add(new Apparel(MainActivity.user.getUid(),
+
+                                Toast.makeText(getBaseContext(), String.valueOf(dsp.child("Number").getValue()), Toast.LENGTH_SHORT).show();
+                                Userlist.add(new Apparel(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                                         String.valueOf(dsp.child("Clothing").getValue()),
-                                        Integer.parseInt(String.valueOf(dsp.child("Number").getValue())),
+                                        Integer.parseInt(""+
+                                                String.valueOf(dsp.child("Number")
+                                                        .getValue())),
                                         dsp.getKey(),
-                                        MainActivity.user.getDisplayName()));//add result into array list
+                                        FirebaseAuth.getInstance().getCurrentUser().getDisplayName()));
+
                         }
                         mAdapter = new CharityAdapter(Userlist, getBaseContext());
                         recyclerView = findViewById(R.id.charity_profile_locations_list);
@@ -249,6 +256,12 @@ public class CharityAccount extends AppCompatActivity {
             }
         testing = !testing;
         return true;
+    }
+    public void logOut(View v){
+       
+        FirebaseAuth.getInstance().signOut();
+        finish();
+     
     }
 
 }

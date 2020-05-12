@@ -103,7 +103,8 @@
         android:layout_marginTop="41dp"
         android:text="Sign Out"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/charity_profile_locations_list" />
+        app:layout_constraintTop_toBottomOf="@+id/charity_profile_locations_list"
+        android:onClick="logOut"/>
 
-    =
+
 </androidx.constraintlayout.widget.ConstraintLayout>
