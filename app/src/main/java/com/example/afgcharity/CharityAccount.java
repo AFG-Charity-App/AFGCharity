@@ -87,6 +87,7 @@ public class CharityAccount extends AppCompatActivity {
                 .apiKey("AIzaSyAmgVnIMQGig2SgDBm8GOXLKfId6tJHzHY")
                 .build();
 
+
         mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/" +  FirebaseAuth.getInstance().getCurrentUser().getUid());
         setContentView(R.layout.nav_charity_menu);
         name = findViewById(R.id.charity_name);
@@ -102,6 +103,7 @@ public class CharityAccount extends AppCompatActivity {
                 startActivity(new Intent(getBaseContext(), NewItem.class));
             }
         });
+
         profilepic = findViewById((R.id.charity_logo));
         mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -261,6 +263,9 @@ public class CharityAccount extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         finish();
      
+    }
+    public void editLogo(View v){
+
     }
 
 }

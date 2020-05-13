@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="Edit">
 
 
             <item
                 android:id="@+id/change_list"
                 android:icon="@drawable/ic_edit_black_24dp"
-                android:title="User Information" />
+                android:title="User Information"/>
             <item
                 android:id="@+id/change_logo"
                 android:icon="@drawable/ic_account_box_black_24dp"
@@ -20,6 +19,4 @@
                 android:title="Locations" />
 
 
-
-    </item>
 </menu>
