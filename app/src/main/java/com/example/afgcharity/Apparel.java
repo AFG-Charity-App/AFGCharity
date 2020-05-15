@@ -14,25 +14,50 @@ public class Apparel {
         this.name=name;
     }
 
+    /**
+     * gets clothing type
+     * @return clothing type
+     */
     public String getClothing() {
         return clothing;
     }
 
+    /**
+     * gets name of user
+     * @return name of user
+     */
     public String getUser() {
         return user;
     }
 
+    /**
+     * gets name of charity
+     * @return name of charity
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * gets amount of item needed
+     * @return amount of item needed
+     */
     public int getAmount() {
         return amount;
     }
+
+    /**
+     * gets firebase id
+     * @return firebase id
+     */
     public String getId(){
         return id;
     }
 
+    /**
+     * makes list of information for each item in needs list
+     * @return information for list as a string
+     */
     @Override
     public String toString() {
         return "Apparel{" +
