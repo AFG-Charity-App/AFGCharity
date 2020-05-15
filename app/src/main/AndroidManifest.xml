@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAmgVnIMQGig2SgDBm8GOXLKfId6tJHzHY"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,9 @@
         <activity android:name=".CharityLogin"></activity>
         <activity android:name=".NewAccount">
         </activity>
-        <activity android:name=".CharityAccount"></activity>
+        <activity android:name=".CharityAccount">
+
+        </activity>
         <activity android:name=".CharityView">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />

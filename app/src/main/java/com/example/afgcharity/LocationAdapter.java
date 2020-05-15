@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyViewHolder> {
-    private ArrayList<LatLng> mDataset;
+    private ArrayList<com.example.afgcharity.Address> mDataset;
     public Context context;
     private File localFile;
 
@@ -52,8 +52,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public LocationAdapter(ArrayList<LatLng> myDataset, Context context) {
-        mDataset = (ArrayList<LatLng>) myDataset.clone();
+    public LocationAdapter(ArrayList<com.example.afgcharity.Address> myDataset, Context context) {
+        mDataset = (ArrayList<com.example.afgcharity.Address>) myDataset.clone();
         this.context = context;
     }
 
@@ -70,7 +70,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mDataset.size();
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -78,28 +78,12 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        final LatLng a = mDataset.get(position);
-        try {
-            holder.textView.setText(getAddress(a));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+        com.example.afgcharity.Address a = mDataset.get(position);
 
-    private String getAddress(LatLng coordinates) throws IOException {
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-        String strAddress = "";
-        List<Address> address = geocoder.getFromLocation(coordinates.latitude, coordinates.longitude, 1);
-        try {
-            if (address != null) {
-                strAddress = address.get(0).getAddressLine(0);
-            }
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-
-        return (strAddress);
+            holder.textView.setText(a.getAddress());
 
     }
+
+
 }
 

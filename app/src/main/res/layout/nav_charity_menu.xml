@@ -2,22 +2,24 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/charitymenu"
+    android:id="@+id/charity_menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:layout_gravity="start">
+    android:layout_gravity="start"
+    >
 
     <!-- Your contents -->
 
+
+    <include
+        layout="@layout/view_charity_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/menu_navigation"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:menu="@menu/charity_account_menu"
         android:layout_gravity="start"/>
-    <include
-        layout="@layout/view_charity_profile"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </androidx.drawerlayout.widget.DrawerLayout>
