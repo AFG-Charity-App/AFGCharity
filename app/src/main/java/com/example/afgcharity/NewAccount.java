@@ -59,13 +59,47 @@ public class NewAccount extends AppCompatActivity {
         EditText descriptionET=findViewById(R.id.enterDescription);
         EditText websiteLink=findViewById(R.id.enterWebsiteLink);
 
-        email= emailET.getText().toString();
-        String password=passwordET.getText().toString();
-        String passwordConf=passwordV.getText().toString();
-        displayname = name.getText().toString();
-        description= descriptionET.getText().toString();
-        website= websiteLink.getText().toString();
-        if(password.equals(passwordConf)) {
+        if(emailET.getText().toString()!=null)
+            email= emailET.getText().toString();
+        else
+            email="";
+        String password= new String("");
+        if(passwordET.getText().toString()!=null)
+            password=passwordET.getText().toString();
+        else{
+            Toast.makeText(getBaseContext(), "No password entered",
+                    Toast.LENGTH_SHORT).show();
+        }
+        String passwordConf= new String("");
+        if(passwordV.getText().toString()!=null)
+            passwordConf=passwordV.getText().toString();
+        if(name.getText().toString()!=null)
+            displayname = name.getText().toString();
+        else
+            displayname="";
+        if(descriptionET.getText().toString()!=null)
+            displayname = name.getText().toString();
+        else
+            displayname="";
+        if(descriptionET.getText().toString()!=null)
+            description= descriptionET.getText().toString();
+        else
+            description="";
+        if(websiteLink.getText().toString()!=null)
+            website= websiteLink.getText().toString();
+        else
+            website="";
+        passwordConfirmation(password, passwordConf);
+        /*
+        if(test=true){
+            Intent intent = new Intent(this, CharityLogin.class);
+            startActivity(intent);
+            test = false;
+        }
+         */
+    }
+    private void passwordConfirmation(String password, String passwordConf){
+        if(password.equals(passwordConf)&&password!=null) {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -73,7 +107,7 @@ public class NewAccount extends AppCompatActivity {
                             if (task.isSuccessful()) {
 
                                 // Sign in success, update UI with the signed-in user's information
-                                Toast.makeText(getBaseContext(), "createUserWithEmail:success",
+                                Toast.makeText(getBaseContext(), "Account successfully created",
                                         Toast.LENGTH_SHORT).show();
 
                                 FirebaseUser user = mAuth.getCurrentUser();
@@ -84,7 +118,7 @@ public class NewAccount extends AppCompatActivity {
                                 transfer();
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Toast.makeText(getBaseContext(), "createUserWithEmail:failure",
+                                Toast.makeText(getBaseContext(), "Account creation failed",
                                         Toast.LENGTH_SHORT).show();
                                 // updateUI(null);
                             }
@@ -96,13 +130,6 @@ public class NewAccount extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Confirmation Password Does Not Match",
                     Toast.LENGTH_SHORT).show();
         }
-        /*
-        if(test=true){
-            Intent intent = new Intent(this, CharityLogin.class);
-            startActivity(intent);
-            test = false;
-        }
-         */
     }
     private void newAccount(FirebaseUser user){
 
@@ -150,7 +177,7 @@ public class NewAccount extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getBaseContext(), "ProfileUpdate:success",
+                            Toast.makeText(getBaseContext(), "Profile successfully updated",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
