@@ -73,7 +73,7 @@ public class NewAccount extends AppCompatActivity {
                             if (task.isSuccessful()) {
 
                                 // Sign in success, update UI with the signed-in user's information
-                                Toast.makeText(getBaseContext(), "createUserWithEmail:success",
+                                Toast.makeText(getBaseContext(), "Account successfully created",
                                         Toast.LENGTH_SHORT).show();
 
                                 FirebaseUser user = mAuth.getCurrentUser();
@@ -84,7 +84,7 @@ public class NewAccount extends AppCompatActivity {
                                 transfer();
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Toast.makeText(getBaseContext(), "createUserWithEmail:failure",
+                                Toast.makeText(getBaseContext(), "Account creation failed",
                                         Toast.LENGTH_SHORT).show();
                                 // updateUI(null);
                             }
@@ -150,7 +150,7 @@ public class NewAccount extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getBaseContext(), "ProfileUpdate:success",
+                            Toast.makeText(getBaseContext(), "Profile successfully updated",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
