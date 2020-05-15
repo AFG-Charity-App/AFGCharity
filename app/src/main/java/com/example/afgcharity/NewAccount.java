@@ -81,8 +81,14 @@ public class NewAccount extends AppCompatActivity {
             displayname = name.getText().toString();
         else
             displayname="";
-        description= descriptionET.getText().toString();
-        website= websiteLink.getText().toString();
+        if(descriptionET.getText().toString()!=null)
+            description= descriptionET.getText().toString();
+        else
+            description="";
+        if(websiteLink.getText().toString()!=null)
+            website= websiteLink.getText().toString();
+        else
+            website="";
         passwordConfirmation(password, passwordConf);
         /*
         if(test=true){
