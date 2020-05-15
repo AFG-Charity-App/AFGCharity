@@ -31,7 +31,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.internal.firebase_auth.zzcz;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.internal.NavigationMenu;
@@ -78,7 +83,7 @@ public class CharityAccount extends AppCompatActivity {
     private GeoApiContext geoApiContext;
     private File localFile;
     private boolean testing = true;
-
+    private DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -86,6 +91,9 @@ public class CharityAccount extends AppCompatActivity {
         geoApiContext = new GeoApiContext.Builder()
                 .apiKey("AIzaSyAmgVnIMQGig2SgDBm8GOXLKfId6tJHzHY")
                 .build();
+
+
+
 
 
         mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/" +  FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -127,9 +135,13 @@ public class CharityAccount extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(getDrawable(R.drawable.ic_dehaze_white_24dp));
-        DrawerLayout drawer = findViewById(R.id.charitymenu);
+        DrawerLayout drawer = findViewById(R.id.charity_menu);
         drawer.closeDrawer(GravityCompat.START);
         drawer.setVisibility(View.VISIBLE);
+
+
+
+
     }
 
     public void test(View v) {
@@ -142,57 +154,7 @@ public class CharityAccount extends AppCompatActivity {
         getUserList();
     }
 
-    private void getLocations(){
-        reference.child("users").child( FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Locations = new ArrayList<LatLng>();
-                         FirebaseAuth.getInstance().getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(
-                                String.valueOf(dataSnapshot.child("name").getValue())
-                        ).build());
-                        name.setText( FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-                        // Result will be holded Here
-                        description.setText(String.valueOf(dataSnapshot.child("description").getValue()));
-                        website.setText((String.valueOf(dataSnapshot.child("website").getValue())));
 
-                        for (DataSnapshot dsp : dataSnapshot.child("Locations").getChildren()) {
-                            try {
-                                GeocodingResult[] results =  GeocodingApi.geocode(geoApiContext,
-                                        "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA")
-                                        //String.valueOf(dsp.child("address").getValue()))
-
-                                        .await();
-
-
-                                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                             Locations.add(new LatLng(results[0].geometry.location.lat,results[0].geometry.location.lng));
-                            } catch (ApiException e) {
-                                e.printStackTrace();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-
-                        }
-                        mAdapter = new LocationAdapter(Locations, getBaseContext());
-                        recyclerView = findViewById(R.id.charity_profile_locations_list);
-                        recyclerView.setHasFixedSize(true);
-                        layoutManager = new LinearLayoutManager(getBaseContext());
-                        recyclerView.setLayoutManager(layoutManager);
-
-                        recyclerView.setAdapter(mAdapter);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                }
-        );
-    }
 
     private void getUserList() {
         reference.child("users").child( FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(
@@ -237,12 +199,33 @@ public class CharityAccount extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        DrawerLayout drawer = findViewById(R.id.charitymenu);
-        NavigationView menu = findViewById(R.id.menu_navigation);
+        DrawerLayout drawer = findViewById(R.id.charity_menu);
+        NavigationView navView= findViewById(R.id.menu_navigation);
+
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.change_info:
+                        break;
+                    case R.id.change_locations:
+
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LocationEditor()).commit();
+                        drawer.closeDrawer(GravityCompat.START);
+
+                        break;
+                    case R.id.change_logo:
+                        break;
+
+                }
+                return true;
+            }
+
+        });
         //drawer.isDrawerOpen(); MAKE THIS THE THING
         //ViewGroup.LayoutParams params =  drawer.getLayoutParams();
         if (item.getItemId() == android.R.id.home)
-            if (testing) {
+            if (!drawer.isDrawerOpen(GravityCompat.START)) {
 
                 // params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1000, getResources().getDisplayMetrics());
                 //drawer.setLayoutParams(params);
@@ -267,5 +250,7 @@ public class CharityAccount extends AppCompatActivity {
     public void editLogo(View v){
 
     }
+
+
 
 }

@@ -30,7 +30,7 @@ public class CharityLogin extends AppCompatActivity {
     }
     public void enter(View v){
         //Get text
-        if(test=true) {
+        if(test) {
             EditText emailET = findViewById(R.id.charity_email);
             EditText passwordET = findViewById(R.id.charity_password);
             String email = emailET.getText().toString();
@@ -41,11 +41,12 @@ public class CharityLogin extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    test=false;
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d("signin", "signInWithEmail:success");
                                     Toast.makeText(getBaseContext(), "Authentication successful",
                                             Toast.LENGTH_SHORT).show();
-                                    test=false;
+
                                     profile();
                                     //updateUI(user);
 
