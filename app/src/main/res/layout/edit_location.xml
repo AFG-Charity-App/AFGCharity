@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAD3D3"
+    android:elevation="2dp">
+
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:text="Address:"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editAddressItem"
+        android:layout_width="257dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/textView10"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:hint="Type Address Here" />
+
+
+    <Button
+        android:id="@+id/editLocationItem"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editAddressItem"
+        android:layout_marginStart="-171dp"
+        android:layout_marginTop="25dp"
+        android:layout_toEndOf="@+id/editAddressItem"
+        android:backgroundTint="#009688"
+        android:text="Save Changes" />
+
+    <Button
+        android:id="@+id/deleteLocation"
+        android:layout_width="143dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/editLocationItem"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="-61dp"
+        android:layout_toStartOf="@+id/editAddressItem"
+        android:backgroundTint="#FF0000"
+        android:text="DELETE ITEM" />
+
+</RelativeLayout>

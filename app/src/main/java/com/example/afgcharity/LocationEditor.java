@@ -1,9 +1,12 @@
 package com.example.afgcharity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,7 +48,14 @@ public class LocationEditor extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        view=inflater.inflate(R.layout.location_editor, container, false);
-
+        ImageButton addItem=view.findViewById(R.id.addLocationItem);
+        addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), AddLocation.class));
+            }
+        });
+        Locations=new ArrayList<>();
         MapView mapView= view.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(new OnMapReadyCallback() {
@@ -53,6 +63,7 @@ public class LocationEditor extends Fragment {
             public void onMapReady(GoogleMap googleMap) {
                 map=googleMap;
                 getLocations();
+
                 mapView.onResume();
             }
         });
@@ -75,9 +86,8 @@ return view;
 
 
                             LatLng latLng=new LatLng(results[0].geometry.location.lat,results[0].geometry.location.lng);
-                            Locations.add(new Address(String.valueOf(dsp.child("Address").getValue()), dsp.getKey(), latLng));
-                            map.addMarker(new MarkerOptions().position(latLng)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                            Locations.add(new Address(String.valueOf(dsp.child("Address").getValue()), dsp.getKey(), latLng, FirebaseAuth.getInstance().getCurrentUser().getUid()));
+
 
 
 
@@ -90,6 +100,10 @@ return view;
                         recyclerView.setLayoutManager(layoutManager);
 
                         recyclerView.setAdapter(mAdapter);
+                        map.clear();
+                        for(Address a: Locations)
+                            map.addMarker(new MarkerOptions().position(a.getLatLng())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     }
 
                     @Override
@@ -99,7 +113,6 @@ return view;
                 }
         );
     }
-
 
 
 
