@@ -101,10 +101,10 @@
         android:layout_height="67dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="41dp"
-        android:text="Sign Out"
+        android:onClick="logOut"
+        android:text="@string/signout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/charity_profile_locations_list"
-        android:onClick="logOut"/>
+        app:layout_constraintTop_toBottomOf="@+id/charity_profile_locations_list" />
 
     <FrameLayout
         android:id="@+id/fragment_container"
