@@ -116,8 +116,7 @@ public class CharityAccount extends AppCompatActivity {
         addItem.setOnClickListener(new View.OnClickListener() {
 
             /**
-             * view when clicked
-             * @param v
+             * @param v view when clicked
              */
             @Override
             public void onClick(View v) {
