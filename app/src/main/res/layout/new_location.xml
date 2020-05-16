@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="0dp"
-        android:text="Address:"
+        android:text="@string/address"
         android:textSize="18sp" />
 
     <EditText
@@ -22,8 +22,9 @@
         android:layout_marginStart="12dp"
         android:layout_toEndOf="@+id/textView10"
         android:ems="10"
+        android:hint="@string/location"
         android:inputType="textPostalAddress"
-        android:hint="Type Address Here" />
+        android:autofillHints="" />
 
 
     <Button
@@ -35,7 +36,7 @@
         android:layout_marginTop="25dp"
         android:layout_toEndOf="@+id/newAddress"
         android:backgroundTint="#009688"
-        android:text="Add Item" />
+        android:text="@string/addlocation" />
 
     <Button
         android:id="@+id/cancelLocation"
@@ -46,6 +47,6 @@
         android:layout_marginEnd="-24dp"
         android:layout_toStartOf="@+id/newAddress"
         android:backgroundTint="#FF0000"
-        android:text="Cancel" />
+        android:text="@string/cancel" />
 
 </RelativeLayout>

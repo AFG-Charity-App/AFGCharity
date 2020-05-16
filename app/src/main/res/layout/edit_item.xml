@@ -9,7 +9,7 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Clothing:"
+        android:text="@string/changeclothing"
         android:textSize="18sp" />
 
     <TextView
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView10"
         android:layout_marginTop="28dp"
-        android:text="Change Amount:"
+        android:text="@string/changenum"
         android:textSize="18sp" />
 
     <EditText
@@ -27,9 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_toEndOf="@+id/textView10"
+        android:autofillHints=""
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Clothing Type" />
+        android:hint="@string/item"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editAmount"
@@ -41,7 +42,9 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="17dp"
         android:layout_toEndOf="@+id/textView16"
+        android:autofillHints=""
         android:ems="10"
+        android:hint="@string/numitems"
         android:inputType="number" />
 
     <Button
@@ -53,7 +56,7 @@
         android:layout_marginTop="21dp"
         android:layout_marginEnd="-10dp"
         android:backgroundTint="#009688"
-        android:text="Save Changes" />
+        android:text="@string/save" />
 
     <Button
         android:id="@+id/deleteItem"
@@ -64,6 +67,6 @@
         android:layout_marginTop="38dp"
         android:layout_marginEnd="-3dp"
         android:backgroundTint="#FF0000"
-        android:text="DELETE ITEM" />
+        android:text="@string/delete" />
 
 </RelativeLayout>

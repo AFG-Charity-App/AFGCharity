@@ -13,7 +13,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif"
-        android:text="Create Charity Profile"
+        android:text="@string/createaprofile"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:autofillHints=""
                 android:ems="10"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress" />
 
             <TextView
@@ -83,7 +85,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:autofillHints=""
                 android:ems="10"
+                android:hint="@string/password"
                 android:inputType="textPassword" />
 
             <TextView
@@ -91,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Confirm Password"
+                android:text="@string/confpass"
                 android:textSize="24sp" />
 
             <EditText
@@ -99,7 +103,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:autofillHints=""
                 android:ems="10"
+                android:hint="@string/reenterpass"
                 android:inputType="none|textPassword" />
 
             <TextView
@@ -107,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Charity Name"
+                android:text="@string/charityname"
                 android:textSize="24sp" />
 
             <EditText
@@ -115,7 +121,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:autofillHints=""
                 android:ems="10"
+                android:hint="@string/charityname"
                 android:inputType="textShortMessage" />
 
             <TextView
@@ -123,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Website Link"
+                android:text="@string/websitelinkplaceholder"
                 android:textSize="24sp" />
 
             <EditText
@@ -133,6 +141,7 @@
                 android:layout_marginTop="8dp"
                 android:autofillHints=""
                 android:ems="10"
+                android:hint="@string/websitelinkplaceholder"
                 android:inputType="textUri" />
 
             <TextView
@@ -147,7 +156,9 @@
                 android:id="@+id/enterDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autofillHints=""
                 android:ems="10"
+                android:hint="@string/charitydescription"
                 android:inputType="textLongMessage|none" />
 
             <Button
