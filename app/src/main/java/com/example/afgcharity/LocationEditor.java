@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -94,13 +96,8 @@ public class LocationEditor extends Fragment {
 
                             LatLng latLng = new LatLng(results[0].geometry.location.lat, results[0].geometry.location.lng);
                             Locations.add(new Address(String.valueOf(dsp.child("Address").getValue()), dsp.getKey(), latLng, FirebaseAuth.getInstance().getCurrentUser().getUid()));
-
-
-
-
-
                         }
-                        RecyclerView.Adapter mAdapter = new LocationAdapter(Locations, getContext());
+                        RecyclerView.Adapter mAdapter = new LocationAdapter(Locations, getContext(), map);
                         RecyclerView recyclerView = view.findViewById(R.id.location_items);
                         recyclerView.setHasFixedSize(true);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -108,9 +105,15 @@ public class LocationEditor extends Fragment {
 
                         recyclerView.setAdapter(mAdapter);
                         map.clear();
-                        for (Address a : Locations)
+                        LatLngBounds.Builder builder=new LatLngBounds.Builder();
+                        for (Address a : Locations) {
+                            builder.include(a.getLatLng());
                             map.addMarker(new MarkerOptions().position(a.getLatLng())
+                                    .title(a.getAddress())
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                        }
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(builder.build().getCenter(), 10f));
+
                     }
 
                     @Override

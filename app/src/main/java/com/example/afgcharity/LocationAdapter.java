@@ -15,9 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,10 +43,12 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
         public TextView textView;
+        public CardView cardView;
     public ImageButton imageButton;
         public MyViewHolder(View v) {
             super(v);
             textView = v.findViewById(R.id.locationAddress);
+            cardView=v.findViewById(R.id.clickLocation);
             imageButton=v.findViewById(R.id.editLocationButton);
         }
 
@@ -52,11 +57,12 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
 
         }
     }
-
+    private GoogleMap mMap;
     // Provide a suitable constructor (depends on the kind of dataset)
-    public LocationAdapter(ArrayList<com.example.afgcharity.Address> myDataset, Context context) {
+    public LocationAdapter(ArrayList<com.example.afgcharity.Address> myDataset, Context context, GoogleMap map) {
         mDataset = (ArrayList<com.example.afgcharity.Address>) myDataset.clone();
         this.context = context;
+        mMap=map;
     }
 
     // Create new views (invoked by the layout manager)
@@ -83,6 +89,12 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
         com.example.afgcharity.Address a = mDataset.get(position);
 
             holder.textView.setText(a.getAddress());
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(a.getLatLng(), 15f));
+                }
+            });
             holder.imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -95,6 +107,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
                     context.startActivity(intent);
                 }
             });
+
     }
 
 

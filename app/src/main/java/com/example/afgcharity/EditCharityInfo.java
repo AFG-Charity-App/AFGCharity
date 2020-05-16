@@ -138,8 +138,7 @@ public class EditCharityInfo extends Fragment {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     // Get a URL to the uploaded content
-                                    Toast.makeText(getContext(), "Logo Upload Success",
-                                            Toast.LENGTH_SHORT).show();
+
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {

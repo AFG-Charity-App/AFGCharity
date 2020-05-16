@@ -213,50 +213,60 @@ public class CharityAccount extends AppCompatActivity {
 
         );
     }
-
+    private int counter=0;
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        DrawerLayout drawer = findViewById(R.id.charity_menu);
-        NavigationView navView= findViewById(R.id.menu_navigation);
+            DrawerLayout drawer = findViewById(R.id.charity_menu);
+            NavigationView navView= findViewById(R.id.menu_navigation);
 
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.change_info:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EditCharityInfo()).addToBackStack(null).commit();
-                        drawer.closeDrawer(GravityCompat.START);
-                        break;
-                    case R.id.change_locations:
+            navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LocationEditor()).addToBackStack(null).commit();
-                        drawer.closeDrawer(GravityCompat.START);
+                    switch (item.getItemId()){
+                        case R.id.home_charity:
+                            while(counter!=0) {
+                                getFragmentManager().popBackStack();
+                                getSupportFragmentManager().popBackStack();
+                                counter--;
+                            }
+                            drawer.closeDrawer(GravityCompat.START);
+                            break;
+                        case R.id.change_info:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EditCharityInfo()).addToBackStack(null).commit();
+                            counter++;
+                            drawer.closeDrawer(GravityCompat.START);
+                            break;
+                        case R.id.change_locations:
 
-                        break;
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LocationEditor()).addToBackStack(null).commit();
+                            drawer.closeDrawer(GravityCompat.START);
+                            counter++;
+                            break;
 
+                    }
+                    return true;
                 }
-                return true;
-            }
 
-        });
-        //drawer.isDrawerOpen(); MAKE THIS THE THING
-        //ViewGroup.LayoutParams params =  drawer.getLayoutParams();
-        if (item.getItemId() == android.R.id.home)
-            if (!drawer.isDrawerOpen(GravityCompat.START)) {
+            });
+            //drawer.isDrawerOpen(); MAKE THIS THE THING
+            //ViewGroup.LayoutParams params =  drawer.getLayoutParams();
+            if (item.getItemId() == android.R.id.home)
+                if (!drawer.isDrawerOpen(GravityCompat.START)) {
 
-                // params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1000, getResources().getDisplayMetrics());
-                //drawer.setLayoutParams(params);
-                drawer.setVisibility(View.VISIBLE);
-                drawer.openDrawer(GravityCompat.START);
-            } else {
-                //params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
-                //drawer.setLayoutParams(params);
+                    // params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1000, getResources().getDisplayMetrics());
+                    //drawer.setLayoutParams(params);
+                    drawer.setVisibility(View.VISIBLE);
+                    drawer.openDrawer(GravityCompat.START);
+                } else {
+                    //params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
+                    //drawer.setLayoutParams(params);
 
-                drawer.closeDrawer(GravityCompat.START);
-                drawer.setVisibility(View.VISIBLE);
-            }
-        testing = !testing;
-        return true;
+                    drawer.closeDrawer(GravityCompat.START);
+                    drawer.setVisibility(View.VISIBLE);
+                }
+            testing = !testing;
+            return true;
     }
     public void logOut(View v){
        
