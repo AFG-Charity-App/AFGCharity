@@ -77,7 +77,7 @@ public class UserViewsCharityProfile extends AppCompatActivity {
                 profilepic.setImageResource(R.drawable.default_logo);
             }
         });
-        name.setText(extras.getString("Name"));
+
         Userlist = new ArrayList<Apparel>();
         getList();
         ActionBar actionBar = getSupportActionBar();
@@ -90,15 +90,16 @@ public class UserViewsCharityProfile extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Userlist = new ArrayList<Apparel>();
                         // Result will be held Here
-                        description.setText(String.valueOf(dataSnapshot.child("description").getValue()));
-                        website.setText(String.valueOf(dataSnapshot.child("website").getValue()));
+                        name.setText(String.valueOf(dataSnapshot.child("Info").child("name").getValue()));
+                        description.setText(String.valueOf(dataSnapshot.child("Info").child("description").getValue()));
+                        website.setText(String.valueOf(dataSnapshot.child("Info").child("website").getValue()));
                         Linkify.addLinks(website, Linkify.WEB_URLS);
                         for (DataSnapshot dsp : dataSnapshot.child("Items").getChildren()) {
                             if (String.valueOf(dsp.child("Clothing").getValue()) != null && String.valueOf(dsp.child("Number").getValue()) != null)
                                 Userlist.add(new Apparel(extras.getString("User"),
                                         String.valueOf(dsp.child("Clothing").getValue()),
                                         Integer.parseInt(String.valueOf(dsp.child("Number").getValue())),
-                                        dsp.getKey(), extras.getString("Name")));//add result into array list
+                                        dsp.getKey(), String.valueOf(dataSnapshot.child("Info").child("name").getValue())));//add result into array list
                         }
                         mAdapter = new MyAdapter(Userlist, getBaseContext());
                         recyclerView = findViewById(R.id.charity_profile_locations_list);

@@ -44,35 +44,37 @@ public class LocationEditor extends Fragment {
     private ArrayList<Address> Locations;
     private GoogleMap map;
     private View view;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       view=inflater.inflate(R.layout.location_editor, container, false);
-        ImageButton addItem=view.findViewById(R.id.addLocationItem);
+        view = inflater.inflate(R.layout.location_editor, container, false);
+        ImageButton addItem = view.findViewById(R.id.addLocationItem);
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), AddLocation.class));
             }
         });
-        Locations=new ArrayList<>();
-        MapView mapView= view.findViewById(R.id.mapView);
+        Locations = new ArrayList<>();
+        MapView mapView = view.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                map=googleMap;
+                map = googleMap;
                 getLocations();
 
                 mapView.onResume();
             }
         });
 
-return view;
+        return view;
 
     }
-    public void getLocations(){
-        reference.child("users").child( FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(
+
+    public void getLocations() {
+        reference.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -81,15 +83,12 @@ return view;
                                 .apiKey("AIzaSyAmgVnIMQGig2SgDBm8GOXLKfId6tJHzHY")
                                 .build();
                         for (DataSnapshot dsp : dataSnapshot.child("Locations").getChildren()) {
-                            GeocodingResult[] results =  GeocodingApi
-                                    .geocode(geoApiContext,String.valueOf(dsp.child("Address").getValue()) ).awaitIgnoreError();
+                            GeocodingResult[] results = GeocodingApi
+                                    .geocode(geoApiContext, String.valueOf(dsp.child("Address").getValue())).awaitIgnoreError();
 
 
-                            LatLng latLng=new LatLng(results[0].geometry.location.lat,results[0].geometry.location.lng);
+                            LatLng latLng = new LatLng(results[0].geometry.location.lat, results[0].geometry.location.lng);
                             Locations.add(new Address(String.valueOf(dsp.child("Address").getValue()), dsp.getKey(), latLng, FirebaseAuth.getInstance().getCurrentUser().getUid()));
-
-
-
 
 
                         }
@@ -101,7 +100,7 @@ return view;
 
                         recyclerView.setAdapter(mAdapter);
                         map.clear();
-                        for(Address a: Locations)
+                        for (Address a : Locations)
                             map.addMarker(new MarkerOptions().position(a.getLatLng())
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     }
@@ -113,8 +112,6 @@ return view;
                 }
         );
     }
-
-
 
 
 }

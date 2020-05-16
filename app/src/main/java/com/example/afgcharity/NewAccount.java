@@ -39,9 +39,10 @@ public class NewAccount extends AppCompatActivity {
     private String website;
     private Uri imageURI;
     private boolean test;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mStorageRef= FirebaseStorage.getInstance().getReference();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_chairty_profile);
         // Initialize Firebase Auth
@@ -50,45 +51,46 @@ public class NewAccount extends AppCompatActivity {
 
 
     }
-    public void makeAccount(View v){
-    test = false;
-        EditText emailET=findViewById(R.id.enterUsernameCreateProfile);
-        EditText passwordET=findViewById(R.id.enterPasswordCreateProfile);
-        EditText passwordV=findViewById(R.id.enterConfirmPassword);
-        EditText name=findViewById(R.id.enterCharityName);
-        EditText descriptionET=findViewById(R.id.enterDescription);
-        EditText websiteLink=findViewById(R.id.enterWebsiteLink);
 
-        if(emailET.getText().toString()!=null)
-            email= emailET.getText().toString();
+    public void makeAccount(View v) {
+        test = false;
+        EditText emailET = findViewById(R.id.enterUsernameCreateProfile);
+        EditText passwordET = findViewById(R.id.enterPasswordCreateProfile);
+        EditText passwordV = findViewById(R.id.enterConfirmPassword);
+        EditText name = findViewById(R.id.enterCharityName);
+        EditText descriptionET = findViewById(R.id.enterDescription);
+        EditText websiteLink = findViewById(R.id.enterWebsiteLink);
+
+        if (emailET.getText().toString() != null)
+            email = emailET.getText().toString();
         else
-            email="";
-        String password= new String("");
-        if(passwordET.getText().toString()!=null)
-            password=passwordET.getText().toString();
-        else{
+            email = "";
+        String password = new String("");
+        if (passwordET.getText().toString() != null)
+            password = passwordET.getText().toString();
+        else {
             Toast.makeText(getBaseContext(), "No password entered",
                     Toast.LENGTH_SHORT).show();
         }
-        String passwordConf= new String("");
-        if(passwordV.getText().toString()!=null)
-            passwordConf=passwordV.getText().toString();
-        if(name.getText().toString()!=null)
+        String passwordConf = new String("");
+        if (passwordV.getText().toString() != null)
+            passwordConf = passwordV.getText().toString();
+        if (name.getText().toString() != null)
             displayname = name.getText().toString();
         else
-            displayname="";
-        if(descriptionET.getText().toString()!=null)
+            displayname = "";
+        if (descriptionET.getText().toString() != null)
             displayname = name.getText().toString();
         else
-            displayname="";
-        if(descriptionET.getText().toString()!=null)
-            description= descriptionET.getText().toString();
+            displayname = "";
+        if (descriptionET.getText().toString() != null)
+            description = descriptionET.getText().toString();
         else
-            description="";
-        if(websiteLink.getText().toString()!=null)
-            website= websiteLink.getText().toString();
+            description = "";
+        if (websiteLink.getText().toString() != null)
+            website = websiteLink.getText().toString();
         else
-            website="";
+            website = "";
         passwordConfirmation(password, passwordConf);
         /*
         if(test=true){
@@ -98,8 +100,9 @@ public class NewAccount extends AppCompatActivity {
         }
          */
     }
-    private void passwordConfirmation(String password, String passwordConf){
-        if(password.equals(passwordConf)&&password!=null) {
+
+    private void passwordConfirmation(String password, String passwordConf) {
+        if (password.equals(passwordConf) && password != null) {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -126,22 +129,23 @@ public class NewAccount extends AppCompatActivity {
                             // ...
                         }
                     });
-        }else{
+        } else {
             Toast.makeText(getBaseContext(), "Confirmation Password Does Not Match",
                     Toast.LENGTH_SHORT).show();
         }
     }
-    private void newAccount(FirebaseUser user){
+
+    private void newAccount(FirebaseUser user) {
 
         UserProfileChangeRequest profileUpdates;
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("Info");
         reference.child("email").setValue(email);
         reference.child("name").setValue(displayname);
         reference.child("website").setValue(website);
         reference.child("description").setValue(description);
 
-        if(imageURI!=null) {
+        if (imageURI != null) {
             Uri file = imageURI;
             profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(displayname)
@@ -167,8 +171,8 @@ public class NewAccount extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                         }
                     });
-        }else
-            profileUpdates= new UserProfileChangeRequest.Builder()
+        } else
+            profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(displayname)
                     .build();
 
@@ -182,26 +186,27 @@ public class NewAccount extends AppCompatActivity {
                         }
                     }
                 });
-        reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
+        reference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("Info");
         reference.child("email").setValue(email);
         reference.child("name").setValue(displayname);
         reference.child("description").setValue(description);
 
     }
 
-    private void transfer(){
+    private void transfer() {
         Intent intent = new Intent(this, CharityLogin.class);
 
         startActivity(intent);
     }
+
     private static final int FILE_SELECT_CODE = 0;
 
 
     public void chooseFile(View v) {
-        if((Build.VERSION.SDK_INT>Build.VERSION_CODES.M) && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)!=
+        if ((Build.VERSION.SDK_INT > Build.VERSION_CODES.M) && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
                 PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
-        }else {
+        } else {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
             intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -219,6 +224,7 @@ public class NewAccount extends AppCompatActivity {
         }
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -226,7 +232,7 @@ public class NewAccount extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     // Get the Uri of the selected file
                     imageURI = data.getData();
-                    ImageView logo= findViewById(R.id.logoImage);
+                    ImageView logo = findViewById(R.id.logoImage);
                     logo.setImageURI(imageURI);
                     Toast.makeText(getBaseContext(), "File Uri: " + imageURI.getPath(),
                             Toast.LENGTH_SHORT).show();
@@ -243,9 +249,9 @@ public class NewAccount extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case 2:{
-                if (grantResults[0]==PackageManager.PERMISSION_GRANTED)
+        switch (requestCode) {
+            case 2: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     Toast.makeText(getBaseContext(), "Permission Granted",
                             Toast.LENGTH_SHORT).show();
                 else
@@ -255,25 +261,5 @@ public class NewAccount extends AppCompatActivity {
 
         }
     }
-    private String getPath(Context context, Uri uri) {
-        if ("content".equalsIgnoreCase(uri.getScheme())) {
-            String[] projection = { "_data" };
-            Cursor cursor = null;
 
-            try {
-                cursor = context.getContentResolver().query(uri, projection, null, null, null);
-                int column_index = cursor.getColumnIndexOrThrow("_data");
-                if (cursor.moveToFirst()) {
-                    return cursor.getString(column_index);
-                }
-            } catch (Exception e) {
-                // Eat it
-            }
-        }
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
-        }
-
-        return null;
-    }
 }
