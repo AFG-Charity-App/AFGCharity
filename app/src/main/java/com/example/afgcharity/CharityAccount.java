@@ -243,15 +243,24 @@ public class CharityAccount extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
+                    case R.id.home_charity:
+                                getSupportFragmentManager().popBackStack();
+                                getFragmentManager().popBackStack();
+
+
+                        drawer.closeDrawer(GravityCompat.START);
+                        break;
                     case R.id.change_info:
+                        getSupportFragmentManager().popBackStack();
+                        getFragmentManager().popBackStack();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EditCharityInfo()).addToBackStack(null).commit();
                         drawer.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.change_locations:
-
+                        getSupportFragmentManager().popBackStack();
+                        getFragmentManager().popBackStack();
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LocationEditor()).addToBackStack(null).commit();
                         drawer.closeDrawer(GravityCompat.START);
-
                         break;
                 }
                 return true;
@@ -287,14 +296,6 @@ public class CharityAccount extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         finish();
      
-    }
-
-    /**
-     * Edits Logo for charity profile
-     * @param v the view the user presses
-     */
-    public void editLogo(View v){
-
     }
 
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.util.Linkify;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
@@ -55,7 +57,7 @@ public class UserViewsCharityProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         extras = getIntent().getExtras();
         mStorageRef = FirebaseStorage.getInstance().getReference().child("logos/" + extras.getString("User"));
-        setContentView(R.layout.user_view_charity_profile);
+        setContentView(R.layout.nav_donor_menu);
         name = findViewById(R.id.charity_name);
         description = findViewById(R.id.charityDescription);
         website = findViewById(R.id.website_link_placeholder);
@@ -81,6 +83,11 @@ public class UserViewsCharityProfile extends AppCompatActivity {
         Userlist = new ArrayList<Apparel>();
         getList();
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(getDrawable(R.drawable.ic_dehaze_white_24dp));
+        DrawerLayout drawer = findViewById(R.id.donor_menu);
+        drawer.closeDrawer(GravityCompat.START);
+        drawer.setVisibility(View.VISIBLE);
     }
 
     private void getList() {
@@ -116,4 +123,50 @@ public class UserViewsCharityProfile extends AppCompatActivity {
                 }
         );
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        DrawerLayout drawer = findViewById(R.id.donor_menu);
+        NavigationView navView= findViewById(R.id.donormenu_navigation);
+
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            /**
+             * Navigation menu
+             * @param item option clicked by user
+             * @return true always
+             */
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.view_locations:
+                        getSupportFragmentManager().popBackStack();
+                        getFragmentManager().popBackStack();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LocationEditor()).addToBackStack(null).commit();
+                        drawer.closeDrawer(GravityCompat.START);
+                        break;
+                }
+                return true;
+            }
+
+        });
+        //drawer.isDrawerOpen(); MAKE THIS THE THING
+        //ViewGroup.LayoutParams params =  drawer.getLayoutParams();
+        if (item.getItemId() == android.R.id.home)
+            if (!drawer.isDrawerOpen(GravityCompat.START)) {
+
+                // params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1000, getResources().getDisplayMetrics());
+                //drawer.setLayoutParams(params);
+                drawer.setVisibility(View.VISIBLE);
+                drawer.openDrawer(GravityCompat.START);
+            } else {
+                //params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
+                //drawer.setLayoutParams(params);
+
+                drawer.closeDrawer(GravityCompat.START);
+                drawer.setVisibility(View.VISIBLE);
+            }
+        testing = !testing;
+        return true;
+    }
+
 }
