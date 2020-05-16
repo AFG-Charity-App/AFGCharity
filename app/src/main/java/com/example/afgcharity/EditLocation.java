@@ -18,6 +18,10 @@ public class EditLocation extends Activity {
     private Address a;
     private DatabaseReference reference;
     private EditText address;
+
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

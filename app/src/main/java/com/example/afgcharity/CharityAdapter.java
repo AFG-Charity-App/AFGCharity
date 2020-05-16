@@ -29,7 +29,7 @@ public class CharityAdapter  extends RecyclerView.Adapter<CharityAdapter.MyViewH
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class MyViewHolder extends RecyclerView.ViewHolder  {
         // each data item is just a string in this case
         public TextView textView;
         public TextView textView2;
@@ -46,19 +46,22 @@ public class CharityAdapter  extends RecyclerView.Adapter<CharityAdapter.MyViewH
 
         }
 
-        @Override
-        public void onClick(View v) {
-
-        }
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
+    /**
+     * Provide a suitable constructor (depends on the kind of dataset)
+      */
     public CharityAdapter(ArrayList<Apparel> myDataset, Context context) {
         mDataset = (ArrayList<Apparel>) myDataset.clone();
         this.context=context;
     }
 
-    // Create new views (invoked by the layout manager)
+    /**
+     * Create new views (invoked by the layout manager)
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public CharityAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
@@ -71,7 +74,11 @@ public class CharityAdapter  extends RecyclerView.Adapter<CharityAdapter.MyViewH
 
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
+    /**
+     * Replace the contents of a view (invoked by the layout manager)
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
@@ -113,7 +120,10 @@ public class CharityAdapter  extends RecyclerView.Adapter<CharityAdapter.MyViewH
         });
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+    /**
+     * Return the size of your dataset (invoked by the layout manager)
+     * @return size of data set
+     */
     @Override
     public int getItemCount() {
         return mDataset.size();
