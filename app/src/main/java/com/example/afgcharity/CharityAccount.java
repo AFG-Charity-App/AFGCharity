@@ -150,10 +150,18 @@ public class CharityAccount extends AppCompatActivity {
     private void getUserList() {
         reference.child("users").child( FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(
                 new ValueEventListener() {
+                    /**
+                     * updates info based on firebase
+                     * @param dataSnapshot data from fiebase
+                     */
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         profilepic = findViewById((R.id.charity_logo));
                         mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            /**
+                             * updates profile pic
+                             * @param downloadUrl image url from firbase
+                             */
                             @Override
                             public void onSuccess(Uri downloadUrl) {
                                 Glide.with(getBaseContext())
@@ -198,6 +206,10 @@ public class CharityAccount extends AppCompatActivity {
                                         .into(profilepic);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
+                            /**
+                             * on failure exception
+                             * @param e
+                             */
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 profilepic.setImageResource(R.drawable.default_logo);
@@ -213,61 +225,65 @@ public class CharityAccount extends AppCompatActivity {
 
         );
     }
-    private int counter=0;
+    /**
+     * charity account menu
+     * @param item option clicked by user
+     * @return true always
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-            DrawerLayout drawer = findViewById(R.id.charity_menu);
-            NavigationView navView= findViewById(R.id.menu_navigation);
+        DrawerLayout drawer = findViewById(R.id.charity_menu);
+        NavigationView navView= findViewById(R.id.menu_navigation);
 
-            navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            /**
+             * Navigation menu
+             * @param item option clicked by user
+             * @return true always
+             */
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.change_info:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EditCharityInfo()).addToBackStack(null).commit();
+                        drawer.closeDrawer(GravityCompat.START);
+                        break;
+                    case R.id.change_locations:
 
-                    switch (item.getItemId()){
-                        case R.id.home_charity:
-                            while(counter!=0) {
-                                getFragmentManager().popBackStack();
-                                getSupportFragmentManager().popBackStack();
-                                counter--;
-                            }
-                            drawer.closeDrawer(GravityCompat.START);
-                            break;
-                        case R.id.change_info:
-                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EditCharityInfo()).addToBackStack(null).commit();
-                            counter++;
-                            drawer.closeDrawer(GravityCompat.START);
-                            break;
-                        case R.id.change_locations:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LocationEditor()).addToBackStack(null).commit();
+                        drawer.closeDrawer(GravityCompat.START);
 
-                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LocationEditor()).addToBackStack(null).commit();
-                            drawer.closeDrawer(GravityCompat.START);
-                            counter++;
-                            break;
+                        break;
 
-                    }
-                    return true;
                 }
+                return true;
+            }
 
-            });
-            //drawer.isDrawerOpen(); MAKE THIS THE THING
-            //ViewGroup.LayoutParams params =  drawer.getLayoutParams();
-            if (item.getItemId() == android.R.id.home)
-                if (!drawer.isDrawerOpen(GravityCompat.START)) {
+        });
+        //drawer.isDrawerOpen(); MAKE THIS THE THING
+        //ViewGroup.LayoutParams params =  drawer.getLayoutParams();
+        if (item.getItemId() == android.R.id.home)
+            if (!drawer.isDrawerOpen(GravityCompat.START)) {
 
-                    // params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1000, getResources().getDisplayMetrics());
-                    //drawer.setLayoutParams(params);
-                    drawer.setVisibility(View.VISIBLE);
-                    drawer.openDrawer(GravityCompat.START);
-                } else {
-                    //params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
-                    //drawer.setLayoutParams(params);
+                // params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1000, getResources().getDisplayMetrics());
+                //drawer.setLayoutParams(params);
+                drawer.setVisibility(View.VISIBLE);
+                drawer.openDrawer(GravityCompat.START);
+            } else {
+                //params.width=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
+                //drawer.setLayoutParams(params);
 
-                    drawer.closeDrawer(GravityCompat.START);
-                    drawer.setVisibility(View.VISIBLE);
-                }
-            testing = !testing;
-            return true;
+                drawer.closeDrawer(GravityCompat.START);
+                drawer.setVisibility(View.VISIBLE);
+            }
+        testing = !testing;
+        return true;
     }
+
+    /**
+     * logs out charity account
+     * @param v the view the user presses
+     */
     public void logOut(View v){
        
         FirebaseAuth.getInstance().signOut();

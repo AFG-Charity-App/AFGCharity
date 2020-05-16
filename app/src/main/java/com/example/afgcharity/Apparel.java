@@ -13,9 +13,9 @@ public class Apparel {
     /**
      * details on apparel that charity adds to list
      * @param user
-     * @param clothing
-     * @param amount
-     * @param id
+     * @param clothing type of clothing
+     * @param amount quantity
+     * @param id firebase id
      * @param name
      */
     public Apparel(String user, String clothing, int amount, String id, String name){

@@ -64,13 +64,19 @@ public class CharityView extends AppCompatActivity {
 
     }
 
-
+    /**
+     *gets the list of items for charity needs
+     */
     private void getList() {
 
         reference.child("users").addValueEventListener(
                 new ValueEventListener() {
                     /**
                      * describes when data is edited
+                     * @param dataSnapshot
+                     */
+                    /**
+                     * updates data from fire base
                      * @param dataSnapshot
                      */
                     @Override
