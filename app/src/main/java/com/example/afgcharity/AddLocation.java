@@ -18,9 +18,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * adds charity location
+ */
 public class AddLocation extends Activity {
     private DatabaseReference reference;
     private EditText address;
+
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +43,10 @@ public class AddLocation extends Activity {
         getWindow().setLayout((int) (width*.8), height/2);
         Button saveChanges=findViewById(R.id.addLocationItem);
         saveChanges.setOnClickListener(new View.OnClickListener() {
+            /**
+             * view on click
+             * @param v
+             */
             @Override
             public void onClick(View v) {
 
@@ -51,6 +62,10 @@ public class AddLocation extends Activity {
         });
         Button deleteItem=findViewById(R.id.cancelLocation);
         deleteItem.setOnClickListener(new View.OnClickListener() {
+            /**
+             * view on click
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 finish();

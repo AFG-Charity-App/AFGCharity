@@ -39,6 +39,9 @@ import com.google.maps.model.GeocodingResult;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * edits location
+ */
 public class LocationEditor extends Fragment {
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
     private ArrayList<Address> Locations;
@@ -72,7 +75,9 @@ public class LocationEditor extends Fragment {
         return view;
 
     }
-
+    /**
+     * gets locations
+     */
     public void getLocations() {
         reference.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(
                 new ValueEventListener() {
@@ -89,6 +94,9 @@ public class LocationEditor extends Fragment {
 
                             LatLng latLng = new LatLng(results[0].geometry.location.lat, results[0].geometry.location.lng);
                             Locations.add(new Address(String.valueOf(dsp.child("Address").getValue()), dsp.getKey(), latLng, FirebaseAuth.getInstance().getCurrentUser().getUid()));
+
+
+
 
 
                         }
@@ -112,6 +120,8 @@ public class LocationEditor extends Fragment {
                 }
         );
     }
+
+
 
 
 }

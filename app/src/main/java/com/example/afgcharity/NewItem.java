@@ -18,10 +18,18 @@ package com.example.afgcharity;
         import java.util.HashMap;
         import java.util.Map;
 
+/**
+ * adds item to charity list
+ */
 public class NewItem extends Activity {
     private DatabaseReference reference;
     private EditText amount;
     private EditText clothing;
+
+    /**
+     * when item is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +46,10 @@ public class NewItem extends Activity {
         getWindow().setLayout((int) (width*.8), height/2);
         Button saveChanges=findViewById(R.id.addItem);
         saveChanges.setOnClickListener(new View.OnClickListener() {
+            /**
+             * when item is clicked
+             * @param v
+             */
             @Override
             public void onClick(View v) {
 
@@ -54,6 +66,10 @@ public class NewItem extends Activity {
         });
         Button deleteItem=findViewById(R.id.cancelItem);
         deleteItem.setOnClickListener(new View.OnClickListener() {
+            /**
+             * when clicked
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 finish();

@@ -67,7 +67,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * charity account
+ */
 public class CharityAccount extends AppCompatActivity {
+    //Data
     private FirebaseAuth mAuth;
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
     private ArrayList<Apparel> Userlist;
@@ -84,6 +88,11 @@ public class CharityAccount extends AppCompatActivity {
     private File localFile;
     private boolean testing = true;
     private DrawerLayout drawer;
+
+
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -106,6 +115,10 @@ public class CharityAccount extends AppCompatActivity {
         ImageButton addItem = findViewById(R.id.addNewItem);
         addItem.setOnClickListener(new View.OnClickListener() {
 
+            /**
+             * view when clicked
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getBaseContext(), NewItem.class));
@@ -131,7 +144,9 @@ public class CharityAccount extends AppCompatActivity {
 
 
 
-
+    /**
+     * updates recycler view
+     */
     private void getUserList() {
         reference.child("users").child( FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(
                 new ValueEventListener() {
@@ -149,12 +164,12 @@ public class CharityAccount extends AppCompatActivity {
                             }});
                         Userlist = new ArrayList<Apparel>();
                          FirebaseAuth.getInstance().getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(
-                                String.valueOf(dataSnapshot.child("Info").child("name").getValue())
+                                String.valueOf(dataSnapshot.child("name").getValue())
                         ).build());
-                        name.setText( String.valueOf(dataSnapshot.child("Info").child("name").getValue()));
+                        name.setText( FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                         // Result will be holded Here
-                        description.setText(String.valueOf(dataSnapshot.child("Info").child("description").getValue()));
-                        website.setText((String.valueOf(dataSnapshot.child("Info").child("website").getValue())));
+                        description.setText(String.valueOf(dataSnapshot.child("description").getValue()));
+                        website.setText((String.valueOf(dataSnapshot.child("website").getValue())));
                         for (DataSnapshot dsp : dataSnapshot.child("Items").getChildren()) {
 
                                 Userlist.add(new Apparel(FirebaseAuth.getInstance().getCurrentUser().getUid(),
@@ -249,6 +264,11 @@ public class CharityAccount extends AppCompatActivity {
         finish();
      
     }
+
+    /**
+     * Edits Logo for charity profile
+     * @param v the view the user presses
+     */
     public void editLogo(View v){
 
     }

@@ -14,10 +14,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * edits location
+ */
 public class EditLocation extends Activity {
     private Address a;
     private DatabaseReference reference;
     private EditText address;
+
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +43,9 @@ public class EditLocation extends Activity {
         getWindow().setLayout((int) (width*.8), height/2);
         Button saveChanges=findViewById(R.id.editLocationItem);
         saveChanges.setOnClickListener(new View.OnClickListener() {
+            /**
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 if(!address.getText().toString().equals(""))
@@ -45,6 +55,9 @@ public class EditLocation extends Activity {
         });
         Button deleteItem=findViewById(R.id.deleteLocation);
         deleteItem.setOnClickListener(new View.OnClickListener() {
+            /**
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 reference.child(a.getId()).removeValue();
