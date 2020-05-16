@@ -125,30 +125,7 @@ public class CharityAccount extends AppCompatActivity {
             }
         });
 
-        profilepic = findViewById((R.id.charity_logo));
-        mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            /**
-             * download url
-             * @param downloadUrl
-             */
-            @Override
-            public void onSuccess(Uri downloadUrl) {
-                Glide.with(getBaseContext())
-                        .load(downloadUrl.toString())
-                        .placeholder(R.drawable.default_logo)
-                        .error(R.drawable.default_logo)
-                        .into(profilepic);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            /**
-             * exception on failure
-             * @param e
-             */
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                profilepic.setImageResource(R.drawable.default_logo);
-            }
-        });
+
 
         Locations= new ArrayList<LatLng>();
         Userlist = new ArrayList<Apparel>();
@@ -166,6 +143,7 @@ public class CharityAccount extends AppCompatActivity {
     }
 
 
+
     /**
      * updates recycler view
      */
@@ -174,6 +152,16 @@ public class CharityAccount extends AppCompatActivity {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        profilepic = findViewById((R.id.charity_logo));
+                        mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri downloadUrl) {
+                                Glide.with(getBaseContext())
+                                        .load(downloadUrl.toString())
+                                        .placeholder(R.drawable.default_logo)
+                                        .error(R.drawable.default_logo)
+                                        .into(profilepic);
+                            }});
                         Userlist = new ArrayList<Apparel>();
                          FirebaseAuth.getInstance().getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(
                                 String.valueOf(dataSnapshot.child("name").getValue())
@@ -200,6 +188,21 @@ public class CharityAccount extends AppCompatActivity {
                         recyclerView.setLayoutManager(layoutManager);
 
                         recyclerView.setAdapter(mAdapter);
+                        mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri downloadUrl) {
+                                Glide.with(getBaseContext())
+                                        .load(downloadUrl.toString())
+                                        .placeholder(R.drawable.default_logo)
+                                        .error(R.drawable.default_logo)
+                                        .into(profilepic);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                profilepic.setImageResource(R.drawable.default_logo);
+                            }
+                        });
                     }
 
                     @Override
@@ -207,6 +210,7 @@ public class CharityAccount extends AppCompatActivity {
 
                     }
                 }
+
         );
     }
 
@@ -220,14 +224,14 @@ public class CharityAccount extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.change_info:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EditCharityInfo()).addToBackStack(null).commit();
+                        drawer.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.change_locations:
 
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LocationEditor()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LocationEditor()).addToBackStack(null).commit();
                         drawer.closeDrawer(GravityCompat.START);
 
-                        break;
-                    case R.id.change_logo:
                         break;
 
                 }
