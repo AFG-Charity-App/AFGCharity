@@ -254,7 +254,6 @@ public class CharityAccount extends AppCompatActivity {
                         drawer.closeDrawer(GravityCompat.START);
 
                         break;
-
                 }
                 return true;
             }
