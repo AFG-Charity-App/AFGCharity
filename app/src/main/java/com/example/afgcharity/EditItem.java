@@ -18,6 +18,11 @@ public class EditItem extends Activity {
     private DatabaseReference reference;
     private EditText amount;
     private EditText clothing;
+
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
