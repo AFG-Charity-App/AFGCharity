@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,10 +40,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
         public TextView textView;
-
+    public ImageButton imageButton;
         public MyViewHolder(View v) {
             super(v);
             textView = v.findViewById(R.id.locationAddress);
+            imageButton=v.findViewById(R.id.editLocationButton);
         }
 
         @Override
@@ -81,7 +83,18 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
         com.example.afgcharity.Address a = mDataset.get(position);
 
             holder.textView.setText(a.getAddress());
+            holder.imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(context, EditLocation.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .putExtra("Address",a.getAddress())
+                            .putExtra("Id", a.getId())
+                            .putExtra("LatLng", a.getLatLng())
+                            .putExtra("User", a.getUser());
 
+                    context.startActivity(intent);
+                }
+            });
     }
 
 
