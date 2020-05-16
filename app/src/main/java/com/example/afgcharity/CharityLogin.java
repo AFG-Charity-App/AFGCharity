@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class CharityLogin extends AppCompatActivity {
+    //data
     private FirebaseAuth mAuth;
     private boolean test;
     @Override
@@ -28,6 +29,11 @@ public class CharityLogin extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         test=true;
     }
+
+    /**
+     * When user presses login button, either allows passage to account or not
+     * @param v the view the user presses
+     */
     public void enter(View v){
         //Get text
         if(test) {
@@ -38,6 +44,10 @@ public class CharityLogin extends AppCompatActivity {
             if (!email.equals("") || !password.equals(""))
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            /**
+                             * if successful login, then presents charity account, else, shows error message
+                             * @param task
+                             */
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
@@ -65,10 +75,19 @@ public class CharityLogin extends AppCompatActivity {
         }
 
     }
+
+    /**
+     * Brings to the new account page
+     * @param v the view the user presses
+     */
     public void newAccount(View v){
         Intent intent = new Intent(this, NewAccount.class);
         startActivity(intent);
     }
+
+    /**
+     * Brings user to the actual account after logging in
+     */
     private void profile(){
         Intent intent = new Intent(this, CharityAccount.class);
 
