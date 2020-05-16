@@ -50,6 +50,9 @@ public class CharityView extends AppCompatActivity {
 
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,10 @@ public class CharityView extends AppCompatActivity {
 
         reference.child("users").addValueEventListener(
                 new ValueEventListener() {
+                    /**
+                     * describes when data is edited
+                     * @param dataSnapshot
+                     */
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Userlist = new ArrayList<Apparel>();
@@ -115,7 +122,9 @@ public class CharityView extends AppCompatActivity {
 
                     }
 
-
+                    /**
+                     * @param databaseError
+                     */
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -128,7 +137,11 @@ public class CharityView extends AppCompatActivity {
 
     }
 
-
+    /**
+     * charity list menu
+     * @param menu
+     * @return true/false
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -137,6 +150,10 @@ public class CharityView extends AppCompatActivity {
         itemSort = menu.findItem(R.id.nav_item);
         ammountSort = menu.findItem(R.id.nav_amount);
         charitySort.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            /**
+             * @param item
+             * @return true
+             */
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 charitySort.setChecked(true);
@@ -147,6 +164,10 @@ public class CharityView extends AppCompatActivity {
             }
         });
         itemSort.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            /**
+             * @param item
+             * @return true
+             */
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 charitySort.setChecked(false);
@@ -157,6 +178,10 @@ public class CharityView extends AppCompatActivity {
             }
         });
         ammountSort.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            /**
+             * @param item
+             * @return true
+             */
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 charitySort.setChecked(!true);
@@ -174,11 +199,19 @@ public class CharityView extends AppCompatActivity {
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
         searchView.setQueryHint("Search");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            /**
+             * @param q
+             * @return false
+             */
             @Override
             public boolean onQueryTextSubmit(String q) {
                 return false;
             }
 
+            /**
+             * @param q
+             * @return false
+             */
             @Override
             public boolean onQueryTextChange(String q) {
                 query = q.toLowerCase();

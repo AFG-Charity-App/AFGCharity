@@ -3,7 +3,7 @@ package com.example.afgcharity;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
- * Charity Location Address
+ * location of charity
  */
 public class Address {
     //Data

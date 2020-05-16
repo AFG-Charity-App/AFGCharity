@@ -22,14 +22,19 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * recycler view adapter
+ */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private ArrayList<Apparel> mDataset;
     public static Context context;
     private File localFile;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+    /**
+     * Provide a reference to the views for each data item
+     * Complex data items may need more than one view per item, and
+     * you provide access to all the views for a data item in a view holder
+     */
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
         public TextView clothingType;
@@ -48,6 +53,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
 
 
+        /**
+         * when clicked
+         * @param v
+         */
         @Override
         public void onClick(View v) {
             /*
@@ -64,13 +73,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
 
-    // Provide a suitable constructor (depends on the kind of dataset)
+    /**
+     * Provide a suitable constructor (depends on the kind of dataset)
+     * @param myDataset
+     * @param context
+     */
     public MyAdapter(ArrayList<Apparel> myDataset, Context context) {
         mDataset = (ArrayList<Apparel>) myDataset.clone();
         this.context = context;
     }
 
-    // Create new views (invoked by the layout manager)
+    /**
+     * Create new views (invoked by the layout manager)
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
@@ -82,7 +100,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
 
-    // Replace the contents of a view (invoked by the layout manager)
+    /**
+     * Replace the contents of a view (invoked by the layout manager)
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         // - get element from your dataset at this position
@@ -93,6 +115,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.clothingType.setText("" + a.getAmount());
         holder.clothingNum.setText(a.getClothing());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * when clicked
+             * @param v
+             */
             @Override
             public void onClick(View v) {
 
@@ -108,6 +135,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             }
         });
         FirebaseStorage.getInstance().getReference().child("logos/" + a.getUser()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+            /**
+             * download url
+             * @param downloadUrl
+             */
             @Override
             public void onSuccess(Uri downloadUrl) {
                 Glide.with(context)
@@ -117,6 +149,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         .into(holder.imageView);
             }
         }).addOnFailureListener(new OnFailureListener() {
+            /**
+             * exception on failure
+             * @param e
+             */
             @Override
             public void onFailure(@NonNull Exception e) {
                 holder.imageView.setImageResource(R.drawable.default_logo);
@@ -124,7 +160,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         });
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+    /**
+     * Return the size of your dataset (invoked by the layout manager)
+     */
     @Override
     public int getItemCount() {
         return mDataset.size();

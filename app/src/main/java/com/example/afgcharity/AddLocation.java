@@ -19,15 +19,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class extends Activity class
- * Adding Location to Charity
+ * adds charity location
  */
 public class AddLocation extends Activity {
     private DatabaseReference reference;
     private EditText address;
 
     /**
-     * Initializes layout to different functions
      * @param savedInstanceState
      */
     @Override
@@ -46,8 +44,8 @@ public class AddLocation extends Activity {
         Button saveChanges=findViewById(R.id.addLocationItem);
         saveChanges.setOnClickListener(new View.OnClickListener() {
             /**
-             *  Adds location to Firebase
-             * @param v the view the user presses
+             * view on click
+             * @param v
              */
             @Override
             public void onClick(View v) {
@@ -65,8 +63,8 @@ public class AddLocation extends Activity {
         Button deleteItem=findViewById(R.id.cancelLocation);
         deleteItem.setOnClickListener(new View.OnClickListener() {
             /**
-             * Ends the activity
-             * @param v the view the user presses
+             * view on click
+             * @param v
              */
             @Override
             public void onClick(View v) {
