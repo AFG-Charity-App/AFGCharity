@@ -150,10 +150,18 @@ public class CharityAccount extends AppCompatActivity {
     private void getUserList() {
         reference.child("users").child( FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(
                 new ValueEventListener() {
+                    /**
+                     * updates info based on firebase
+                     * @param dataSnapshot data from fiebase
+                     */
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         profilepic = findViewById((R.id.charity_logo));
                         mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            /**
+                             * updates profile pic
+                             * @param downloadUrl image url from firbase
+                             */
                             @Override
                             public void onSuccess(Uri downloadUrl) {
                                 Glide.with(getBaseContext())
@@ -189,6 +197,10 @@ public class CharityAccount extends AppCompatActivity {
 
                         recyclerView.setAdapter(mAdapter);
                         mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            /**
+                             * updates user profile pic
+                             * @param downloadUrl image url from firebase
+                             */
                             @Override
                             public void onSuccess(Uri downloadUrl) {
                                 Glide.with(getBaseContext())
@@ -198,6 +210,10 @@ public class CharityAccount extends AppCompatActivity {
                                         .into(profilepic);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
+                            /**
+                             * on failure exception
+                             * @param e
+                             */
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 profilepic.setImageResource(R.drawable.default_logo);
@@ -214,12 +230,22 @@ public class CharityAccount extends AppCompatActivity {
         );
     }
 
+    /**
+     * charity account menu
+     * @param item option clicked by user
+     * @return true always
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         DrawerLayout drawer = findViewById(R.id.charity_menu);
         NavigationView navView= findViewById(R.id.menu_navigation);
 
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            /**
+             * Navigation menu
+             * @param item option clicked by user
+             * @return true always
+             */
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
@@ -258,6 +284,11 @@ public class CharityAccount extends AppCompatActivity {
         testing = !testing;
         return true;
     }
+
+    /**
+     * logs out charity account
+     * @param v the view the user presses
+     */
     public void logOut(View v){
        
         FirebaseAuth.getInstance().signOut();
