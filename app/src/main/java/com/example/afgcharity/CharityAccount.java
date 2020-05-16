@@ -68,6 +68,7 @@ import java.util.List;
 import java.util.Random;
 
 public class CharityAccount extends AppCompatActivity {
+    //Data
     private FirebaseAuth mAuth;
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
     private ArrayList<Apparel> Userlist;
@@ -84,6 +85,8 @@ public class CharityAccount extends AppCompatActivity {
     private File localFile;
     private boolean testing = true;
     private DrawerLayout drawer;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -144,18 +147,10 @@ public class CharityAccount extends AppCompatActivity {
 
     }
 
-    public void test(View v) {
-        Random r = new Random();
-        DatabaseReference ref = reference.child("users").child( FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Items").push();
 
-        ref.child("Clothing").setValue("T-Shirt");
-        ref.child("Number").setValue(r.nextInt(1000));
-
-        getUserList();
-    }
-
-
-
+    /**
+     * updates recycler view
+     */
     private void getUserList() {
         reference.child("users").child( FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(
                 new ValueEventListener() {
@@ -247,6 +242,11 @@ public class CharityAccount extends AppCompatActivity {
         finish();
      
     }
+
+    /**
+     * Edits Logo for charity profile
+     * @param v the view the user presses
+     */
     public void editLogo(View v){
 
     }
