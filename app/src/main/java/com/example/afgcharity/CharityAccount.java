@@ -67,6 +67,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * charity account
+ */
 public class CharityAccount extends AppCompatActivity {
     //Data
     private FirebaseAuth mAuth;
@@ -87,6 +90,9 @@ public class CharityAccount extends AppCompatActivity {
     private DrawerLayout drawer;
 
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -109,6 +115,10 @@ public class CharityAccount extends AppCompatActivity {
         ImageButton addItem = findViewById(R.id.addNewItem);
         addItem.setOnClickListener(new View.OnClickListener() {
 
+            /**
+             * view when clicked
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getBaseContext(), NewItem.class));
@@ -117,6 +127,10 @@ public class CharityAccount extends AppCompatActivity {
 
         profilepic = findViewById((R.id.charity_logo));
         mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            /**
+             * download url
+             * @param downloadUrl
+             */
             @Override
             public void onSuccess(Uri downloadUrl) {
                 Glide.with(getBaseContext())
@@ -126,6 +140,10 @@ public class CharityAccount extends AppCompatActivity {
                         .into(profilepic);
             }
         }).addOnFailureListener(new OnFailureListener() {
+            /**
+             * exception on failure
+             * @param e
+             */
             @Override
             public void onFailure(@NonNull Exception e) {
                 profilepic.setImageResource(R.drawable.default_logo);
