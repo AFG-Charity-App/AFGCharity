@@ -47,8 +47,7 @@
                 android:id="@+id/editLogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/uploadfile"
-                android:onClick="editLogoImage"/>
+                android:text="@string/uploadfile" />
 
             <ImageView
                 android:id="@+id/LogoCharity"
@@ -61,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Charity Name"
+                android:text="@string/charityname"
                 android:textSize="24sp" />
 
             <EditText
@@ -69,7 +68,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:autofillHints=""
                 android:ems="10"
+                android:hint="@string/charityname"
                 android:inputType="textShortMessage" />
 
             <TextView
@@ -77,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Website Link"
+                android:text="@string/websitelinkplaceholder"
                 android:textSize="24sp" />
 
             <EditText
@@ -87,6 +88,7 @@
                 android:layout_marginTop="8dp"
                 android:autofillHints=""
                 android:ems="10"
+                android:hint="@string/websitelinkplaceholder"
                 android:inputType="textUri" />
 
             <TextView
@@ -101,7 +103,9 @@
                 android:id="@+id/editDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autofillHints=""
                 android:ems="10"
+                android:hint="@string/charitydescription"
                 android:inputType="textLongMessage|none" />
 
             <Button
