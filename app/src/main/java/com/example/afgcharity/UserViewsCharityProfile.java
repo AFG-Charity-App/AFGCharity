@@ -106,7 +106,6 @@ public class UserViewsCharityProfile extends AppCompatActivity {
                         recyclerView.setHasFixedSize(true);
                         layoutManager = new LinearLayoutManager(getBaseContext());
                         recyclerView.setLayoutManager(layoutManager);
-
                         recyclerView.setAdapter(mAdapter);
                     }
 
