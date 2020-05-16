@@ -156,7 +156,7 @@ public class EditCharityInfo extends Fragment {
                     FirebaseAuth.getInstance().getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder()
                             .setDisplayName(name.getText().toString()).build());
 
-
+            getFragmentManager().popBackStack();
             }
         });
         return view;

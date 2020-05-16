@@ -164,12 +164,12 @@ public class CharityAccount extends AppCompatActivity {
                             }});
                         Userlist = new ArrayList<Apparel>();
                          FirebaseAuth.getInstance().getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(
-                                String.valueOf(dataSnapshot.child("name").getValue())
+                                String.valueOf(dataSnapshot.child("Info").child("name").getValue())
                         ).build());
-                        name.setText( FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                        name.setText( String.valueOf(dataSnapshot.child("Info").child("name").getValue()));
                         // Result will be holded Here
-                        description.setText(String.valueOf(dataSnapshot.child("description").getValue()));
-                        website.setText((String.valueOf(dataSnapshot.child("website").getValue())));
+                        description.setText(String.valueOf(dataSnapshot.child("Info").child("description").getValue()));
+                        website.setText((String.valueOf(dataSnapshot.child("Info").child("website").getValue())));
                         for (DataSnapshot dsp : dataSnapshot.child("Items").getChildren()) {
 
                                 Userlist.add(new Apparel(FirebaseAuth.getInstance().getCurrentUser().getUid(),
