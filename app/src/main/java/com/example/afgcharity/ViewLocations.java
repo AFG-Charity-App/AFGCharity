@@ -49,18 +49,16 @@ public class ViewLocations extends Fragment {
     private ArrayList<Address> Locations;
     private GoogleMap map;
     private View view;
+    private String user;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.location_editor, container, false);
-        ImageButton addItem = view.findViewById(R.id.addLocationItem);
-        addItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), AddLocation.class));
-            }
-        });
+        view = inflater.inflate(R.layout.view_locations, container, false);
+
+        user=getArguments().getString("User");
+
+
         Locations = new ArrayList<>();
         MapView mapView = view.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -81,7 +79,7 @@ public class ViewLocations extends Fragment {
      * gets locations
      */
     public void getLocations() {
-        reference.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(
+        reference.child("users").child(user).addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -95,10 +93,10 @@ public class ViewLocations extends Fragment {
 
 
                             LatLng latLng = new LatLng(results[0].geometry.location.lat, results[0].geometry.location.lng);
-                            Locations.add(new Address(String.valueOf(dsp.child("Address").getValue()), dsp.getKey(), latLng, FirebaseAuth.getInstance().getCurrentUser().getUid()));
+                            Locations.add(new Address(String.valueOf(dsp.child("Address").getValue()), dsp.getKey(), latLng, user));
                         }
-                        RecyclerView.Adapter mAdapter = new LocationAdapter(Locations, getContext(), map);
-                        RecyclerView recyclerView = view.findViewById(R.id.location_items);
+                        RecyclerView.Adapter mAdapter = new UserViewLocationsAdapter(Locations, getContext(), map);
+                        RecyclerView recyclerView = view.findViewById(R.id.view_locations);
                         recyclerView.setHasFixedSize(true);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                         recyclerView.setLayoutManager(layoutManager);

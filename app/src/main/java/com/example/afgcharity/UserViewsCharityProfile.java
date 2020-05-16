@@ -138,10 +138,19 @@ public class UserViewsCharityProfile extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
+                    case R.id.home_charity:
+                        getSupportFragmentManager().popBackStack();
+                        getFragmentManager().popBackStack();
+                        drawer.closeDrawer(GravityCompat.START);
+                        break;
                     case R.id.view_locations:
                         getSupportFragmentManager().popBackStack();
                         getFragmentManager().popBackStack();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LocationEditor()).addToBackStack(null).commit();
+                        Bundle bundle=new Bundle();
+                        bundle.putString("User", extras.getString("User"));
+                        ViewLocations lE=new ViewLocations();
+                        lE.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, lE).addToBackStack(null).commit();
                         drawer.closeDrawer(GravityCompat.START);
                         break;
                 }
