@@ -39,6 +39,9 @@ import com.google.maps.model.GeocodingResult;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * edits location
+ */
 public class LocationEditor extends Fragment {
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
     private ArrayList<Address> Locations;
@@ -71,6 +74,10 @@ public class LocationEditor extends Fragment {
 return view;
 
     }
+
+    /**
+     * gets locations
+     */
     public void getLocations(){
         reference.child("users").child( FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(
                 new ValueEventListener() {

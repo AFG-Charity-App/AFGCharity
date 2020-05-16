@@ -17,6 +17,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * logs into charity
+ */
 public class CharityLogin extends AppCompatActivity {
     //data
     private FirebaseAuth mAuth;
