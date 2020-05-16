@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DAD3D3"
+    android:elevation="2dp">
+
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:text="Address:"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/newAddress"
+        android:layout_width="257dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/textView10"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:hint="Type Address Here" />
+
+
+    <Button
+        android:id="@+id/addLocationItem"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newAddress"
+        android:layout_marginStart="-171dp"
+        android:layout_marginTop="25dp"
+        android:layout_toEndOf="@+id/newAddress"
+        android:backgroundTint="#009688"
+        android:text="Add Item" />
+
+    <Button
+        android:id="@+id/cancelLocation"
+        android:layout_width="114dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/addLocationItem"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="-24dp"
+        android:layout_toStartOf="@+id/newAddress"
+        android:backgroundTint="#FF0000"
+        android:text="Cancel" />
+
+</RelativeLayout>

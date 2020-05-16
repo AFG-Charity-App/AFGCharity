@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CharityLogin"></activity>
+
         <activity android:name=".NewAccount">
         </activity>
         <activity android:name=".CharityAccount">
@@ -30,6 +31,8 @@
         </activity>
         <activity android:name=".EditItem" android:theme="@style/Popup"></activity>
         <activity android:name=".NewItem" android:theme="@style/Popup"></activity>
+        <activity android:name=".AddLocation" android:theme="@style/Popup"></activity>
+        <activity android:name=".EditLocation" android:theme="@style/Popup"></activity>
         <activity android:name=".UserViewsCharityProfile"></activity>
     </application>
 
