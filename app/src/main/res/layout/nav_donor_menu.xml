@@ -2,7 +2,7 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/charity_menu"
+    android:id="@+id/donor_menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -12,13 +12,13 @@
     <!-- Your contents -->
 
     <include
-        layout="@layout/view_charity_profile"
+        layout="@layout/user_view_charity_profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/menu_navigation"
+        android:id="@+id/donormenu_navigation"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:menu="@menu/charity_account_menu"
+        app:menu="@menu/donor_charitymenu"
         android:layout_gravity="start"/>
 </androidx.drawerlayout.widget.DrawerLayout>
