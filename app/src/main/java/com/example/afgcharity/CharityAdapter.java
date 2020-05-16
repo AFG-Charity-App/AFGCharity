@@ -22,6 +22,9 @@ package com.example.afgcharity;
         import java.io.File;
         import java.util.ArrayList;
 
+/**
+ * recycler view of data under each charity
+ */
 public class CharityAdapter  extends RecyclerView.Adapter<CharityAdapter.MyViewHolder> {
     private ArrayList<Apparel> mDataset;
     public Context context;
@@ -89,6 +92,10 @@ public class CharityAdapter  extends RecyclerView.Adapter<CharityAdapter.MyViewH
 
         FirebaseStorage.getInstance().getReference().child("logos/"+a.getUser()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
         {
+            /**
+             * downloads url of charity page
+             * @param downloadUrl
+             */
             @Override
             public void onSuccess(Uri downloadUrl)
             {
@@ -99,6 +106,10 @@ public class CharityAdapter  extends RecyclerView.Adapter<CharityAdapter.MyViewH
                         .into(holder.imageView);
             }
         }).addOnFailureListener(new OnFailureListener() {
+            /**
+             * failure exceptions
+             * @param e
+             */
             @Override
             public void onFailure(@NonNull Exception e) {
                 holder.imageView.setImageResource(R.drawable.default_logo);
@@ -106,6 +117,10 @@ public class CharityAdapter  extends RecyclerView.Adapter<CharityAdapter.MyViewH
         });
         holder.buttonView.setOnClickListener(new View.OnClickListener(){
 
+            /**
+             * view on click
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Apparel a=mDataset.get(position);

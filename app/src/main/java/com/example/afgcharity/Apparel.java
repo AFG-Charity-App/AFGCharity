@@ -1,11 +1,23 @@
 package com.example.afgcharity;
 
+/**
+ * apparel for charity needs list
+ */
 public class Apparel {
     private String clothing;
     private String user;
     private int amount;
     private String id;
     private String name;
+
+    /**
+     * details on apparel that charity adds to list
+     * @param user
+     * @param clothing
+     * @param amount
+     * @param id
+     * @param name
+     */
     public Apparel(String user, String clothing, int amount, String id, String name){
         this.clothing=clothing;
         this.user=user;
