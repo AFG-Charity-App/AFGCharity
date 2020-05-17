@@ -35,7 +35,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
      * Complex data items may need more than one view per item, and
      * you provide access to all the views for a data item in a view holder
      */
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView clothingType;
         public TextView clothingNum;
@@ -43,6 +43,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public CardView cardView;
         public ImageView imageView;
 
+        /**
+         * creates item view
+         * @param v
+         */
         public MyViewHolder(View v) {
             super(v);
             clothingType = v.findViewById(R.id.clothingType);
@@ -53,23 +57,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
 
 
-        /**
-         * when clicked
-         * @param v
-         */
-        @Override
-        public void onClick(View v) {
-            /*
-            Intent intent=new Intent(context, UserViewsCharityProfile.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    .putExtra("Clothing", clothingType.getText())
-                    .putExtra("Amount", Integer.parseInt(clothingNum.getText().toString()))
-                    .putExtra("Id", a.getId())
-                    .putExtra("User", a.getUser())
-                    .putExtra("Name", a.getName());
-            context.startActivity(intent);
-
-             */
-        }
     }
 
 
@@ -117,7 +104,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.cardView.setOnClickListener(new View.OnClickListener() {
 
             /**
-             * when clicked
+             * brings user to charity profile
              * @param v
              */
             @Override

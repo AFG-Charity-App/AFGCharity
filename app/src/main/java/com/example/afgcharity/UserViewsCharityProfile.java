@@ -36,6 +36,9 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * creating layout for the user view charity profile
+ */
 public class UserViewsCharityProfile extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -52,6 +55,10 @@ public class UserViewsCharityProfile extends AppCompatActivity {
     private File localFile;
     private boolean testing = true;
 
+    /**
+     * creating layout for user view
+     * @param savedInstanceState
+     */
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -90,9 +97,16 @@ public class UserViewsCharityProfile extends AppCompatActivity {
         drawer.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * get list of charity profiles from firebase
+     */
     private void getList() {
         reference.child("users").child(extras.getString("User")).addValueEventListener(
                 new ValueEventListener() {
+                    /**
+                     * updates information from firebase
+                     * @param dataSnapshot
+                     */
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Userlist = new ArrayList<Apparel>();
@@ -124,6 +138,11 @@ public class UserViewsCharityProfile extends AppCompatActivity {
         );
     }
 
+    /**
+     * sets up menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         DrawerLayout drawer = findViewById(R.id.donor_menu);

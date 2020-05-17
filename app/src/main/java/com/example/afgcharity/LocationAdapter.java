@@ -32,6 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * controls the recycler view for the charity location
+ */
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyViewHolder> {
     private ArrayList<com.example.afgcharity.Address> mDataset;
     public Context context;
@@ -40,11 +43,16 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView textView;
         public CardView cardView;
     public ImageButton imageButton;
+
+        /**
+         * creates a view for recycler view
+         * @param v view when clicked
+         */
         public MyViewHolder(View v) {
             super(v);
             textView = v.findViewById(R.id.locationAddress);
@@ -52,10 +60,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
             imageButton=v.findViewById(R.id.editLocationButton);
         }
 
-        @Override
-        public void onClick(View v) {
 
-        }
     }
     private GoogleMap mMap;
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -66,6 +71,13 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
     }
 
     // Create new views (invoked by the layout manager)
+
+    /**
+     * Create new views (invoked by the layout manager)
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public LocationAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                            int viewType) {
@@ -76,12 +88,21 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
         return vh;
     }
 
+    /**
+     * @return the size of your dataset (invoked by the layout manager)
+     */
     @Override
     public int getItemCount() {
         return mDataset.size();
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+
+    /**
+     * Replace the contents of a view (invoked by the layout manager)
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
@@ -96,6 +117,10 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
                 }
             });
             holder.imageButton.setOnClickListener(new View.OnClickListener() {
+                /**
+                 * Opens popup to edit location
+                 * @param v
+                 */
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(context, EditLocation.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

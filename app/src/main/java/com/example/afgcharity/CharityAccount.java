@@ -91,6 +91,7 @@ public class CharityAccount extends AppCompatActivity {
 
 
     /**
+     * creates a charity account activity
      * @param savedInstanceState
      */
     @Override
@@ -116,6 +117,7 @@ public class CharityAccount extends AppCompatActivity {
         addItem.setOnClickListener(new View.OnClickListener() {
 
             /**
+             * opens a new item popup
              * @param v view when clicked
              */
             @Override
@@ -196,6 +198,10 @@ public class CharityAccount extends AppCompatActivity {
 
                         recyclerView.setAdapter(mAdapter);
                         mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            /**
+                             * gets download url for logo
+                             * @param downloadUrl
+                             */
                             @Override
                             public void onSuccess(Uri downloadUrl) {
                                 Glide.with(getBaseContext())

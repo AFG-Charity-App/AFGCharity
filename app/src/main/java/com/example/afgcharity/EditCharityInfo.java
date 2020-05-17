@@ -45,11 +45,22 @@ import java.util.Map;
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.checkSelfPermission;
 
+/**
+ * edit charity profile
+ */
 public class EditCharityInfo extends Fragment {
     private View view;
     private DatabaseReference ref;
     private Uri imageURI;
     private ImageView profilepic;
+
+    /**
+     * create an edit charity popup
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,6 +74,10 @@ public class EditCharityInfo extends Fragment {
          profilepic=view.findViewById(R.id.LogoCharity);
         Button editPic=view.findViewById(R.id.editLogo);
         editPic.setOnClickListener(new View.OnClickListener() {
+            /**
+             * selects a new logo for the charity
+             * @param v view when clicked
+             */
             @Override
             public void onClick(View v) {
                 if((Build.VERSION.SDK_INT>Build.VERSION_CODES.M) && checkSelfPermission(getContext(),Manifest.permission.WRITE_EXTERNAL_STORAGE)!=
@@ -87,6 +102,10 @@ public class EditCharityInfo extends Fragment {
             }
         });
         mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            /**
+             * downloads url from firebase for logo
+             * @param downloadUrl
+             */
             @Override
             public void onSuccess(Uri downloadUrl) {
                 Glide.with(getContext())
@@ -96,12 +115,20 @@ public class EditCharityInfo extends Fragment {
                         .into(profilepic);
             }
         }).addOnFailureListener(new OnFailureListener() {
+            /**
+             * sets to default logo if image not found
+             * @param e
+             */
             @Override
             public void onFailure(@NonNull Exception e) {
                 profilepic.setImageResource(R.drawable.default_logo);
             }
         });
         ref.addValueEventListener(new ValueEventListener() {
+            /**
+             * updates text view based on current information in firebase
+             * @param dataSnapshot
+             */
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 name.setText(String.valueOf(dataSnapshot.child("Info").child("name").getValue()));
@@ -119,6 +146,10 @@ public class EditCharityInfo extends Fragment {
 
         Button saveChanges=view.findViewById(R.id.saveEdits);
         saveChanges.setOnClickListener(new View.OnClickListener() {
+            /**
+             * updates firebase
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Map<String, String> info=new HashMap<>();
@@ -135,6 +166,7 @@ public class EditCharityInfo extends Fragment {
 
                     mStorageRef.putFile(imageURI)
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     // Get a URL to the uploaded content
@@ -142,6 +174,7 @@ public class EditCharityInfo extends Fragment {
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
+
                                 @Override
                                 public void onFailure(@NonNull Exception exception) {
                                     // Handle unsuccessful uploads

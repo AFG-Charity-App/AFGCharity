@@ -26,6 +26,7 @@ public class AddLocation extends Activity {
     private EditText address;
 
     /**
+     * creates an add location popup
      * @param savedInstanceState
      */
     @Override

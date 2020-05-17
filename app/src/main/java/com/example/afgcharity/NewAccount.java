@@ -30,6 +30,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+/**
+ * creates new charity account
+ */
 public class NewAccount extends AppCompatActivity {
     private StorageReference mStorageRef;
     private FirebaseAuth mAuth;
@@ -40,6 +43,10 @@ public class NewAccount extends AppCompatActivity {
     private Uri imageURI;
     private boolean test;
 
+    /**
+     * Creating new account activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -52,6 +59,10 @@ public class NewAccount extends AppCompatActivity {
 
     }
 
+    /**
+     * getting details from user input for new account
+     * @param v
+     */
     public void makeAccount(View v) {
         test = false;
         EditText emailET = findViewById(R.id.enterUsernameCreateProfile);
@@ -101,10 +112,19 @@ public class NewAccount extends AppCompatActivity {
          */
     }
 
+    /**
+     * confirms if password is correct when user logins
+     * @param password
+     * @param passwordConf
+     */
     private void passwordConfirmation(String password, String passwordConf) {
         if (password.equals(passwordConf) && password != null) {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        /**
+                         * creates new profile
+                         * @param task
+                         */
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
@@ -135,6 +155,10 @@ public class NewAccount extends AppCompatActivity {
         }
     }
 
+    /**
+     * registers user on firebase
+     * @param user
+     */
     private void newAccount(FirebaseUser user) {
 
         UserProfileChangeRequest profileUpdates;
@@ -193,6 +217,9 @@ public class NewAccount extends AppCompatActivity {
 
     }
 
+    /**
+     * brings charity user back to the login page
+     */
     private void transfer() {
         Intent intent = new Intent(this, CharityLogin.class);
 
@@ -201,7 +228,10 @@ public class NewAccount extends AppCompatActivity {
 
     private static final int FILE_SELECT_CODE = 0;
 
-
+    /**
+     * choosing file for logo
+     * @param v
+     */
     public void chooseFile(View v) {
         if ((Build.VERSION.SDK_INT > Build.VERSION_CODES.M) && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
                 PackageManager.PERMISSION_GRANTED) {

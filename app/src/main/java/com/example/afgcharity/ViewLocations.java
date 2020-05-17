@@ -51,6 +51,13 @@ public class ViewLocations extends Fragment {
     private View view;
     private String user;
 
+    /**
+     * create location view
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,6 +70,10 @@ public class ViewLocations extends Fragment {
         MapView mapView = view.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(new OnMapReadyCallback() {
+            /**
+             * updates the map
+             * @param googleMap
+             */
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;

@@ -23,6 +23,7 @@ public class EditLocation extends Activity {
     private EditText address;
 
     /**
+     * creates an edit location popup
      * @param savedInstanceState
      */
     @Override
@@ -44,7 +45,8 @@ public class EditLocation extends Activity {
         Button saveChanges=findViewById(R.id.editLocationItem);
         saveChanges.setOnClickListener(new View.OnClickListener() {
             /**
-             * @param v
+             * edits the location
+             * @param v view when clicked
              */
             @Override
             public void onClick(View v) {
@@ -56,7 +58,8 @@ public class EditLocation extends Activity {
         Button deleteItem=findViewById(R.id.deleteLocation);
         deleteItem.setOnClickListener(new View.OnClickListener() {
             /**
-             * @param v
+             * deletes item
+             * @param v view when clicked
              */
             @Override
             public void onClick(View v) {

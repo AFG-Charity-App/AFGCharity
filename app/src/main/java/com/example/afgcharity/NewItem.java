@@ -67,7 +67,7 @@ public class NewItem extends Activity {
         Button deleteItem=findViewById(R.id.cancelItem);
         deleteItem.setOnClickListener(new View.OnClickListener() {
             /**
-             * when clicked
+             * closes popup
              * @param v
              */
             @Override

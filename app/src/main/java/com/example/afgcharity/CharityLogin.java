@@ -24,6 +24,10 @@ public class CharityLogin extends AppCompatActivity {
     //data
     private FirebaseAuth mAuth;
 
+    /**
+     * creates a charity login activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +36,7 @@ public class CharityLogin extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();    }
 
     /**
-     * When user presses login button, either allows passage to account or not
-     *
+     * When user presses login button, passage is either allowed or denied
      * @param v the view the user presses
      */
     public void enter(View v) {
@@ -78,7 +81,6 @@ public class CharityLogin extends AppCompatActivity {
 
     /**
      * Brings to the new account page
-     *
      * @param v the view the user presses
      */
     public void newAccount(View v) {
@@ -97,6 +99,9 @@ public class CharityLogin extends AppCompatActivity {
 
     }
 
+    /**
+     * changes the usage of the back press button
+     */
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);

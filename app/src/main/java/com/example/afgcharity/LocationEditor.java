@@ -50,12 +50,23 @@ public class LocationEditor extends Fragment {
     private GoogleMap map;
     private View view;
 
+    /**
+     * ceates a location popup
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.location_editor, container, false);
         ImageButton addItem = view.findViewById(R.id.addLocationItem);
         addItem.setOnClickListener(new View.OnClickListener() {
+            /**
+             * creates a new location popup
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), AddLocation.class));
@@ -65,6 +76,10 @@ public class LocationEditor extends Fragment {
         MapView mapView = view.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(new OnMapReadyCallback() {
+            /**
+             * updates the map
+             * @param googleMap
+             */
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;

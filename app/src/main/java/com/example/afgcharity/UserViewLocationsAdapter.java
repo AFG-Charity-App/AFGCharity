@@ -32,38 +32,57 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * recyler view adapter
+ */
 public class UserViewLocationsAdapter extends RecyclerView.Adapter<UserViewLocationsAdapter.MyViewHolder> {
     private ArrayList<com.example.afgcharity.Address> mDataset;
     public Context context;
     private File localFile;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    /**
+     * Provide a reference to the views for each data item
+     * Complex data items may need more than one view per item, and
+     * you provide access to all the views for a data item in a view holder
+     */
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView textView;
         public CardView cardView;
+
+        /**
+         * creates location view
+         * @param v
+         */
         public MyViewHolder(View v) {
             super(v);
             textView = v.findViewById(R.id.locationAddress);
             cardView=v.findViewById(R.id.clickLocation);
         }
 
-        @Override
-        public void onClick(View v) {
 
-        }
     }
     private GoogleMap mMap;
     // Provide a suitable constructor (depends on the kind of dataset)
+
+    /**
+     * Provide a suitable constructor (depends on the kind of dataset)
+     * @param myDataset
+     * @param context
+     * @param map
+     */
     public UserViewLocationsAdapter(ArrayList<com.example.afgcharity.Address> myDataset, Context context, GoogleMap map) {
         mDataset = (ArrayList<com.example.afgcharity.Address>) myDataset.clone();
         this.context = context;
         mMap=map;
     }
 
-    // Create new views (invoked by the layout manager)
+    /**
+     * Create new views (invoked by the layout manager)
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public UserViewLocationsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                            int viewType) {
@@ -74,12 +93,22 @@ public class UserViewLocationsAdapter extends RecyclerView.Adapter<UserViewLocat
         return vh;
     }
 
+    /**
+     * returns the amount of locations the charity has
+     * @return
+     */
     @Override
     public int getItemCount() {
         return mDataset.size();
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+
+    /**
+     * Replace the contents of a view (invoked by the layout manager)
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
@@ -88,6 +117,10 @@ public class UserViewLocationsAdapter extends RecyclerView.Adapter<UserViewLocat
 
         holder.textView.setText(a.getAddress());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
+            /**
+             * moves map to the location of the address
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(a.getLatLng(), 15f));

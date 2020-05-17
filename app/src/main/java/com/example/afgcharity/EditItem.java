@@ -13,6 +13,9 @@ import androidx.annotation.Nullable;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * editing item in charity account
+ */
 public class EditItem extends Activity {
     private Apparel a;
     private DatabaseReference reference;
@@ -20,7 +23,7 @@ public class EditItem extends Activity {
     private EditText clothing;
 
     /**
-     *
+     * creates popup for editing item
      * @param savedInstanceState
      */
     @Override
@@ -43,6 +46,10 @@ public class EditItem extends Activity {
         getWindow().setLayout((int) (width*.8), height/2);
         Button saveChanges=findViewById(R.id.saveChanges);
         saveChanges.setOnClickListener(new View.OnClickListener() {
+            /**
+             * saves changes to item
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 if(!clothing.getText().toString().equals(""))
@@ -54,6 +61,9 @@ public class EditItem extends Activity {
         });
         Button deleteItem=findViewById(R.id.deleteItem);
         deleteItem.setOnClickListener(new View.OnClickListener() {
+            /** Deletes the item
+             * @param v view when clicked
+             */
             @Override
             public void onClick(View v) {
                 reference.child(a.getId()).removeValue();

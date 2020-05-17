@@ -35,6 +35,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * allows user to view charity items
+ */
 public class CharityView extends AppCompatActivity {
     private ArrayList<Apparel> Userlist;
     private RecyclerView recyclerView;
@@ -51,6 +54,7 @@ public class CharityView extends AppCompatActivity {
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
     /**
+     * creates list of items for viewing by the user
      * @param savedInstanceState
      */
     @Override
@@ -120,6 +124,7 @@ public class CharityView extends AppCompatActivity {
                         Toast.makeText(getBaseContext(), "Amount: " + mAdapter.getItemCount(),
                                 Toast.LENGTH_SHORT).show();
                         recyclerView.setOnClickListener(new View.OnClickListener() {
+
                             @Override
                             public void onClick(View v) {
 
@@ -128,9 +133,6 @@ public class CharityView extends AppCompatActivity {
 
                     }
 
-                    /**
-                     * @param databaseError
-                     */
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -157,6 +159,7 @@ public class CharityView extends AppCompatActivity {
         ammountSort = menu.findItem(R.id.nav_amount);
         charitySort.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             /**
+             * Sorts list by charity
              * @param item
              * @return true
              */
@@ -171,6 +174,7 @@ public class CharityView extends AppCompatActivity {
         });
         itemSort.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             /**
+             * Sorts list by item
              * @param item
              * @return true
              */
@@ -185,6 +189,7 @@ public class CharityView extends AppCompatActivity {
         });
         ammountSort.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             /**
+             * Sorts list by amount
              * @param item
              * @return true
              */
@@ -205,18 +210,16 @@ public class CharityView extends AppCompatActivity {
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
         searchView.setQueryHint("Search");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            /**
-             * @param q
-             * @return false
-             */
+
             @Override
             public boolean onQueryTextSubmit(String q) {
                 return false;
             }
 
             /**
-             * @param q
-             * @return false
+             * returns the user search
+             *  @param q
+             * @return
              */
             @Override
             public boolean onQueryTextChange(String q) {
