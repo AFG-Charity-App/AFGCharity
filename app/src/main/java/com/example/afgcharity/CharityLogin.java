@@ -23,67 +23,65 @@ import com.google.firebase.database.FirebaseDatabase;
 public class CharityLogin extends AppCompatActivity {
     //data
     private FirebaseAuth mAuth;
-    private boolean test;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.charity_login);
         // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
-        test=true;
-    }
+        mAuth = FirebaseAuth.getInstance();    }
 
     /**
      * When user presses login button, either allows passage to account or not
+     *
      * @param v the view the user presses
      */
-    public void enter(View v){
+    public void enter(View v) {
         //Get text
-        if(test) {
-            EditText emailET = findViewById(R.id.charity_email);
-            EditText passwordET = findViewById(R.id.charity_password);
-            String email = emailET.getText().toString();
-            String password = passwordET.getText().toString();
-            if (!email.equals("") || !password.equals(""))
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            /**
-                             * if successful login, then presents charity account, else, shows error message
-                             * @param task
-                             */
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    test=false;
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("signin", "signInWithEmail:success");
-                                    Toast.makeText(getBaseContext(), "Authentication successful",
-                                            Toast.LENGTH_SHORT).show();
+        EditText emailET = findViewById(R.id.charity_email);
+        EditText passwordET = findViewById(R.id.charity_password);
+        String email = emailET.getText().toString();
+        String password = passwordET.getText().toString();
+        if (!email.equals("") || !password.equals(""))
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        /**
+                         * if successful login, then presents charity account, else, shows error message
+                         * @param task
+                         */
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
 
-                                    profile();
-                                    //updateUI(user);
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("signin", "signInWithEmail:success");
+                                Toast.makeText(getBaseContext(), "Authentication successful",
+                                        Toast.LENGTH_SHORT).show();
 
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w("signin", "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(getBaseContext(), "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                    //updateUI(null);
-                                }
-                                // ...
+                                profile();
+                                //updateUI(user);
+
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("signin", "signInWithEmail:failure", task.getException());
+                                Toast.makeText(getBaseContext(), "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                //updateUI(null);
                             }
-                        });
-            else Toast.makeText(getBaseContext(), "Please enter a username and password",
-                    Toast.LENGTH_SHORT).show();
-        }
-
+                            // ...
+                        }
+                    });
+        else Toast.makeText(getBaseContext(), "Please enter a username and password",
+                Toast.LENGTH_SHORT).show();
     }
+
 
     /**
      * Brings to the new account page
+     *
      * @param v the view the user presses
      */
-    public void newAccount(View v){
+    public void newAccount(View v) {
         Intent intent = new Intent(this, NewAccount.class);
         startActivity(intent);
     }
@@ -91,9 +89,17 @@ public class CharityLogin extends AppCompatActivity {
     /**
      * Brings user to the actual account after logging in
      */
-    private void profile(){
+    private void profile() {
         Intent intent = new Intent(this, CharityAccount.class);
 
+        startActivity(intent);
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }

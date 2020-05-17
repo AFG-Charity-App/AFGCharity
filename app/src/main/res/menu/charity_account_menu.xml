@@ -5,18 +5,22 @@
 
 
     <group android:checkableBehavior="single">
-            <item
-                android:id="@+id/home_charity"
-                android:icon="@drawable/ic_home_black_24dp"
-                android:title="Home"/>
-            <item
-                android:id="@+id/change_info"
-                android:icon="@drawable/ic_edit_black_24dp"
-                android:title="User Information"/>
-            <item
-                android:id="@+id/change_locations"
-                android:icon="@drawable/ic_map_black_24dp"
-                android:title="Locations" />
+        <item
+            android:id="@+id/home_charity"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/change_info"
+            android:icon="@drawable/ic_edit_black_24dp"
+            android:title="User Information" />
+        <item
+            android:id="@+id/change_locations"
+            android:icon="@drawable/ic_map_black_24dp"
+            android:title="Locations" />
+        <item
+            android:id="@+id/logOut"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="Log Out" />
     </group>
 
 

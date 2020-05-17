@@ -262,6 +262,10 @@ public class CharityAccount extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LocationEditor()).addToBackStack(null).commit();
                         drawer.closeDrawer(GravityCompat.START);
                         break;
+                    case R.id.logOut:
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(getBaseContext(), CharityLogin.class));
+                        break;
                 }
                 return true;
             }
@@ -287,16 +291,6 @@ public class CharityAccount extends AppCompatActivity {
         return true;
     }
 
-    /**
-     * logs out charity account
-     * @param v the view the user presses
-     */
-    public void logOut(View v){
-       
-        FirebaseAuth.getInstance().signOut();
-        finish();
-     
-    }
 
 
 

@@ -71,12 +71,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/charity_profile_locations_list"
-        android:layout_width="390dp"
-        android:layout_height="219dp"
+        android:layout_width="384dp"
+        android:layout_height="415dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,20 +93,9 @@
         app:layout_constraintBottom_toTopOf="@+id/charity_profile_locations_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_plus" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="95dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="41dp"
-        android:onClick="logOut"
-        android:text="@string/signout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/charity_profile_locations_list" />
-
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
