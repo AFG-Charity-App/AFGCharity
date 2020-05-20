@@ -1,6 +1,7 @@
 package com.example.afgcharity;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -121,6 +122,7 @@ public class ViewLocations extends Fragment {
                                     .title(a.getAddress())
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                         }
+                        if(Locations.size()!=0)
                         map.moveCamera(CameraUpdateFactory.newLatLngZoom(builder.build().getCenter(), 10f));
 
                     }

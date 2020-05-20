@@ -113,7 +113,7 @@ public class CharityAccount extends AppCompatActivity {
         website = findViewById(R.id.website_link_placeholder);
         Linkify.addLinks(website, Linkify.WEB_URLS);
         //Toast.makeText(getBaseContext(), description, Toast.LENGTH_SHORT).show();
-        ImageButton addItem = findViewById(R.id.addNewItem);w
+        ImageButton addItem = findViewById(R.id.addNewItem);
         addItem.setOnClickListener(new View.OnClickListener() {
 
             /**

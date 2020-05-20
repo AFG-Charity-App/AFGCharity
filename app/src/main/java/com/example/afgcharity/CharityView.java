@@ -121,8 +121,7 @@ public class CharityView extends AppCompatActivity {
                         recyclerView.setLayoutManager(layoutManager);
 
                         recyclerView.setAdapter(mAdapter);
-                        Toast.makeText(getBaseContext(), "Amount: " + mAdapter.getItemCount(),
-                                Toast.LENGTH_SHORT).show();
+
                         recyclerView.setOnClickListener(new View.OnClickListener() {
 
                             @Override

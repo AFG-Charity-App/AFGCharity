@@ -127,7 +127,8 @@ public class LocationEditor extends Fragment {
                                     .title(a.getAddress())
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                         }
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(builder.build().getCenter(), 10f));
+                        if(Locations.size()!=0)
+                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(builder.build().getCenter(), 10f));
 
                     }
 
